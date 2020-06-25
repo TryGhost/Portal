@@ -2,6 +2,7 @@ import TriggerButton from './components/TriggerButton';
 import PopupModal from './components/PopupModal';
 import setupGhostApi from './utils/api';
 import AppContext from './AppContext';
+import * as Fixtures from './utils/fixtures';
 import './App.css';
 
 const React = require('react');
@@ -38,14 +39,6 @@ export default class App extends React.Component {
         this.customTriggerButtons.forEach((customTriggerButton) => {
             customTriggerButton.addEventListener('click', this.clickHandler);
         });
-    }
-
-    isPreviewHashUrl() {
-
-    }
-
-    handlePreviewHashState() {
-
     }
 
     handleCustomTriggerClassUpdate() {
@@ -94,6 +87,11 @@ export default class App extends React.Component {
             },
             ...restPreview
         });
+    }
+
+    isPreviewMode() {
+        const [path, qs] = window.location.hash.substr(1).split('?');
+        return (path === '/portal' && qs);
     }
 
     getPreviewState() {
@@ -145,7 +143,7 @@ export default class App extends React.Component {
                     ...site,
                     ...(previewSite || {})
                 },
-                member,
+                member: member || (this.isPreviewMode() ? Fixtures.member.free : null),
                 page,
                 showPopup,
                 action: 'init:success',
