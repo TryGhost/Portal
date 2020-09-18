@@ -349,7 +349,6 @@ export default class App extends React.Component {
                 <AppContext.Provider value={this.getContextFromState()}>
                     <PopupModal />
                     <TriggerButton />
-                    <Notification notificationType='error' />
                 </AppContext.Provider>
             );
         }
