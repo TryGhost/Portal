@@ -1,4 +1,5 @@
 import TriggerButton from './components/TriggerButton';
+import Notification from './components/Notification';
 import PopupModal from './components/PopupModal';
 import setupGhostApi from './utils/api';
 import AppContext from './AppContext';
@@ -348,6 +349,7 @@ export default class App extends React.Component {
                 <AppContext.Provider value={this.getContextFromState()}>
                     <PopupModal />
                     <TriggerButton />
+                    <Notification notificationType='error' />
                 </AppContext.Provider>
             );
         }
