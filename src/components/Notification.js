@@ -1,7 +1,7 @@
-import PropTypes from 'prop-types';
 import Frame from './Frame';
 import AppContext from '../AppContext';
 import NotificationStyle from './Notification.styles';
+import {ReactComponent as CloseIcon} from '../images/icons/close.svg';
 
 const React = require('react');
 
@@ -17,7 +17,7 @@ const Styles = ({brandColor, hasText}) => {
             right: '0',
             left: '0',
             width: '100%',
-            height: '58px',
+            height: '80px',
             animation: '250ms ease 0s 1 normal none running animation-bhegco',
             transition: 'opacity 0.3s ease 0s',
             overflow: 'hidden',
@@ -29,8 +29,11 @@ const Styles = ({brandColor, hasText}) => {
 class NotificationContent extends React.Component {
     render() {
         return (
-            <div className='gh-portal-notification'>
-                Test notification
+            <div className='gh-portal-notification-wrapper'>
+                <div className='gh-portal-notification'>
+                    <p>Hey, this is a neutral notification. I hope you feel well today, here's a <a href='http://ghost.org' target='_blank' rel='noopener noreferrer'>link</a> for you.</p>
+                    <CloseIcon className='gh-portal-notification-closeicon' alt='Close' />
+                </div>
             </div>
         );
     }

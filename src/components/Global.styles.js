@@ -19,6 +19,8 @@ export const GlobalStyles = `
         --grey13: #f9f9f9;
         --white: #fff;
         --red: #f02525;
+        --yellow: #FFDC15;
+        --green: #7FC724;
     }
 
     /* Globals
