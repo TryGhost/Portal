@@ -2,6 +2,8 @@ import Frame from './Frame';
 import AppContext from '../AppContext';
 import NotificationStyle from './Notification.styles';
 import {ReactComponent as CloseIcon} from '../images/icons/close.svg';
+import {ReactComponent as CheckmarkIcon} from '../images/icons/checkmark-fill.svg';
+import {ReactComponent as WarningIcon} from '../images/icons/warning-fill.svg';
 import NotificationParser, {clearURLParams} from '../utils/notifications';
 import {getPortalLink} from '../utils/helpers';
 
@@ -12,11 +14,11 @@ const Styles = () => {
         frame: {
             zIndex: '4000000',
             position: 'fixed',
-            top: '0px',
+            top: '0',
             right: '0',
-            left: '0',
-            width: '100%',
-            height: '80px',
+            // left: '0',
+            width: '370px',
+            height: '120px',
             animation: '250ms ease 0s 1 normal none running animation-bhegco',
             transition: 'opacity 0.3s ease 0s',
             overflow: 'hidden'
@@ -36,19 +38,19 @@ const NotificationText = ({type, status, context}) => {
     } else if (type === 'signin' && status === 'error') {
         return (
             <p>
-                Could not sign in! Login link expired. <a href={signinPortalLink} target="_parent">Click here to retry</a>
+                Could not sign in! Login link expired. <br /> <a href={signinPortalLink} target="_parent">Click here to retry</a>
             </p>
         );
     } else if (type === 'signup' && status === 'success') {
         return (
             <p>
-                You've successfully subscribed to {context.site.title}
+                You've successfully subscribed to <strong>{context.site.title}</strong>
             </p>
         );
     } else if (type === 'signup' && status === 'error') {
         return (
             <p>
-                Could not sign up! Invalid sign up link. <a href={singupPortalLink} target="_parent">Click here to retry</a>
+                Could not sign up! Invalid sign up link. <br /> <a href={singupPortalLink} target="_parent">Click here to retry</a>
             </p>
         );
     } else if (type === 'stripe:checkout' && status === 'success') {
@@ -141,6 +143,7 @@ class NotificationContent extends React.Component {
         return (
             <div className='gh-portal-notification-wrapper'>
                 <div className={`gh-portal-notification${statusClass}${slideClass}`} onAnimationEnd={e => this.onAnimationEnd(e)}>
+                    {(status === 'error' ? <WarningIcon className='gh-portal-notification-icon error' alt=''/> : <CheckmarkIcon className='gh-portal-notification-icon success' alt=''/>)}
                     <NotificationText type={type} status={status} context={this.context} />
                     <CloseIcon className='gh-portal-notification-closeicon' alt='Close' onClick={e => this.onNotificationClose(e)} />
                 </div>

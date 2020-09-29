@@ -6,20 +6,21 @@ const NotificationStyles = `
         flex-direction: column;
         align-items: stretch;
         padding: 12px;
+        overflow: hidden;
     }
 
     .gh-portal-notification {
         position: relative;
         width: 100%;
-        padding: 12px 44px;
-        max-width: 100%;
-        font-size: 1.4rem;
+        padding: 10px 44px 12px 20px;
+        max-width: 360px;
+        font-size: 1.3rem;
         letter-spacing: 0.2px;
-        background: var(--grey1);
+        background: var(--grey2);
         color: var(--white);
         border-radius: 5px;
         box-shadow: 0 3.2px 3.6px rgba(0, 0, 0, 0.024), 0 8.8px 10px -5px rgba(0, 0, 0, 0.08);
-        animation: notification-slidein 0.6s ease-in-out;
+        animation: notification-slidein 0.7s ease-in-out;
     }
 
     .gh-portal-notification.slideout {
@@ -32,9 +33,15 @@ const NotificationStyles = `
 
     .gh-portal-notification p {
         flex-grow: 1;
-        text-align: center;
+        font-size: 1.4rem;
+        text-align: left;
         margin: 0;
-        padding: 0;
+        padding: 0 0 0 22px;
+        color: var(--grey13);
+    }
+
+    .gh-portal-notification p strong {
+        color: var(--white);
     }
 
     .gh-portal-notification a {
@@ -48,6 +55,22 @@ const NotificationStyles = `
         opacity: 0.8;
     }
 
+    .gh-portal-notification-icon {
+        position: absolute;
+        top: 12px;
+        left: 12px;
+        width: 18px;
+        height: 18px;
+    }
+
+    .gh-portal-notification-icon.success {
+        color: var(--green);
+    }
+
+    .gh-portal-notification-icon.error {
+        color: #FF2828;
+    }
+
     .gh-portal-notification-closeicon {
         position: absolute;
         top: 5px;
@@ -55,9 +78,9 @@ const NotificationStyles = `
         right: 5px;
         color: var(--white);
         cursor: pointer;
-        width: 14px;
-        height: 14px;
-        padding: 12px;
+        width: 12px;
+        height: 12px;
+        padding: 10px;
         transition: all 0.2s ease-in-out forwards;
         opacity: 0.8;
     }
@@ -66,41 +89,16 @@ const NotificationStyles = `
         opacity: 1.0;
     }
 
-    .gh-portal-notification.success {
-        background: var(--green);
-    }
-
-    .gh-portal-notification.warning {
-        background: var(--yellow);
-        color: var(--grey1);
-    }
-
-    .gh-portal-notification.warning a {
-        color: var(--grey1);
-    }
-
-    .gh-portal-notification.warning .gh-portal-notification-closeicon {
-        color: var(--grey1);
-    }
-
-    .gh-portal-notification.error {
-        background: var(--red);
-    }
-
-    .gh-portal-notification.branded {
-        background: var(--brandcolor);
-    }
-
     @keyframes notification-slidein {
-        0% { transform: translateY(-100px); }
-        60% { transform: translateY(8px); }
-        100% { transform: translateY(0); }
+        0% { transform: translateX(380px); }
+        75% { transform: translateX(-8px); }
+        100% { transform: translateX(0); }
     }
 
     @keyframes notification-slideout {
-        0% { transform: translateY(0); }
-        40% { transform: translateY(8px); }
-        100% { transform: translateY(-100px); }
+        0% { transform: translateX(0); }
+        25% { transform: translateX(-8px); }
+        100% { transform: translateX(380px); }
     }
 `;
 
