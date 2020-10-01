@@ -14,6 +14,7 @@ const NotificationStyles = `
         width: 100%;
         padding: 10px 44px 12px 20px;
         max-width: 360px;
+        min-height: 66px;
         font-size: 1.3rem;
         letter-spacing: 0.2px;
         background: rgba(33,33,33,0.95);
