@@ -16,7 +16,7 @@ const NotificationStyles = `
         max-width: 360px;
         font-size: 1.3rem;
         letter-spacing: 0.2px;
-        background: rgba(0,0,0,0.75);
+        background: rgba(33,33,33,0.95);
         backdrop-filter: blur(8px);
         color: var(--white);
         border-radius: 5px;
@@ -37,7 +37,7 @@ const NotificationStyles = `
         font-size: 1.4rem;
         text-align: left;
         margin: 0;
-        padding: 0 0 0 22px;
+        padding: 0 0 0 40px;
         color: var(--grey13);
     }
 
@@ -58,10 +58,10 @@ const NotificationStyles = `
 
     .gh-portal-notification-icon {
         position: absolute;
-        top: 12px;
-        left: 12px;
-        width: 18px;
-        height: 18px;
+        top: 17px;
+        left: 17px;
+        width: 28px;
+        height: 28px;
     }
 
     .gh-portal-notification-icon.success {
