@@ -2,15 +2,16 @@ import {GlobalStyles} from './Global.styles';
 
 const NotificationStyles = `
     .gh-portal-notification-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        padding: 12px;
+        position: relative;
         overflow: hidden;
+        height: 100%;
+        width: 100%;
     }
 
     .gh-portal-notification {
-        position: relative;
+        position: absolute;
+        top: 12px;
+        right: 12px;
         width: 100%;
         padding: 10px 44px 12px 20px;
         max-width: 360px;
@@ -89,7 +90,7 @@ const NotificationStyles = `
 
     .gh-portal-notification-closeicon:hover {
         opacity: 1.0;
-    }
+    }    
 
     @keyframes notification-slidein {
         0% { transform: translateX(380px); }
@@ -101,6 +102,30 @@ const NotificationStyles = `
         0% { transform: translateX(0); }
         25% { transform: translateX(-8px); }
         100% { transform: translateX(380px); }
+    }
+
+    @keyframes notification-slidein-mobile {
+        0% { transform: translateY(-150px); }
+        75% { transform: translateY(8px); }
+        100% { transform: translateY(0); }
+    }
+
+    @keyframes notification-slideout-mobile {
+        0% { transform: translateY(0); }
+        25% { transform: translateY(8px); }
+        100% { transform: translateY(-150px); }
+    }
+
+    @media (max-width: 414px) {
+        .gh-portal-notification {
+            left: 12px;
+            max-width: calc(100% - 24px);
+            animation-name: notification-slidein-mobile;
+        }
+
+        .gh-portal-notification.slideout {
+            animation-name: notification-slideout-mobile;
+        }
     }
 `;
 
