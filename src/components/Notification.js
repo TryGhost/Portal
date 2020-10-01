@@ -130,7 +130,7 @@ class NotificationContent extends React.Component {
     }
 
     onAnimationEnd(e) {
-        if (e.animationName === 'notification-slideout') {
+        if (e.animationName === 'notification-slideout' || e.animationName === 'notification-slideout-mobile') {
             this.props.onHideNotification(e);
         }
     }

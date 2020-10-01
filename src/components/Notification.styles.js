@@ -14,7 +14,7 @@ const NotificationStyles = `
         right: 12px;
         width: 100%;
         padding: 10px 44px 12px 20px;
-        max-width: 360px;
+        max-width: 380px;
         min-height: 66px;
         font-size: 1.3rem;
         letter-spacing: 0.2px;
