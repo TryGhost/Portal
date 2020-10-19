@@ -145,7 +145,7 @@ class PopupContent extends React.Component {
                     {this.renderPopupNotification()}
                     {this.renderActivePage()}
                 </div>
-                <div className={'gh-portal-powered' + (hasMode(['preview']) ? ' hidden' : '')}><a href='https://ghost.org' target='_blank' rel='noopener noreferrer'><PoweredIcon /> Publish with Ghost</a></div>
+                <div className={'gh-portal-powered' + (hasMode(['preview']) ? ' hidden' : '')}><a href='https://ghost.org' target='_blank' rel='noopener noreferrer'><PoweredIcon /> <span>Publish with Ghost</span></a></div>
             </div>
         );
     }

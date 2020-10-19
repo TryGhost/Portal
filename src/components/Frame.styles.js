@@ -265,8 +265,8 @@ const FrameStyles = `
 
     .gh-portal-powered {
         position: absolute;
-        bottom: 44px;
-        left: 44px;
+        bottom: 24px;
+        left: 24px;
     }
     
     .gh-portal-powered a {
@@ -641,12 +641,21 @@ const MobileStyles = `
 
     .gh-portal-powered a {
         animation: none;
-        box-shadow: 0 0 0 1px rgba(0,0,0,.1),0 1px 3px rgba(0,0,0,.08);
+        box-shadow: none;
+        background: none;
         margin-bottom: 32px;
     }
 
+    .gh-portal-powered a span {
+        opacity: 0.5;
+    }
+
+    .gh-portal-powered a svg {
+        opacity: 0.65;
+    }
+
     .gh-portal-popup-wrapper.account-home .gh-portal-powered a {
-        box-shadow: 0 0 0 1px rgba(0,0,0,.05),0 1px 3px rgba(0,0,0,.08);
+        box-shadow: none;
     }
 }
 
