@@ -17,8 +17,7 @@ function togglePopup({state}) {
 function openPopup({data}) {
     return {
         showPopup: true,
-        page: data.page,
-        ...(data.pageQuery ? {pageQuery: data.pageQuery} : {})
+        page: data.page
     };
 }
 

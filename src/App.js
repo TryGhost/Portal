@@ -64,10 +64,10 @@ export default class App extends React.Component {
         this.clickHandler = (event) => {
             const target = event.currentTarget;
             const pagePath = (target && target.dataset.portal);
-            const {page, pageQuery} = this.getPageFromLinkPath(pagePath);
+            const pageFromPath = this.getPageFromPath(pagePath);
 
             event.preventDefault();
-            this.onAction('openPopup', {page, pageQuery});
+            this.onAction('openPopup', {page: pageFromPath});
         };
         const customTriggerSelector = '[data-portal]';
         const popupCloseClass = 'gh-members-popup-close';
@@ -223,16 +223,16 @@ export default class App extends React.Component {
 
     /** Fetch state from Portal Links */
     fetchLinkData() {
-        const [path] = window.location.hash.substr(1).split('?');
+        const [path, pathQuery] = window.location.hash.substr(1).split('?');
         const linkRegex = /^\/portal(?:\/(\w+(?:\/\w+)?))?$/;
         if (path && linkRegex.test(path)) {
             const [,pagePath] = path.match(linkRegex);
-            const {page, pageQuery} = this.getPageFromLinkPath(pagePath);
+            const page = this.getPageFromPath(pagePath);
             const lastPage = ['accountPlan', 'accountProfile'].includes(page) ? 'accountHome' : null;
             return {
                 showPopup: true,
                 ...(page ? {page} : {}),
-                ...(pageQuery ? {pageQuery} : {}),
+                ...(pathQuery ? {pageQuery: pathQuery} : {}),
                 ...(lastPage ? {lastPage} : {})
             };
         }
@@ -332,41 +332,6 @@ export default class App extends React.Component {
             return 'accountPlan';
         } else if (path === 'account/profile') {
             return 'accountProfile';
-        }
-    }
-
-    /**Get Portal page from Link/Data-attribute path*/
-    getPageFromLinkPath(path) {
-        if (path === 'signup') {
-            return {
-                page: 'signup'
-            };
-        } else if (path === 'signup/monthly') {
-            return {
-                page: 'signup',
-                pageQuery: 'monthly'
-            };
-        } else if (path === 'signup/yearly') {
-            return {
-                page: 'signup',
-                pageQuery: 'yearly'
-            };
-        } else if (path === 'signin') {
-            return {
-                page: 'signin'
-            };
-        } else if (path === 'account') {
-            return {
-                page: 'accountHome'
-            };
-        } else if (path === 'account/plans') {
-            return {
-                page: 'accountPlan'
-            };
-        } else if (path === 'account/profile') {
-            return {
-                page: 'accountProfile'
-            };
         }
     }
 
