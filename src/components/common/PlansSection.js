@@ -20,7 +20,6 @@ export const PlanSectionStyles = `
         border-right: 1px solid var(--grey10);
         padding: 16px 10px;
         cursor: pointer;
-        user-select: none;
     }
 
     .gh-portal-plans-container.disabled .gh-portal-plan-section {
