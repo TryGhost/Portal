@@ -29,11 +29,10 @@ const Styles = () => {
 const NotificationText = ({type, status, context}) => {
     const signinPortalLink = getPortalLink({page: 'signin', siteUrl: context.site.url});
     const singupPortalLink = getPortalLink({page: 'signup', siteUrl: context.site.url});
-    const firstname = context.member.firstname;
     if (type === 'signin' && status === 'success') {
         return (
             <p>
-                Welcome back{(firstname ? ', ' + firstname : '')}!<br />You've successfully signed in.
+                Welcome back!<br />You've successfully signed in.
             </p>
         );
     } else if (type === 'signin' && status === 'error') {
