@@ -1,8 +1,10 @@
+import {useState} from 'react';
 import AppContext from '../../AppContext';
 import ActionButton from '../common/ActionButton';
 import CloseButton from '../common/CloseButton';
 import BackButton from '../common/BackButton';
 import PlansSection from '../common/PlansSection';
+import InputField from '../common/InputField';
 import {getDateString} from '../../utils/date-time';
 import {getMemberActivePlan, getMemberSubscription, getPlanFromSubscription, getSitePlans, getSubscriptionFromId, isPaidMember} from '../../utils/helpers';
 
@@ -104,6 +106,7 @@ const CancelContinueSubscription = ({member, onCancelContinueSubscription, actio
 
 // For confirmation flows
 const PlanConfirmationSection = ({action, member, plan, type, brandColor, onConfirm}) => {
+    const [reason, setReason] = useState('');
     const subscription = getMemberSubscription({member});
     const isRunning = ['updateSubscription:running', 'checkoutPlan:running', 'cancelSubscription:running'].includes(action);
     const label = 'Confirm';
@@ -147,8 +150,17 @@ const PlanConfirmationSection = ({action, member, plan, type, brandColor, onConf
         return (
             <>
                 <p>If you cancel your subscription now, you will continue to have access until <strong>{getDateString(subscription.current_period_end)}</strong>.</p>
+                <InputField
+                    key='cancellation_reason'
+                    label='Reason'
+                    type='text'
+                    name='cancellation_reason'
+                    placeholder='Tell us why you are cancelling'
+                    value={reason}
+                    onChange={e => setReason(e.target.value)}
+                />
                 <ActionButton
-                    onClick={e => onConfirm(e, plan)}
+                    onClick={e => onConfirm(e, reason)}
                     isRunning={isRunning}
                     isPrimary={true}
                     brandColor={brandColor}
@@ -361,7 +373,7 @@ export default class AccountPlanPage extends React.Component {
         }
     }
 
-    onCancelSubscriptionConfirmation() {
+    onCancelSubscriptionConfirmation(reason) {
         const {member} = this.context;
         const subscription = getMemberSubscription({member});
         if (!subscription) {
@@ -369,7 +381,8 @@ export default class AccountPlanPage extends React.Component {
         }
         this.context.onAction('cancelSubscription', {
             subscriptionId: subscription.id,
-            cancelAtPeriodEnd: true
+            cancelAtPeriodEnd: true,
+            cancellationReason: reason
         });
     }
 
@@ -381,12 +394,12 @@ export default class AccountPlanPage extends React.Component {
         return null;
     }
 
-    onConfirm() {
+    onConfirm(e, data) {
         const {confirmationType} = this.state;
         if (confirmationType === 'cancel') {
-            return this.onCancelSubscriptionConfirmation();
+            return this.onCancelSubscriptionConfirmation(data);
         } else if (['changePlan', 'subscribe'].includes(confirmationType)) {
-            return this.onPlanCheckout();
+            return this.onPlanCheckout(data);
         }
     }
 
@@ -401,13 +414,13 @@ export default class AccountPlanPage extends React.Component {
                     <Header
                         lastPage={lastPage}
                         member={member} brandColor={brandColor} onBack={e => this.onBack(e)}
-                        confirmationType = {confirmationType}
-                        showConfirmation = {showConfirmation}
+                        confirmationType={confirmationType}
+                        showConfirmation={showConfirmation}
                     />
                     <PlansContainer
                         {...this.context}
                         {...{plans, selectedPlan, showConfirmation, confirmationPlan, confirmationType}}
-                        onConfirm = {() => this.onConfirm()}
+                        onConfirm={(...args) => this.onConfirm(...args)}
                         onCancelContinueSubscription = {data => this.onCancelContinueSubscription(data)}
                         onPlanSelect = {(e, name) => this.onPlanSelect(e, name)}
                         onPlanCheckout = {(e, name) => this.onPlanCheckout(e, name)}
