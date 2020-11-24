@@ -91,6 +91,7 @@ function InputField({
     onBlur = () => {},
     onKeyDown = () => {},
     tabindex,
+    maxlength,
     errorMessage
 }) {
     id = id || `input-${name}`;
@@ -133,6 +134,7 @@ function InputField({
                 onBlur={e => onBlur(e, name)}
                 disabled={disabled}
                 tabIndex={tabindex}
+                maxlength={maxlength}
                 autoComplete={autocomplete}
                 autoCorrect={autocorrect}
                 autoCapitalize={autocapitalize}

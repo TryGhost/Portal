@@ -17,6 +17,14 @@ export const AccountPlanPageStyles = `
     .gh-portal-expire-container {
         margin: 24px 0 0;
     }
+
+    .gh-portal-cancellation-form p {
+        margin-bottom: 12px;
+    }
+
+    .gh-portal-cancellation-form .gh-portal-input-section {
+        margin-bottom: 20px;
+    }
 `;
 
 const React = require('react');
@@ -148,16 +156,17 @@ const PlanConfirmationSection = ({action, member, plan, type, brandColor, onConf
         );
     } else {
         return (
-            <>
+            <div className="gh-portal-cancellation-form">
                 <p>If you cancel your subscription now, you will continue to have access until <strong>{getDateString(subscription.current_period_end)}</strong>.</p>
                 <InputField
                     key='cancellation_reason'
-                    label='Reason'
+                    label='Cancellation reason'
                     type='text'
                     name='cancellation_reason'
                     placeholder='Tell us why you are cancelling'
                     value={reason}
                     onChange={e => setReason(e.target.value)}
+                    maxlength="500"
                 />
                 <ActionButton
                     onClick={e => onConfirm(e, reason)}
@@ -170,7 +179,7 @@ const PlanConfirmationSection = ({action, member, plan, type, brandColor, onConf
                         height: '40px'
                     }}
                 />
-            </>
+            </div>
         );
     }
 };
