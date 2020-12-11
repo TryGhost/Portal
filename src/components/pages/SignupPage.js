@@ -55,8 +55,15 @@ export const SignupPageStyles = `
 
     .gh-portal-signup-message button {
         font-size: 1.3rem;
-        font-weight: 400;
+        font-weight: 600;
         margin-left: 4px;
+    }
+
+    .gh-portal-signup-message button span {
+        display: inline-block;
+        padding-bottom: 2px;
+        margin-bottom: -2px;
+        box-shadow: 0 1px 0 0 rgba(29, 29, 29, 0.35);
     }
 
     .gh-portal-content.signup {
@@ -388,7 +395,7 @@ class SignupPage extends React.Component {
                     style={{color: brandColor}}
                     onClick={() => onAction('switchPage', {page: 'signin'})}
                 >
-                    Sign in
+                    <span>Sign in</span>
                 </button>
             </div>
         );
