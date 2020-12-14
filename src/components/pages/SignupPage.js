@@ -63,7 +63,6 @@ export const SignupPageStyles = `
         display: inline-block;
         padding-bottom: 2px;
         margin-bottom: -2px;
-        box-shadow: 0 1px 0 0 rgba(29, 29, 29, 0.35);
     }
 
     .gh-portal-content.signup {
@@ -387,6 +386,7 @@ class SignupPage extends React.Component {
 
     renderLoginMessage() {
         const {brandColor, onAction} = this.context;
+        const underline = (brandColor === '#1d1d1d') ? '0 1px 0 0 rgba(29, 29, 29, 0.35)' : '';
         return (
             <div className='gh-portal-signup-message'>
                 <div>Already a member?</div>
@@ -395,7 +395,7 @@ class SignupPage extends React.Component {
                     style={{color: brandColor}}
                     onClick={() => onAction('switchPage', {page: 'signin'})}
                 >
-                    <span>Sign in</span>
+                    <span style={{boxShadow: underline}}>Sign in</span>
                 </button>
             </div>
         );
