@@ -1,4 +1,5 @@
 import {createPopupNotification, getMemberEmail, getMemberName, removePortalLinkFromUrl} from './utils/helpers';
+//import './i18n';  ??
 
 function switchPage({data}) {
     return {
@@ -68,6 +69,7 @@ async function signout({api, state}) {
             popupNotification: createPopupNotification({
                 type: 'signout:failed', autoHide: false, closeable: true, state, status: 'error',
                 message: 'Failed to log out, please try again'
+                // message: t(['actions.signout_catch_message', 'Failed to log out, please try again'])
             })
         };
     }
@@ -85,6 +87,7 @@ async function signin({data, api, state}) {
             popupNotification: createPopupNotification({
                 type: 'signin:failed', autoHide: false, closeable: true, state, status: 'error',
                 message: 'Failed to log in, please try again'
+                // message: t(['actions.signin_catch_message', 'Failed to log in, please try again'])
             })
         };
     }
@@ -107,6 +110,7 @@ async function signup({data, state, api}) {
             popupNotification: createPopupNotification({
                 type: 'signup:failed', autoHide: false, closeable: true, state, status: 'error',
                 message: 'Failed to sign up, please try again'
+                // message: t(['actions.signup_catch_message', 'Failed to sign up, please try again'])
             })
         };
     }
@@ -127,6 +131,7 @@ async function checkoutPlan({data, state, api}) {
             popupNotification: createPopupNotification({
                 type: 'checkoutPlan:failed', autoHide: false, closeable: true, state, status: 'error',
                 message: 'Failed to process checkout, please try again'
+                //message: t(['actions.checkoutplan_catch_message', 'Failed to process checkout, please try again'])
             })
         };
     }
@@ -144,7 +149,8 @@ async function updateSubscription({data, state, api}) {
             action,
             popupNotification: createPopupNotification({
                 type: action, autoHide: true, closeable: true, state, status: 'success',
-                message: 'Subscription plan updated successfully'
+                message: 'Failed to process checkout, please try again'
+                // message: t(['actions.updatesubscription_message', 'Subscription plan updated successfully'])
             }),
             page: 'accountHome',
             member: member
@@ -155,6 +161,7 @@ async function updateSubscription({data, state, api}) {
             popupNotification: createPopupNotification({
                 type: 'updateSubscription:failed', autoHide: false, closeable: true, state, status: 'error',
                 message: 'Failed to update subscription, please try again'
+                // message: t(['actions.updatesubscription_catch_message', 'Failed to update subscription, please try again'])
             })
         };
     }
@@ -179,6 +186,7 @@ async function cancelSubscription({data, state, api}) {
             popupNotification: createPopupNotification({
                 type: 'cancelSubscription:failed', autoHide: false, closeable: true, state, status: 'error',
                 message: 'Failed to cancel subscription, please try again'
+                // message: t(['actions.cancelsubscription_catch_message', 'Failed to cancel subscription, please try again'])
             })
         };
     }
@@ -193,6 +201,7 @@ async function editBilling({data, state, api}) {
             popupNotification: createPopupNotification({
                 type: 'editBilling:failed', autoHide: false, closeable: true, state, status: 'error',
                 message: 'Failed to update billing information, please try again'
+                // message: t(['actions.editbilling_catch_message', 'Failed to update billing information, please try again'])
             })
         };
     }
@@ -210,6 +219,7 @@ async function updateNewsletter({data, state, api}) {
         const member = await api.member.update({subscribed});
         if (!member) {
             throw new Error('Failed to update newsletter');
+            //throw new Error(t(['actions.updatenewsletter_error', 'Failed to update newsletter']));
         }
         const action = 'updateNewsletter:success';
         return {
@@ -218,6 +228,7 @@ async function updateNewsletter({data, state, api}) {
             popupNotification: createPopupNotification({
                 type: action, autoHide: true, closeable: true, state, status: 'success',
                 message: 'Email newsletter settings updated'
+                // message: t(['actions.updatenewsletter_message', 'Email newsletter settings updated'])
             })
         };
     } catch (e) {
@@ -226,6 +237,7 @@ async function updateNewsletter({data, state, api}) {
             popupNotification: createPopupNotification({
                 type: 'updateNewsletter:failed', autoHide: true, closeable: true, state, status: 'error',
                 message: 'Failed to update newsletter settings'
+                // message: t(['actions.updatenewsletter_catch_message', 'Failed to update newsletter settings'])
             })
         };
     }
@@ -258,6 +270,7 @@ async function updateMemberData({data, state, api}) {
             const member = await api.member.update({name});
             if (!member) {
                 throw new Error('Failed to update member');
+                // throw new Error(t(['actions.updatememberdata_error','Failed to update member']));
             }
             return {
                 member,
@@ -284,10 +297,12 @@ async function updateProfile({data, state, api}) {
                 popupNotification: createPopupNotification({
                     type: 'updateProfile:success', autoHide: true, closeable: true, status: 'success', state,
                     message: 'Check your inbox to verify email update'
+                    // message: t(['actions.updateprofile_check_email', 'Check your inbox to verify email update'])
                 })
             };
         }
         const message = !dataUpdate.success ? 'Failed to update account data' : 'Failed to send verification email';
+        // const message = !dataUpdate.success ? t(['actions.updateprofile_failed_data_update', 'Failed to update account data']) : t(['actions.updateprofile_failed_send_verification_email', 'Failed to send verification email']);
 
         return {
             action: 'updateProfile:failed',
@@ -300,6 +315,8 @@ async function updateProfile({data, state, api}) {
         const action = dataUpdate.success ? 'updateProfile:success' : 'updateProfile:failed';
         const status = dataUpdate.success ? 'success' : 'error';
         const message = !dataUpdate.success ? 'Failed to update account details' : 'Account details updated successfully';
+        // const message = !dataUpdate.success ? t(['actions.updateprofile_failed_details_update','Failed to update account details']) : t(['actions.updateprofile_details_success','Account details updated successfully']);
+
         return {
             action,
             ...(dataUpdate.success ? {member: dataUpdate.member} : {}),
@@ -312,6 +329,7 @@ async function updateProfile({data, state, api}) {
         const action = emailUpdate.success ? 'updateProfile:success' : 'updateProfile:failed';
         const status = emailUpdate.success ? 'success' : 'error';
         const message = !emailUpdate.success ? 'Failed to send verification email' : 'Check your inbox to verify email update';
+        // const message = !emailUpdate.success ? t(['actions.updateprofile_failed_send_verification_email', 'Failed to send verification email']) : t(['actions.updateprofile_check_email', 'Check your inbox to verify email update']);
         return {
             action,
             ...(emailUpdate.success ? {page: 'accountHome'} : {}),
@@ -326,6 +344,7 @@ async function updateProfile({data, state, api}) {
         popupNotification: createPopupNotification({
             type: 'updateProfile:success', autoHide: true, closeable: true, status: 'success', state,
             message: 'Account details updated successfully'
+            // message: t(['actions.updateprofile_details_success','Account details updated successfully'])
         })
     };
 }

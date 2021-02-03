@@ -6,6 +6,7 @@ import Pages, {getActivePage} from '../pages';
 import PopupNotification from './common/PopupNotification';
 import {isCookiesDisabled} from '../utils/helpers';
 import {ReactComponent as PoweredIcon} from '../images/powered-icon.svg';
+import { withTranslation } from 'react-i18next';
 
 const React = require('react');
 
@@ -50,7 +51,7 @@ function CookieDisabledBanner({message}) {
     return null;
 }
 
-class PopupContent extends React.Component {
+class PopupContentWithoutTranslation extends  React.Component {
     static contextType = AppContext;
 
     componentDidMount() {
@@ -102,6 +103,7 @@ class PopupContent extends React.Component {
     }
 
     render() {
+        const { t } = this.props;
         const {page, site} = this.context;
         const {portal_plans: portalPlans} = site;
         const {is_stripe_configured: isStripeConfigured,
@@ -125,10 +127,12 @@ class PopupContent extends React.Component {
         let pageClass = page;
         switch (page) {
         case 'signup':
-            cookieBannerText = 'Cookies must be enabled in your browser to sign up.';
+            // cookieBannerText = 'Cookies must be enabled in your browser to sign up.';
+            cookieBannerText = t(['popupmodal.signup_cookie_banner_text', 'Cookies must be enabled in your browser to sign up.']);
             break;
         case 'signin':
-            cookieBannerText = 'Cookies must be enabled in your browser to sign in.';
+            // cookieBannerText = 'Cookies must be enabled in your browser to sign in.';
+            cookieBannerText = t(['popupmodal.signin_cookie_banner_text', 'Cookies must be enabled in your browser to sign in.']);
             break;
         case 'accountHome':
             pageClass = 'account-home';
@@ -140,7 +144,8 @@ class PopupContent extends React.Component {
             pageClass = 'account-plan';
             break;
         default:
-            cookieBannerText = 'Cookies must be enabled in your browser.';
+            // cookieBannerText = 'Cookies must be enabled in your browser.';
+            cookieBannerText = t(['popupmodal.default_cookie_banner_text', 'Cookies must be enabled in your browser.']);
             pageClass = page;
             break;
         }
@@ -163,6 +168,7 @@ class PopupContent extends React.Component {
         );
     }
 }
+const PopupContent = withTranslation()(PopupContentWithoutTranslation);
 
 export default class PopupModal extends React.Component {
     static contextType = AppContext;

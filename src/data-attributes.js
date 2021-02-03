@@ -1,6 +1,8 @@
 /* eslint-disable no-console */
+// import { useTranslation } from 'react-i18next';
 
 function handleDataAttributes({siteUrl}) {
+    //const { t } = useTranslation();
     siteUrl = siteUrl.replace(/\/$/, '');
     Array.prototype.forEach.call(document.querySelectorAll('form[data-members-form]'), function (form) {
         let errorEl = form.querySelector('[data-members-error]');
@@ -47,6 +49,7 @@ function handleDataAttributes({siteUrl}) {
                 } else {
                     if (errorEl) {
                         errorEl.innerText = 'There was an error sending the email, please try again';
+                        // errorEl.innerText = t(['handledataattributes.error_sending_email', 'There was an error sending the email, please try again']);
                     }
                     form.classList.add('error');
                 }
@@ -101,6 +104,7 @@ function handleDataAttributes({siteUrl}) {
                 }).then(function (res) {
                     if (!res.ok) {
                         throw new Error('Could not create stripe checkout session');
+                        // throw new Error(t(['handledataattributes.error_no_stripe_checkout_session', 'Could not create stripe checkout session']));
                     }
                     return res.json();
                 });
@@ -170,6 +174,7 @@ function handleDataAttributes({siteUrl}) {
                 }).then(function (res) {
                     if (!res.ok) {
                         throw new Error('Could not create stripe checkout session');
+                        // throw new Error(t(['handledataattributes.error_no_stripe_checkout_session', 'Could not create stripe checkout session']));
                     }
                     return res.json();
                 });
@@ -259,6 +264,7 @@ function handleDataAttributes({siteUrl}) {
 
                     if (errorEl) {
                         errorEl.innerText = 'There was an error cancelling your subscription, please try again.';
+                        // errorEl.innerText = t(['handledataattributes.error_canceling_subscription', 'There was an error cancelling your subscription, please try again.']);
                     }
                 }
             });
@@ -309,6 +315,7 @@ function handleDataAttributes({siteUrl}) {
 
                     if (errorEl) {
                         errorEl.innerText = 'There was an error continuing your subscription, please try again.';
+                        // errorEl.innerText = t(['handledataattributes.error_continuing_subscription', 'There was an error continuing your subscription, please try again.']);
                     }
                 }
             });

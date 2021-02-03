@@ -1,5 +1,6 @@
 import React from 'react';
 import {ReactComponent as LeftArrowIcon} from '../../images/icons/arrow-left.svg';
+import { useTranslation } from 'react-i18next';
 
 export const BackButtonStyles = `
     .gh-portal-btn-back,
@@ -33,6 +34,10 @@ export const BackButtonStyles = `
 `;
 
 function ActionButton({label = 'Back', brandColor = '#3eb0ef', hidden = false, onClick}) {
+    const { t } = useTranslation();
+    if (label === 'Back') {
+        label = t(['back', 'Back']);
+    }
     if (hidden) {
         return null;
     }

@@ -5,6 +5,7 @@ import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark-fill
 import {ReactComponent as WarningIcon} from '../../images/icons/warning-fill.svg';
 import {getSupportAddress} from '../../utils/helpers';
 import {clearURLParams} from '../../utils/notifications';
+import { useTranslation } from 'react-i18next';
 
 export const PopupNotificationStyles = `
     .gh-portal-popupnotification {
@@ -90,15 +91,17 @@ export const PopupNotificationStyles = `
 `;
 
 const CloseButton = ({hide = false, onClose}) => {
+    const { t } = useTranslation();
     if (hide) {
         return null;
     }
     return (
-        <CloseIcon className='closeicon' alt='Close' onClick={onClose} />
+        <CloseIcon className='closeicon' alt={t(['close', 'Close'])} onClick={onClose} />
     );
 };
 
 const NotificationText = ({message, site}) => {
+    const { t } = useTranslation();
     const supportAddress = getSupportAddress({site});
     const supportAddressMail = `mailto:${supportAddress}`;
     if (message) {
@@ -107,9 +110,9 @@ const NotificationText = ({message, site}) => {
         );
     }
     return (
-        <p> An unexpected error occured. Please try again or <a href={supportAddressMail} onClick={() => {
+        <p> {t(['popup_notification_text.1', 'An unexpected error occured. Please try again or'])} <a href={supportAddressMail} onClick={() => {
             supportAddressMail && window.open(supportAddressMail);
-        }}>contact support</a> if the error persists.</p>
+        }}>{t(['popup_notification_text.2', 'contact support'])}</a> {t(['popup_notification_text.3', 'if the error persists.'])}</p>
     );
 };
 

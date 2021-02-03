@@ -2,6 +2,7 @@ import ActionButton from '../common/ActionButton';
 import CloseButton from '../common/CloseButton';
 import AppContext from '../../AppContext';
 import {ReactComponent as EnvelopeIcon} from '../../images/icons/envelope.svg';
+import { withTranslation } from 'react-i18next';
 
 const React = require('react');
 
@@ -23,29 +24,31 @@ export const MagicLinkStyles = `
     }
 `;
 
-export default class MagicLinkPage extends React.Component {
+export default withTranslation() (class MagicLinkPage extends React.Component {
     static contextType = AppContext;
 
     renderFormHeader() {
+        const { t } = this.props;
         return (
             <section className='gh-portal-inbox-notification'>
                 <header className='gh-portal-header'>
                     <EnvelopeIcon className='gh-portal-icon gh-portal-icon-envelope' />
-                    <h2>We've sent you a login link!</h2>
+                    <h2>{t(['magiclinkpage.renderformheader_1', 'We\'ve sent you a login link!'])}</h2>
                 </header>
-                <p>If the email doesn't arrive in 3 minutes, be sure to check your spam folder!</p>
+                <p>{t(['magiclinkpage.renderformheader_2', 'If the email doesn\'t arrive in 3 minutes, be sure to check your spam folder!'])}</p>
             </section>
         );
     }
 
     renderLoginMessage() {
+        const { t } = this.props;
         return (
             <>
                 <div
                     style={{color: '#1d1d1d', fontWeight: 'bold', cursor: 'pointer'}}
                     onClick={() => this.context.onAction('switchPage', {page: 'signin'})}
                 >
-                    Back to Log in
+                    {t(['magiclinkpage.back_to_login', 'Back to Log in'])}
                 </div>
             </>
         );
@@ -76,4 +79,4 @@ export default class MagicLinkPage extends React.Component {
             </div>
         );
     }
-}
+})

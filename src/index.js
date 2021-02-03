@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import './i18n';
+
 
 const handleDataAttributes = require('./data-attributes');
 const ROOT_DIV_ID = 'ghost-membersjs-root';

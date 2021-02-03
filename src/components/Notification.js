@@ -6,6 +6,7 @@ import {ReactComponent as CheckmarkIcon} from '../images/icons/checkmark-fill.sv
 import {ReactComponent as WarningIcon} from '../images/icons/warning-fill.svg';
 import NotificationParser, {clearURLParams} from '../utils/notifications';
 import {getPortalLink} from '../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 const React = require('react');
 
@@ -27,6 +28,7 @@ const Styles = () => {
 };
 
 const NotificationText = ({type, status, context}) => {
+    const { t } = useTranslation();
     const signinPortalLink = getPortalLink({page: 'signin', siteUrl: context.site.url});
     const singupPortalLink = getPortalLink({page: 'signup', siteUrl: context.site.url});
 
@@ -34,50 +36,50 @@ const NotificationText = ({type, status, context}) => {
         const firstname = context.member.firstname || '';
         return (
             <p>
-                Welcome back{(firstname ? ', ' + firstname : '')}!<br />You've successfully signed in.
+                {t(['notification.signin_success_1','Welcome back'])}{(firstname ? ', ' + firstname : '')}!<br />{t(['notification.signin_success_2','You\'ve successfully signed in.'])}
             </p>
         );
     } else if (type === 'signin' && status === 'error') {
         return (
             <p>
-                Could not sign in. Login link expired. <a href={signinPortalLink} target="_parent">Click here to retry</a>
+                {t(['notification.signin_error','Could not sign in. Login link expired.'])} <a href={signinPortalLink} target="_parent">{t(['notification.click_to_retry','Click here to retry'])}</a>
             </p>
         );
     } else if (type === 'signup' && status === 'success') {
         return (
             <p>
-                You've successfully subscribed to <br /><strong>{context.site.title}</strong>
+                {t(['notification.signup_success','You\'ve successfully subscribed to'])} <br /><strong>{context.site.title}</strong>
             </p>
         );
     } else if (type === 'updateEmail' && status === 'success') {
         return (
             <p>
-                Success! Your email is updated.
+                {t(['notification.updateemail_success','Success! Your email is updated.'])}
             </p>
         );
     } else if (type === 'updateEmail' && status === 'error') {
         return (
             <p>
-                Could not update email! Invalid link.
+                {t(['notification.updateemail_error','Could not update email! Invalid link.'])}
             </p>
         );
     } else if (type === 'signup' && status === 'error') {
         return (
             <p>
-                Signup error: Invalid link <br /><a href={singupPortalLink} target="_parent">Click here to retry</a>
+                {t(['notification.signup_error','Signup error: Invalid link'])} <br /><a href={singupPortalLink} target="_parent">{t(['notification.click_to_retry','Click here to retry'])}</a>
             </p>
         );
     } else if (type === 'stripe:checkout' && status === 'success') {
         if (context.member) {
             return (
                 <p>
-                    Success! Your account is fully activated, you now have access to all content.
+                    {t(['notification.stripe_checkout_success_member','Success! Your account is fully activated, you now have access to all content.'])}
                 </p>
             );
         }
         return (
             <p>
-                Success! Check your email for magic link to sign-in.
+                {t(['notification.stripe_checkout_success','Success! Check your email for magic link to sign-in.'])}
             </p>
         );
     } else if (type === 'stripe:checkout' && status === 'warning') {
@@ -85,13 +87,13 @@ const NotificationText = ({type, status, context}) => {
         if (context.member) {
             return (
                 <p>
-                    Plan upgrade was cancelled.
+                    {t(['notification.stripe_checkout_warning_member','Plan upgrade was cancelled.'])}
                 </p>
             );
         }
         return (
             <p>
-                Plan checkout was cancelled.
+                {t(['notification.stripe_checkout_warning','Plan checkout was cancelled.'])}
             </p>
         );
     }

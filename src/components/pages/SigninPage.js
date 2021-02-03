@@ -3,10 +3,11 @@ import CloseButton from '../common/CloseButton';
 import AppContext from '../../AppContext';
 import InputForm from '../common/InputForm';
 import {ValidateInputForm} from '../../utils/form';
+import { withTranslation } from 'react-i18next';
 
 const React = require('react');
 
-export default class SigninPage extends React.Component {
+export default withTranslation() (class SigninPage extends React.Component {
     static contextType = AppContext;
 
     constructor(props) {
@@ -55,13 +56,14 @@ export default class SigninPage extends React.Component {
     }
 
     getInputFields({state}) {
+        const { t } = this.props;
         const errors = state.errors || {};
         const fields = [
             {
                 type: 'email',
                 value: state.email,
                 placeholder: 'jamie@example.com',
-                label: 'Email',
+                label: t(['input_field.email', 'Email']),
                 name: 'email',
                 required: true,
                 errorMessage: errors.email || ''
@@ -71,13 +73,14 @@ export default class SigninPage extends React.Component {
     }
 
     renderSubmitButton() {
+        const { t } = this.props;
         const {action} = this.context;
         let retry = false;
         const isRunning = (action === 'signin:running');
-        let label = isRunning ? 'Sending login link...' : 'Continue';
+        let label = isRunning ? t(['signin.sending_login_link', 'Sending login link']) + "..." : t(['continue', 'Continue']);
         const disabled = isRunning ? true : false;
         if (action === 'signin:failed') {
-            label = 'Retry';
+            label = t(['retry', 'Retry']);
             retry = true;
         }
         return (
@@ -94,12 +97,13 @@ export default class SigninPage extends React.Component {
     }
 
     renderSignupMessage() {
+        const { t } = this.props;
         const brandColor = this.context.brandColor;
         const underline = (brandColor === '#1d1d1d') ? '0 1px 0 0 rgba(29, 29, 29, 0.35)' : '';
         return (
             <div className='gh-portal-signup-message'>
-                <div>Don't have an account?</div>
-                <button className='gh-portal-btn gh-portal-btn-link' style={{color: brandColor}} onClick={() => this.context.onAction('switchPage', {page: 'signup'})}><span style={{boxShadow: underline}}>Sign up</span></button>
+                <div>{t(['signin.dont_have_account', 'Don\'t have an account?'])}</div>
+                <button className='gh-portal-btn gh-portal-btn-link' style={{color: brandColor}} onClick={() => this.context.onAction('switchPage', {page: 'signup'})}><span style={{boxShadow: underline}}>{t(['submit_button.signup','Sign up'])}</span></button>
             </div>
         );
     }
@@ -133,12 +137,13 @@ export default class SigninPage extends React.Component {
     }
 
     renderFormHeader() {
+        const { t } = this.props;
         const siteTitle = this.context.site.title || 'Site Title';
 
         return (
             <header className='gh-portal-signin-header'>
                 {this.renderSiteLogo()}
-                <h2 className="gh-portal-main-title">Log in to {siteTitle}</h2>
+                <h2 className="gh-portal-main-title">{t(['signin.login_to', 'Log in to'])} {siteTitle}</h2>
             </header>
         );
     }
@@ -158,4 +163,4 @@ export default class SigninPage extends React.Component {
             </>
         );
     }
-}
+})

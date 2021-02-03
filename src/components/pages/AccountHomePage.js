@@ -7,6 +7,7 @@ import {getMemberSubscription, hasOnlyFreePlan, isComplimentaryMember} from '../
 import {getDateString} from '../../utils/date-time';
 import {ReactComponent as LoaderIcon} from '../../images/icons/loader.svg';
 import {useContext} from 'react';
+import { useTranslation } from 'react-i18next';
 
 const React = require('react');
 
@@ -104,16 +105,17 @@ const UserAvatar = ({avatar, brandColor}) => {
 
 const AccountFooter = ({onClose, handleSignout, supportAddress = ''}) => {
     const supportAddressMail = `mailto:${supportAddress}`;
+    const { t } = useTranslation();
     return (
         <footer className='gh-portal-account-footer'>
             <ul className='gh-portal-account-footermenu'>
-                <li><button className='gh-portal-btn' name='logout' aria-label='logout' onClick={e => handleSignout(e)}>Sign out</button></li>
+                <li><button className='gh-portal-btn' name='logout' aria-label='logout' onClick={e => handleSignout(e)}>{t(['signout','Sign out'])}</button></li>
             </ul>
             <div className='gh-portal-account-footerright'>
                 <ul className='gh-portal-account-footermenu'>
                     <li><a className='gh-portal-btn gh-portal-btn-branded' href={supportAddressMail} onClick={() => {
                         supportAddressMail && window.open(supportAddressMail);
-                    }}>Contact support</a></li>
+                    }}>{t(['contact_support','Contact support'])}</a></li>
                 </ul>
             </div>
         </footer>
@@ -122,20 +124,22 @@ const AccountFooter = ({onClose, handleSignout, supportAddress = ''}) => {
 
 const UserHeader = ({member, brandColor}) => {
     const avatar = member.avatar_image;
+    const { t } = useTranslation();
     return (
         <header className='gh-portal-account-header'>
             <UserAvatar avatar={avatar} brandColor={brandColor} />
-            <h2 className="gh-portal-main-title">Your account</h2>
+            <h2 className="gh-portal-main-title">{t(['your_account','Your account'])}</h2>
         </header>
     );
 };
 
 const PaidAccountActions = ({member, site, openUpdatePlan, onEditBilling}) => {
+    const { t } = useTranslation();
     const PlanLabel = ({plan, isComplimentary}) => {
         const {amount = 0, currency_symbol: currencySymbol = '$', interval} = plan;
         let label = `${currencySymbol}${amount / 100}/${interval}`;
         if (isComplimentary) {
-            label = `Complimentary (${label})`;
+            label = `${t(['complimentary','Complimentary'])} (${label})`;
         }
         return (
             <p>
@@ -149,7 +153,7 @@ const PaidAccountActions = ({member, site, openUpdatePlan, onEditBilling}) => {
             return null;
         }
         return (
-            <button className='gh-portal-btn gh-portal-btn-list' onClick={e => openUpdatePlan(e)}>Change</button>
+            <button className='gh-portal-btn gh-portal-btn-list' onClick={e => openUpdatePlan(e)}>{t(['change','Change'])}</button>
         );
     };
 
@@ -169,7 +173,7 @@ const PaidAccountActions = ({member, site, openUpdatePlan, onEditBilling}) => {
         const {action} = useContext(AppContext);
         const label = action === 'editBilling:running' ? (
             <LoaderIcon className='gh-portal-billing-button-loader' />
-        ) : 'Update';
+        ) : t(['update','Update']);
         if (isComplimentary) {
             return null;
         }
@@ -177,7 +181,7 @@ const PaidAccountActions = ({member, site, openUpdatePlan, onEditBilling}) => {
         return (
             <section>
                 <div className='gh-portal-list-detail'>
-                    <h3>Billing info</h3>
+                    <h3>{t(['billing_info','Billing info'])}</h3>
                     <CardLabel defaultCardLast4={defaultCardLast4} />
                 </div>
                 <button className='gh-portal-btn gh-portal-btn-list' onClick={e => onEditBilling(e)}>{label}</button>
@@ -196,7 +200,7 @@ const PaidAccountActions = ({member, site, openUpdatePlan, onEditBilling}) => {
             <>
                 <section>
                     <div className='gh-portal-list-detail'>
-                        <h3>Plan</h3>
+                        <h3>{t(['plan.plan','Plan'])}</h3>
                         <PlanLabel plan={plan} isComplimentary={isComplimentary} />
                     </div>
                     <PlanUpdateButton isComplimentary={isComplimentary} />
@@ -209,24 +213,25 @@ const PaidAccountActions = ({member, site, openUpdatePlan, onEditBilling}) => {
 };
 
 const AccountActions = ({member, site, action, openEditProfile, openUpdatePlan, onEditBilling, onToggleSubscription}) => {
+    const { t } = useTranslation();
     const {name, email, subscribed} = member;
 
-    let label = subscribed ? 'Subscribed' : 'Unsubscribed';
+    let label = subscribed ? t(['subscribed','Subscribed']) : t(['unsubscribed','Unsubscribed']);
     return (
         <div className='gh-portal-list'>
             <section>
                 <div className='gh-portal-list-detail'>
-                    <h3>{(name ? name : 'Account')}</h3>
+                    <h3>{(name ? name : t(['account','Account']))}</h3>
                     <p>{email}</p>
                 </div>
-                <button className='gh-portal-btn gh-portal-btn-list' onClick={e => openEditProfile(e)}>Edit</button>
+                <button className='gh-portal-btn gh-portal-btn-list' onClick={e => openEditProfile(e)}>{t(['edit','Edit'])}</button>
             </section>
 
             <PaidAccountActions site={site} member={member} onEditBilling={onEditBilling} openUpdatePlan={openUpdatePlan} />
 
             <section>
                 <div className='gh-portal-list-detail'>
-                    <h3>Email newsletter</h3>
+                    <h3>{t(['email_newsletter','Email newsletter'])}</h3>
                     <p>{label}</p>
                 </div>
                 <div>
@@ -241,6 +246,7 @@ const AccountActions = ({member, site, action, openEditProfile, openUpdatePlan, 
 
 const SubscribeButton = ({site, action, openSubscribe, brandColor}) => {
     const {is_stripe_configured: isStripeConfigured} = site;
+    const { t } = useTranslation();
 
     if (!isStripeConfigured || hasOnlyFreePlan({site})) {
         return null;
@@ -249,7 +255,7 @@ const SubscribeButton = ({site, action, openSubscribe, brandColor}) => {
     return (
         <ActionButton
             isRunning={isRunning}
-            label="View plans"
+            label={t(['view_plans','View plans'])}
             onClick={() => openSubscribe()}
             brandColor={brandColor}
             style={{width: '100%'}}
@@ -259,6 +265,7 @@ const SubscribeButton = ({site, action, openSubscribe, brandColor}) => {
 
 const AccountWelcome = ({member, action, site, openSubscribe, brandColor}) => {
     const {is_stripe_configured: isStripeConfigured} = site;
+    const { t } = useTranslation();
 
     if (!isStripeConfigured) {
         return null;
@@ -272,20 +279,21 @@ const AccountWelcome = ({member, action, site, openSubscribe, brandColor}) => {
         }
         return (
             <div className='gh-portal-section'>
-                <p className='gh-portal-text-center gh-portal-free-ctatext'>Your subscription will renew on {getDateString(currentPeriodEnd)}</p>
+                <p className='gh-portal-text-center gh-portal-free-ctatext'>{t(['accountwelcome.paid','Your subscription will renew on'])} {getDateString(currentPeriodEnd)}</p>
             </div>
         );
     }
 
     return (
         <div className='gh-portal-section'>
-            <p className='gh-portal-text-center gh-portal-free-ctatext'>You currently have a free membership, upgrade to a paid subscription for full access.</p>
+            <p className='gh-portal-text-center gh-portal-free-ctatext'>{t(['accountwelcome.free','You currently have a free membership, upgrade to a paid subscription for full access.'])}</p>
             <SubscribeButton action={action} site={site} openSubscribe={openSubscribe} brandColor={brandColor} />
         </div>
     );
 };
 
 const CancelContinueSubscription = ({member, onAction, action, brandColor, showOnlyContinue = false}) => {
+    const { t } = useTranslation();
     if (!member.paid) {
         return null;
     }
@@ -298,7 +306,7 @@ const CancelContinueSubscription = ({member, onAction, action, brandColor, showO
     if (showOnlyContinue && !subscription.cancel_at_period_end) {
         return null;
     }
-    const label = subscription.cancel_at_period_end ? 'Continue subscription' : 'Cancel subscription';
+    const label = subscription.cancel_at_period_end ? t(['continue_subscription', 'Continue subscription']) : t(['cancel_subscription', 'Cancel subscription']);
     const isRunning = ['cancelSubscription:running'].includes(action);
     const disabled = (isRunning) ? true : false;
     const isPrimary = !!subscription.cancel_at_period_end;
@@ -309,7 +317,7 @@ const CancelContinueSubscription = ({member, onAction, action, brandColor, showO
         }
         const currentPeriodEnd = subscription.current_period_end;
         return (
-            <p className='gh-portal-text-center gh-portal-free-ctatext'>Your subscription will expire on {getDateString(currentPeriodEnd)}</p>
+            <p className='gh-portal-text-center gh-portal-free-ctatext'>{t(['subscription_expire', 'Your subscription will expire on'])} {getDateString(currentPeriodEnd)}</p>
         );
     };
 

@@ -6,6 +6,7 @@ import BackButton from '../common/BackButton';
 import PlansSection from '../common/PlansSection';
 import {getDateString} from '../../utils/date-time';
 import {getMemberActivePlan, getMemberSubscription, getPlanFromSubscription, getSitePlans, getSubscriptionFromId, isPaidMember} from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 export const AccountPlanPageStyles = `
     .gh-portal-accountplans-main {
@@ -36,17 +37,22 @@ export const AccountPlanPageStyles = `
 const React = require('react');
 
 function getConfirmationPageTitle({confirmationType}) {
+    //const { t } = useTranslation();
     if (confirmationType === 'changePlan') {
         return 'Confirm subscription';
+        // return t(['confirm_subscription', 'Confirm subscription']);
     } else if (confirmationType === 'cancel') {
         return 'Cancel subscription';
+        // return t(['cancel_subscription', 'Cancel subscription']);
     } else if (confirmationType === 'subscribe') {
         return 'Subscribe';
+        // return t(['subscribe', 'Subscribe']);
     }
 }
 
 const Header = ({member, lastPage, brandColor, onBack, showConfirmation, confirmationType}) => {
-    let title = isPaidMember({member}) ? 'Change plan' : 'Choose a plan';
+    const { t } = useTranslation();
+    let title = isPaidMember({member}) ? t(['plan.change', 'Change plan']) : t(['plan.choose', 'Choose a plan']);
     if (showConfirmation) {
         title = getConfirmationPageTitle({confirmationType});
     }
@@ -59,6 +65,7 @@ const Header = ({member, lastPage, brandColor, onBack, showConfirmation, confirm
 };
 
 const CancelContinueSubscription = ({member, onCancelContinueSubscription, action, brandColor, showOnlyContinue = false}) => {
+    const { t } = useTranslation();
     if (!member.paid) {
         return null;
     }
@@ -76,7 +83,7 @@ const CancelContinueSubscription = ({member, onCancelContinueSubscription, actio
     if (subscription.cancel_at_period_end) {
         return null;
     }
-    const label = subscription.cancel_at_period_end ? 'Continue subscription' : 'Cancel subscription';
+    const label = subscription.cancel_at_period_end ? t(['continue_subscription', 'Continue subscription']) : t(['cancel_subscription', 'Cancel subscription']);
     const isRunning = ['cancelSubscription:running'].includes(action);
     const disabled = (isRunning) ? true : false;
     const isPrimary = !!subscription.cancel_at_period_end;
@@ -89,7 +96,7 @@ const CancelContinueSubscription = ({member, onCancelContinueSubscription, actio
         const currentPeriodEnd = subscription.current_period_end;
         return (
             <p className="gh-portal-expire-warning">
-                Your subscription will expire on {getDateString(currentPeriodEnd)}.
+                {t(['subscription_expire', 'Your subscription will expire on'])} {getDateString(currentPeriodEnd)}.
             </p>
         );
     };
@@ -120,10 +127,11 @@ const CancelContinueSubscription = ({member, onCancelContinueSubscription, actio
 
 // For confirmation flows
 const PlanConfirmationSection = ({action, member, plan, type, brandColor, onConfirm}) => {
+    const { t } = useTranslation();
     const [reason, setReason] = useState('');
     const subscription = getMemberSubscription({member});
     const isRunning = ['updateSubscription:running', 'checkoutPlan:running', 'cancelSubscription:running'].includes(action);
-    const label = 'Confirm';
+    const label = t(['confirm','Confirm']);
     let planStartDate = getDateString(subscription.current_period_end);
     const currentActivePlan = getMemberActivePlan({member});
     if (currentActivePlan.type !== plan.type) {
@@ -136,13 +144,13 @@ const PlanConfirmationSection = ({action, member, plan, type, brandColor, onConf
                 <div className='gh-portal-list outline mb6'>
                     <section>
                         <div className='gh-portal-list-detail'>
-                            <h3>Account</h3>
+                            <h3>{t(['account','Account'])}</h3>
                             <p>{member.email}</p>
                         </div>
                     </section>
                     <section>
                         <div className='gh-portal-list-detail'>
-                            <h3>Price</h3>
+                            <h3>{t(['price','Price'])}</h3>
                             <p>{planStartMessage}</p>
                         </div>
                     </section>
@@ -163,15 +171,15 @@ const PlanConfirmationSection = ({action, member, plan, type, brandColor, onConf
     } else {
         return (
             <div className="gh-portal-cancellation-form">
-                <p>If you cancel your subscription now, you will continue to have access until <strong>{getDateString(subscription.current_period_end)}</strong>.</p>
+                <p>{t(['planconfirmationsection.if_you_cancel', 'If you cancel your subscription now, you will continue to have access until'])} <strong>{getDateString(subscription.current_period_end)}</strong>.</p>
                 <section className='gh-portal-input-section'>
                     <div className='gh-portal-input-labelcontainer'>
-                        <label className='gh-portal-input-label'>Cancellation reason</label>
+                        <label className='gh-portal-input-label'>{t(['planconfirmationsection.cancellation_reason', 'Cancellation reason'])}</label>
                     </div>
                     <textarea
                         className='gh-portal-input'
                         key='cancellation_reason'
-                        label='Cancellation reason'
+                        label={t(['planconfirmationsection.cancellation_reason', 'Cancellation reason'])}
                         type='text'
                         name='cancellation_reason'
                         placeholder=''
@@ -219,6 +227,7 @@ const ChangePlanSection = ({plans, selectedPlan, member, action, brandColor, onP
 const UpgradePlanSection = ({
     plans, selectedPlan, action, brandColor, onPlanSelect, onPlanCheckout
 }) => {
+    const { t } = useTranslation();
     const isRunning = ['checkoutPlan:running'].includes(action);
     let singlePlanClass = '';
     if (plans.length === 1) {
@@ -239,7 +248,7 @@ const UpgradePlanSection = ({
                 isRunning={isRunning}
                 isPrimary={true}
                 brandColor={brandColor}
-                label={'Continue'}
+                label={t(['continue', 'Continue'])}
                 style={{height: '40px', width: '100%', marginTop: '24px'}}
             />
         </section>

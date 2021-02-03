@@ -1,4 +1,5 @@
 import CalculateDiscount from './discount';
+// import { useTranslation } from 'react-i18next';
 
 export function removePortalLinkFromUrl() {
     const [path] = window.location.hash.substr(1).split('?');
@@ -107,6 +108,7 @@ export function capitalize(str) {
 }
 
 export function getSitePlans({site = {}, includeFree = true, pageQuery} = {}) {
+    //const { t } = useTranslation();
     const {
         plans,
         allow_self_signup: allowSelfSignup,
@@ -126,12 +128,14 @@ export function getSitePlans({site = {}, includeFree = true, pageQuery} = {}) {
             price: plans.monthly,
             currency: plans.currency_symbol,
             name: 'Monthly'
+            // name: t(['monthly','Monthly'])
         },
         {
             type: 'year',
             price: plans.yearly,
             currency: plans.currency_symbol,
             name: 'Yearly',
+            // name: t(['yearly','Yearly'])
             discount
         }
     ];
@@ -142,6 +146,7 @@ export function getSitePlans({site = {}, includeFree = true, pageQuery} = {}) {
             price: 0,
             currency: plans.currency_symbol,
             name: 'Free'
+            // name: t(['free','Free'])
         });
     }
     const showOnlyFree = pageQuery === 'free' && hasPlan({site, plan: 'free'});

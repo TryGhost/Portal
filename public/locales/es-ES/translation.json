@@ -1,0 +1,143 @@
+{
+  "signin": {
+    "signin": "Entrar",
+    "sending_login_link": "Enviando enlace de validación",
+    "dont_have_account": "¿No tienes cuenta?",
+    "login_to": "Validate en"
+  },
+  "signup": {
+    "signup": "Registro",
+    "already_a_member": "¿Ya eres miembro?"
+  },
+  "input_field": {
+    "email": "Correo electrónico",
+    "name": "Nombre"
+  },
+  "submit_button": {
+    "continue": "Continuar",
+    "signup": "Registrarse"
+  },
+  "plan": {
+    "plan": "Plan",
+    "change": "Cambiar de plan",
+    "choose": "Selecciona un plan",
+    "current_plan": "Plan actual",
+    "full_access": "Acceso completo",
+    "free": {
+      "feature": "Acceso gratuíto de prueba"
+    },
+    "montly": {
+      "feature": "NOT USED BUT SHOULD?"
+    },
+    "complementary": {
+      "feature": "NOT USED BUT SHOULD?"
+    },
+    "yearly": {
+      "feature": "NOT USED BUT SHOULD?"
+    }
+  },
+  "popup_notification_text": {
+    "1": "Ocurrió un error inesperado. Por favor, inténtelo de nuevo",
+    "2": "contacte a soporte",
+    "3": "si el error se mantiene."
+  },
+  "actions": {
+    "signout_catch_message": "Fallo cerrando sesión, inténtelo de nuevo",
+    "signin_catch_message": "Fallo en la validación, inténtelo de nuevo",
+    "signup_catch_message": "Fallo en el registro, inténtelo de nuevo",
+    "checkoutplan_catch_message": "Fallo en el proceso de su solicitud, inténtelo de nuevo",
+    "updatesubscription_message": "Plan de subscripción actualizado correctamente",
+    "updatesubscription_catch_message": "Fallo actualizando su suscripción, inténtelo de nuevo",
+    "cancelsubscription_catch_message": "Fallo cancelando su suscripción, inténtelo de nuevo",
+    "editbilling_catch_message": "Fallo actualizando sus datos de facturación, inténtelo de nuevo",
+    "updatenewsletter_error": "Fallo actualizando el newsletter",
+    "updatenewsletter_catch_message": "Fallo actualizando los ajustes del newsletter",
+    "updatenewsletter_message": "Ajustes de newsletter actualizadas correctamente",
+    "updatememberdata_error": "Fallo actualizando datos de membresía",
+    "updateprofile_check_email": "Chequea tu bandeja de entrada para comprobar la actualización de correo electrónico",
+    "updateprofile_failed_update": "Fallo al actualizar los datos de la cuenta",
+    "updateprofile_failed_send_verification_email": "Fallo al enviar el correo electrónico de verificación",
+    "updateprofile_failed_details_update": "Fallo al actualizar los detalles de la cuenta",
+    "updateprofile_details_success": "Los detalles de la cuenta se actualizaron correctamente"
+  },
+  "app": {
+    "fetchnotificationdata_billing_message": "Información de facturación actualizada correctamente"
+  },
+  "popupmodal": {
+    "signup_cookie_banner_text": "Debe permitir cookies en su navegador para poder registrarse",
+    "signin_cookie_banner_text": "Debe permitir cookies en su navegador para poder validarse",
+    "default_cookie_banner_text": "Debe permitir cookies en su navegador"
+  },
+  "notification": {
+    "signin_success_1": "Bienvenido de nuevo",
+    "signin_success_2": "Te has validado correctamente.",
+    "signin_error": "Ha sido imposible validarte. El enlace de validación ha caducado.",
+    "click_to_retry": "Haz click aquí para intentarlo de nuevo.",
+    "signup_success": "Te he registrado correctamente en",
+    "updateemail_success": "¡Perfecto! Hemos actualizado tu correo electrónico",
+    "updateemail_error": "No hemos podido actualizar tu correo electrónico. Enlace inválido",
+    "signup_error": "Error en el registro. Enlace inválido",
+    "stripe_checkout_success_member": "¡Perfecto! Tu cuenta está completamente operativa, tienes acceso a todo el contenido.",
+    "stripe_checkout_success": "¡Perfecto! Busca en tu bandeja de entrada el correo electrónico con el enlace mágico de validación.",
+    "stripe_checkout_warning_member": "El cambio de plan ha sido cancelado.",
+    "stripe_checkout_warning": "La actualización de plan ha sido cancelada."
+  },
+  "invite_only": "El acceso a este sitio es por invitación, solicita acceso al webmaster.",
+  "sending": "Sending",
+  "retry": "Reintentar",
+  "free": "Libre",
+  "monthly": "Mensual",
+  "yearly": "Anual",
+  "back": "Volver",
+  "close": "Cerrar",
+  "signout": "Salir",
+  "contact_support": "Contactar a soporte",
+  "your_account": "Tu cuenta",
+  "complimentary": "Complemtario",
+  "change": "Cambiar",
+  "update": "Actualizar",
+  "billing_info": "Información de facturación",
+  "subscribed": "Dado de alta",
+  "unsubscribed": "Dado de baja",
+  "account": "Cuenta",
+  "edit": "Editar",
+  "email_newsletter": "Newsletter por correo electrónico",
+  "view_plans": "Ver planes",
+  "accountwelcome": {
+    "paid": "Tu subscripción se renovará en",
+    "free": "Ahora mismo tienes una cuenta gratuíta, actualizate a una cuenta de pago para tener acceso a todos los contenidos."
+  },
+  "cancel_subscription": "Cancelar subscripción",
+  "continue_subscription": "Mantener subscripción",
+  "subscription_expire": "Tu subscripción expirará el",
+  "subscribe": "Subscribirse",
+  "confirm": "Confirmar",
+  "price": "Precio",
+  "discount": "Descuento",
+  "planconfirmationsection": {
+    "if_you_cancel": "Si cancela ahora su subscripción, seguirá teniendo acceso a la misma hasta",
+    "cancellation_reason": "Motivo de cancelación"
+  },
+  "continue": "Continuar",
+  "save": "Salvar",
+  "delete_account": "Borrar cuenta",
+  "account_settings": "Ajustes de la cuenta",
+  "loading": "Cargando",
+  "magiclinkpage": {
+    "renderformheader_1": "¡Te hemos enviado un enlace mágico de validación!",
+    "renderformheader_2": "Si el correo electrónico no te llega en 3 minutos, chequea en tu carpeta de spam",
+    "back_to_login": "Volver a la validación"
+  },
+  "form": {
+    "enter_your_name": "Introduzca su nombre",
+    "enter_your_email": "Introduzca su correo electrónico",
+    "please_enter": "Por favor, introduzca",
+    "invalid_email": "Dirección de correo electrónico inválida"
+  },
+  "handledataattributes": {
+    "error_sending_email": "Error enviando el correo electrónico, por favor inténtelo de nuevo",
+    "error_no_stripe_checkout_session": "No se pudo crear sesión de checkout en Stripe",
+    "error_canceling_subscription": "Error cancelando su subscripción, por favor inténtelo de nuevo",
+    "error_continuing_subscription": "Error continuando su subscripción, por favor inténtelo de nuevo"
+  }
+}

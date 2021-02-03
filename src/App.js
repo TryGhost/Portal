@@ -10,6 +10,8 @@ import ActionHandler from './actions';
 import './App.css';
 import NotificationParser from './utils/notifications';
 import {capitalize, createPopupNotification, getFirstpromoterId, getSiteDomain, hasPlan, isComplimentaryMember, removePortalLinkFromUrl} from './utils/helpers';
+//import { useTranslation } from 'react-i18next';
+
 const React = require('react');
 
 const DEV_MODE_DATA = {
@@ -215,12 +217,14 @@ export default class App extends React.Component {
     }
 
     fetchNotificationData() {
+        //const { t } = useTranslation();
         const {type, status, duration, autoHide, closeable} = NotificationParser({billingOnly: true}) || {};
         if (['stripe:billing-update'].includes(type)) {
             if (status === 'success') {
                 const popupNotification = createPopupNotification({
                     type, status, duration, closeable, autoHide, state: this.state,
                     message: status === 'success' ? 'Billing info updated successfully' : ''
+                    //message: status === 'success' ? t(['app.fetchnotificationdata_billing_message', 'Billing info updated successfully']) : ''
                 });
                 return {
                     showPopup: true,

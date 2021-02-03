@@ -1,5 +1,6 @@
 import React from 'react';
 import {isCookiesDisabled} from '../../utils/helpers';
+import { useTranslation } from 'react-i18next';
 
 export const PlanSectionStyles = `
     .gh-portal-plans-container {
@@ -251,6 +252,7 @@ function PriceLabel({currency, price}) {
 }
 
 function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
+    const { t } = useTranslation();
     const hasMonthlyPlan = plans.some(({name}) => {
         return name === 'Monthly';
     });
@@ -261,15 +263,15 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
         let displayName = '';
         switch (name) {
         case 'Free':
-            planDetails.feature = 'Free preview';
+            planDetails.feature = t(['plan.free.feature', 'Free preview']);
             break;
         case 'Monthly':
         case 'Complimentary':
-            planDetails.feature = 'Full access';
+            planDetails.feature = t(['plan.full_access', 'Full access']);
             break;
         case 'Yearly':
             displayName = 'Annually';
-            planDetails.feature = ((hasMonthlyPlan && discount > 0) ? (discount + '% discount') : 'Full access');
+            planDetails.feature = ((hasMonthlyPlan && discount > 0) ? (discount + '% ' + t(['discount', 'discount'])) : t(['plan.full_access', 'Full access']));
             break;
 
         default:
@@ -284,7 +286,7 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
                     <div className='gh-portal-plan-feature'>
                         {planDetails.feature}
                     </div>
-                    {(changePlan && selectedPlan === name ? <span className='gh-portal-plan-current'>Current plan</span> : '')}
+                    {(changePlan && selectedPlan === name ? <span className='gh-portal-plan-current'>t(['plan.current_plan', 'Current plan'])</span> : '')}
                 </div>
             </div>
         );
@@ -292,11 +294,12 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
 }
 
 function PlanLabel({showLabel}) {
+    const { t } = useTranslation();
     if (!showLabel) {
         return null;
     }
     return (
-        <label className='gh-portal-input-label'>Plan</label>
+        <label className='gh-portal-input-label'>{t(['plan.plan', 'Plan'])}</label>
     );
 }
 
@@ -307,7 +310,7 @@ function PlansSection({plans, showLabel = true, type, selectedPlan, onPlanSelect
     const cookiesDisabled = isCookiesDisabled();
     if (cookiesDisabled) {
         onPlanSelect = (e, name) => {};
-    } 
+    }
     return (
         <section>
             <PlanLabel showLabel={showLabel} />

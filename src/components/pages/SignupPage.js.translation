@@ -7,7 +7,7 @@ import {ValidateInputForm} from '../../utils/form';
 import CalculateDiscount from '../../utils/discount';
 import {getSitePlans, hasOnlyFreePlan} from '../../utils/helpers';
 import {ReactComponent as InvitationIcon} from '../../images/icons/invitation.svg';
-import { withTranslation } from 'react-i18next';
+import { Translation } from 'react-i18next';
 
 const React = require('react');
 
@@ -254,7 +254,6 @@ class SignupPage extends React.Component {
     }
 
     getPlans() {
-        const { t } = this.props;
         const {
             plans,
             allow_self_signup: allowSelfSignup,
@@ -269,13 +268,13 @@ class SignupPage extends React.Component {
                 type: 'month',
                 price: plans.monthly,
                 currency: plans.currency_symbol,
-                name: t(['monthly', 'Monthly'])
+                name: 'Monthly'
             },
             {
                 type: 'year',
                 price: plans.yearly,
                 currency: plans.currency_symbol,
-                name: t(['yearly', 'Yearly']),
+                name: 'Yearly',
                 discount
             }
         ];
@@ -296,7 +295,6 @@ class SignupPage extends React.Component {
     }
 
     getInputFields({state, fieldNames}) {
-        const { t } = this.props;
         const {portal_name: portalName} = this.context.site;
 
         const errors = state.errors || {};
@@ -305,7 +303,7 @@ class SignupPage extends React.Component {
                 type: 'email',
                 value: state.email,
                 placeholder: 'jamie@example.com',
-                label: t(['input_field.email', 'Email']),
+                label: 'Email',
                 name: 'email',
                 required: true,
                 tabindex: 2,
@@ -319,7 +317,7 @@ class SignupPage extends React.Component {
                 type: 'text',
                 value: state.name,
                 placeholder: 'Jamie Larson',
-                label: t(['input_field.name', 'Name']),
+                label: 'Name',
                 name: 'name',
                 required: true,
                 tabindex: 1,
@@ -336,25 +334,25 @@ class SignupPage extends React.Component {
 
     renderSubmitButton() {
         const {action, site, brandColor, pageQuery} = this.context;
-        const { t } = this.props;
+
         const availablePlans = getSitePlans({site, pageQuery});
         if (availablePlans.length === 0) {
             return null;
         }
 
-        let label = t(['submit_button.continue', 'Continue']);
+        let label = 'Continue';
         if (hasOnlyFreePlan({site})) {
-            label = t(['submit_button.signup', 'Sign up']);
+            label = 'Sign up';
         }
 
         let isRunning = false;
         if (action === 'signup:running') {
-            label = t(['sending', 'Sending']) + '...';
+            label = 'Sending...';
             isRunning = true;
         }
         let retry = false;
         if (action === 'signup:failed') {
-            label = t(['retry', 'Retry']);
+            label = 'Retry';
             retry = true;
         }
 
@@ -388,35 +386,44 @@ class SignupPage extends React.Component {
     }
 
     renderLoginMessage() {
-        const { t } = this.props;
         const {brandColor, onAction} = this.context;
         const underline = (brandColor === '#1d1d1d') ? '0 1px 0 0 rgba(29, 29, 29, 0.35)' : '';
         return (
-            <div className='gh-portal-signup-message'>
-                <div>{t(['signup.already_a_member', 'Already a member?'])}</div>
-                <button
-                    className='gh-portal-btn gh-portal-btn-link'
-                    style={{color: brandColor}}
-                    onClick={() => onAction('switchPage', {page: 'signin'})}
-                >
-                    <span style={{boxShadow: underline}}>{t(['signin.signin', 'Sign in'])}</span>
-                </button>
-            </div>
+            <Translation>
+            {
+                (t, { i18n }) =>
+                <div className='gh-portal-signup-message'>
+                    <div>{t(['signup.already_a_member', 'Already a member?'])}</div>
+                    <button
+                        className='gh-portal-btn gh-portal-btn-link'
+                        style={{color: brandColor}}
+                        onClick={() => onAction('switchPage', {page: 'signin'})}
+                    >
+                        <span style={{boxShadow: underline}}>{t(['signin.signin', 'Sign in'])}</span>
+                    </button>
+                </div>
+            }
+            </Translation>
         );
     }
 
     renderForm() {
-        const { t } = this.props;
         const fields = this.getInputFields({state: this.state});
         const {site, pageQuery} = this.context;
         const availablePlans = getSitePlans({site, pageQuery});
-        if (availablePlans.length === 0) {
+        //if (availablePlans.length === 0) {
+        if (true) {
             return (
-                <section>
-                    <div className='gh-portal-section'>
-                        <p className='gh-portal-invite-only-notification'>{t(['invite_only', 'This site is invite-only, contact the owner for access.'])}</p>
-                    </div>
-                </section>
+                <Translation>
+                {
+                    (t, { i18n }) =>
+                    <section>
+                        <div className='gh-portal-section'>
+                            <p className='gh-portal-invite-only-notification'>{t(['invite_only', 'This site is invite-only, contact the owner for access.'])}</p>
+                        </div>
+                    </section>
+                }
+                </Translation>
             );
         }
         return (
@@ -501,4 +508,4 @@ class SignupPage extends React.Component {
     }
 }
 
-export default withTranslation() (SignupPage);
+export default SignupPage;
