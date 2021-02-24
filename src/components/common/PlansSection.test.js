@@ -7,8 +7,8 @@ const setup = (overrides = {}) => {
     const props = {
         plans: [
             {type: 'free', price: 'Decide later', name: 'Free'},
-            {type: 'month', price: 12, currencySymbol: '$', name: 'Monthly'},
-            {type: 'year', price: 110, currencySymbol: '$', name: 'Yearly'}
+            {type: 'month', price: 12, currency_symbol: '$', name: 'Monthly'},
+            {type: 'year', price: 110, currency_symbol: '$', name: 'Yearly'}
         ],
         selectedPlan: 'Monthly',
         onPlanSelect: mockOnPlanSelectFn
