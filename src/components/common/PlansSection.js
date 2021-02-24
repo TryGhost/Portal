@@ -241,10 +241,10 @@ function Checkbox({name, onPlanSelect, isChecked, disabled}) {
     );
 }
 
-function PriceLabel({currency_symbol, price}) {
+function PriceLabel({currencySymbol, price}) {
     return (
         <div className='gh-portal-plan-pricelabel'>
-            <span className='gh-portal-plan-currency'>{currency_symbol}</span>
+            <span className='gh-portal-plan-currency'>{currencySymbol}</span>
             <span className='gh-portal-plan-price'>{price}</span>
         </div>
     );
@@ -254,7 +254,7 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
     const hasMonthlyPlan = plans.some(({name}) => {
         return name === 'Monthly';
     });
-    return plans.map(({name, currency_symbol, price, discount}, i) => {
+    return plans.map(({name, currency_symbol: currencySymbol, price, discount}, i) => {
         const isChecked = selectedPlan === name;
         const classes = (isChecked ? 'gh-portal-plan-section checked' : 'gh-portal-plan-section');
         const planDetails = {};
@@ -279,7 +279,7 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
             <div className={classes} key={name} onClick={e => onPlanSelect(e, name)}>
                 <Checkbox name={name} isChecked={isChecked} onPlanSelect={onPlanSelect} />
                 <h4 className='gh-portal-plan-name'>{displayName || name}</h4>
-                <PriceLabel name={name} currency={currency_symbol} price={price} />
+                <PriceLabel name={name} currencySymbol={currencySymbol} price={price} />
                 <div className='gh-portal-plan-featurewrapper'>
                     <div className='gh-portal-plan-feature'>
                         {planDetails.feature}
