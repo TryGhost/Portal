@@ -242,7 +242,7 @@ function Checkbox({name, onPlanSelect, isChecked, disabled}) {
 }
 
 function PriceLabel({currencySymbol, price}) {
-    const isSymbol = currencySymbol && currencySymbol.length !== 3;
+    const isSymbol = currencySymbol.length !== 3;
     const currencyClass = isSymbol ? 'gh-portal-plan-currency gh-portal-plan-currency-symbol' : 'gh-portal-plan-currency gh-portal-plan-currency-code';
     return (
         <div className='gh-portal-plan-pricelabel'>
