@@ -6,7 +6,7 @@ const setup = (overrides = {}) => {
     const mockOnPlanSelectFn = jest.fn();
     const props = {
         plans: [
-            {type: 'free', price: 'Decide later', name: 'Free'},
+            {type: 'free', price: 'Decide later', currencySymbol: '$', name: 'Free'},
             {type: 'month', price: 12, currencySymbol: '$', name: 'Monthly'},
             {type: 'year', price: 110, currencySymbol: '$', name: 'Yearly'}
         ],
