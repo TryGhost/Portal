@@ -214,7 +214,7 @@ export const PlanSectionStyles = `
 
     .gh-portal-plans-container.hide-checkbox .gh-portal-plan-section {
         padding-top: 12px;
-        padding-bottom: 20px;
+        padding-bottom: 12px;
     }
 
     .gh-portal-plan-current {
@@ -280,6 +280,15 @@ export const PlanSectionStyles = `
 
     .gh-portal-plans-container.vertical .gh-portal-plan-section:last-of-type::before {
         border-radius: 0 0 5px 5px;
+    }
+
+    .gh-portal-plans-container.vertical.hide-checkbox .gh-portal-plan-section {
+        grid-template-columns: auto auto;
+    }
+
+    .gh-portal-plans-container.vertical .gh-portal-plan-pricelabel {
+        grid-column: 2 / 3;
+        grid-row: 1 / 3;
     }
 `;
 
@@ -381,7 +390,7 @@ function PlansSection({plans, showLabel = true, type, selectedPlan, onPlanSelect
     return (
         <section>
             <PlanLabel showLabel={showLabel} />
-            <div className={'gh-portal-plans-container' + (changePlan ? ' hide-checkbox' : '') + (cookiesDisabled ? ' disabled' : '') + (plans.length > 3 ? ' vertical' : '')}>
+            <div className={'gh-portal-plans-container' + (changePlan ? ' hide-checkbox' : '') + (cookiesDisabled ? ' disabled' : '') + (plans.length > 3 || changePlan ? ' vertical' : '')}>
                 <PlanOptions plans={plans} onPlanSelect={onPlanSelect} selectedPlan={selectedPlan} changePlan={changePlan} />
             </div>
         </section>

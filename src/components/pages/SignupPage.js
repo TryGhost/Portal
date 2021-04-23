@@ -89,7 +89,7 @@ export const SignupPageStyles = `
 
     .gh-portal-content.signup,
     .gh-portal-content.signin {
-        max-height: calc(100vh - 12vw - 132px);
+        max-height: calc(100vh - 12vw - 140px);
         padding-bottom: 0;
     }
 

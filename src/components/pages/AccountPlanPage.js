@@ -3,7 +3,7 @@ import AppContext from '../../AppContext';
 import ActionButton from '../common/ActionButton';
 import CloseButton from '../common/CloseButton';
 import BackButton from '../common/BackButton';
-import PlansSection from '../common/PlansSection';
+import PlansSection from '../common/ProductsSection';
 import {getDateString} from '../../utils/date-time';
 import {formatNumber, getMemberActivePlan, getMemberSubscription, getPlanFromSubscription, getSitePlans, getSubscriptionFromId, isPaidMember} from '../../utils/helpers';
 

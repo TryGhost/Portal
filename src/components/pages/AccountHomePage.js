@@ -94,6 +94,10 @@ export const AccountHomePageStyles = `
         opacity: 0.6;
     }
 
+    .gh-portal-products:hover {
+        cursor: pointer;
+    }
+
     .gh-portal-product-icon {
         width: 52px;
         margin-right: 12px;
@@ -219,7 +223,7 @@ const ProductList = ({member, site, openUpdatePlan, onEditBilling}) => {
     return (
         <>
             <h4 className="gh-portal-list-header">Products</h4>
-            <div className="gh-portal-list gh-portal-products">
+            <div className="gh-portal-list gh-portal-products" onClick={e => openUpdatePlan(e)}>
                 <section>
                     <img className="gh-portal-product-icon" src="https://pbs.twimg.com/profile_images/1111773508231667713/mf2N0uqc_400x400.png" alt="Product name" />
                     <div className="gh-portal-list-detail">
@@ -264,7 +268,7 @@ const AccountActions = ({member, site, action, openEditProfile, openUpdatePlan, 
                 </section>
             </div>
             
-            <ProductList></ProductList>
+            <ProductList openUpdatePlan={openUpdatePlan}></ProductList>
         </div>
     );
 };
