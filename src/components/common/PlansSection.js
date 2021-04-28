@@ -294,6 +294,10 @@ export const PlanSectionStyles = `
     .gh-portal-plans-container.vertical.hide-checkbox .gh-portal-plan-featurewrapper {
         grid-column: 1 / 2;
     }
+
+    .gh-portal-plans-container.vertical .gh-portal-plan-name.no-description {
+        grid-row: 1 / 3;
+    }
 `;
 
 function Checkbox({name, onPlanSelect, isChecked, disabled}) {
@@ -358,10 +362,13 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
         default:
             break;
         }
+
+        const planNameClass = planDetails.feature ? 'gh-portal-plan-name' : 'gh-portal-plan-name no-description';
+
         return (
             <div className={classes} key={name} onClick={e => onPlanSelect(e, name)}>
                 <Checkbox name={name} isChecked={isChecked} onPlanSelect={onPlanSelect} />
-                <h4 className='gh-portal-plan-name'>{displayName || name}</h4>
+                <h4 className={planNameClass}>{displayName || name}</h4>
                 <PriceLabel name={name} currencySymbol={currencySymbol} price={price} />
                 <div className='gh-portal-plan-featurewrapper'>
                     <div className='gh-portal-plan-feature'>
