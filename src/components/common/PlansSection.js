@@ -300,7 +300,7 @@ export const PlanSectionStyles = `
     }
 `;
 
-function Checkbox({name, onPlanSelect, isChecked, disabled}) {
+function Checkbox({name, id, onPlanSelect, isChecked, disabled}) {
     if (isCookiesDisabled()) {
         disabled = true;
     }
@@ -308,11 +308,11 @@ function Checkbox({name, onPlanSelect, isChecked, disabled}) {
         <div className='gh-portal-plan-checkbox'>
             <input
                 name={name}
-                key={name}
+                key={id}
                 type="checkbox"
                 checked={isChecked}
                 aria-label={name}
-                onChange={e => onPlanSelect(e, name)}
+                onChange={e => onPlanSelect(e, id)}
                 disabled={disabled}
             />
             <span className='checkmark'></span>
@@ -335,8 +335,8 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
     const hasMonthlyPlan = plans.some(({name}) => {
         return name === 'Monthly';
     });
-    return plans.map(({name, currency_symbol: currencySymbol, price, discount}, i) => {
-        const isChecked = selectedPlan === name;
+    return plans.map(({name, currency_symbol: currencySymbol, price, discount, id}, i) => {
+        const isChecked = selectedPlan === (id || name);
         const classes = (isChecked ? 'gh-portal-plan-section checked' : 'gh-portal-plan-section');
         const planDetails = {};
         let displayName = '';
@@ -352,14 +352,8 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
             displayName = 'Annually';
             planDetails.feature = ((hasMonthlyPlan && discount > 0) ? (discount + '% discount') : 'Full access');
             break;
-
-        // TODO: mock!
-        case 'Custom':
-            displayName = 'Custom';
-            planDetails.feature = ((hasMonthlyPlan && discount > 0) ? (discount + '% discount') : 'Full access');
-            break;
-
         default:
+            planDetails.feature = ((hasMonthlyPlan && discount > 0) ? (discount + '% discount') : 'Full access');
             break;
         }
 
@@ -374,7 +368,7 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
                     <div className='gh-portal-plan-feature'>
                         {planDetails.feature}
                     </div>
-                    {(changePlan && selectedPlan === name ? <span className='gh-portal-plan-current'>Current plan</span> : '')}
+                    {(changePlan && selectedPlan === id ? <span className='gh-portal-plan-current'>Current plan</span> : '')}
                 </div>
             </div>
         );
