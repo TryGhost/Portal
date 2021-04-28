@@ -2,7 +2,6 @@ import ActionButton from '../common/ActionButton';
 import CloseButton from '../common/CloseButton';
 import AppContext from '../../AppContext';
 import PlansSection from '../common/PlansSection';
-import ProductsSection from '../common/ProductsSection';
 import InputForm from '../common/InputForm';
 import {ValidateInputForm} from '../../utils/form';
 import CalculateDiscount from '../../utils/discount';
@@ -394,7 +393,7 @@ class SignupPage extends React.Component {
         const plansData = getSitePlans({site, pageQuery});
         return (
             <>
-                <ProductsSection
+                <PlansSection
                     plans={plansData}
                     selectedPlan={this.state.plan}
                     onPlanSelect={(e, name) => this.handleSelectPlan(e, name)}
