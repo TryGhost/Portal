@@ -10,6 +10,8 @@ import ActionHandler from './actions';
 import './App.css';
 import NotificationParser from './utils/notifications';
 import {capitalize, createPopupNotification, getCurrencySymbol, getFirstpromoterId, getSiteDomain, hasPlan, isComplimentaryMember, removePortalLinkFromUrl} from './utils/helpers';
+
+const handleDataAttributes = require('./data-attributes');
 const React = require('react');
 
 const DEV_MODE_DATA = {
@@ -48,6 +50,16 @@ export default class App extends React.Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevState.showPopup !== this.state.showPopup) {
             this.handleCustomTriggerClassUpdate();
+        }
+
+        if (this.state.initStatus === 'success' && prevState.initStatus !== this.state.initStatus) {
+            const {siteUrl} = this.props;
+            const contextState = this.getContextFromState();
+            handleDataAttributes({
+                siteUrl,
+                site: contextState.site,
+                member: contextState.member
+            });
         }
     }
 

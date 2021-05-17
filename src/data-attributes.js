@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-function handleDataAttributes({siteUrl}) {
+function handleDataAttributes({siteUrl, member}) {
     siteUrl = siteUrl.replace(/\/$/, '');
     Array.prototype.forEach.call(document.querySelectorAll('form[data-members-form]'), function (form) {
         let errorEl = form.querySelector('[data-members-error]');
@@ -79,6 +79,9 @@ function handleDataAttributes({siteUrl}) {
                 errorEl.innerText = '';
             }
             el.classList.add('loading');
+            const metadata = member ? {
+                checkoutType: 'upgrade'
+            } : {};
             fetch(`${siteUrl}/members/api/session`, {
                 credentials: 'same-origin'
             }).then(function (res) {
@@ -96,7 +99,8 @@ function handleDataAttributes({siteUrl}) {
                         plan: plan,
                         identity: identity,
                         successUrl: checkoutSuccessUrl,
-                        cancelUrl: checkoutCancelUrl
+                        cancelUrl: checkoutCancelUrl,
+                        metadata
                     })
                 }).then(function (res) {
                     if (!res.ok) {
