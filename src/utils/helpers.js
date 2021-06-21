@@ -162,8 +162,9 @@ export function getSiteProducts({site = {}}) {
 
 export function getAllProducts({site}) {
     const {portal_products: portalProducts} = site;
+    const siteProducts = getSiteProducts({site});
     const products = getSiteProducts({site}).filter((product) => {
-        if (portalProducts) {
+        if (portalProducts && siteProducts.length > 1) {
             return portalProducts.includes(product.id);
         }
         return true;
