@@ -119,21 +119,25 @@ export default class SigninPage extends React.Component {
     }
 
     renderSiteLogo() {
-        const siteLogo = this.context.site.icon;
+        
+        const {site} = this.context;
+        const siteLogo = site.icon;
 
         const logoStyle = {};
 
         if (siteLogo) {
             logoStyle.backgroundImage = `url(${siteLogo})`;
             return (
-                <img className='gh-portal-signup-logo' src={siteLogo} alt={this.context.site.title} />
+                <img className='gh-portal-signup-logo' src={siteLogo} alt={site.title} />
             );
         }
         return null;
     }
 
     renderFormHeader() {
-        const siteTitle = this.context.site.title || 'Site Title';
+        
+        const {site} = this.context;
+        const siteTitle = site.title || 'Site Title';
 
         return (
             <header className='gh-portal-signin-header'>
