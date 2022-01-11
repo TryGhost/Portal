@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import AppContext from '../../AppContext';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
 import calculateDiscount from '../../utils/discount';
-import {isCookiesDisabled, formatNumber, hasOnlyFreePlan, hasMultipleProductsFeature, getProductBenefits} from '../../utils/helpers';
+import {isCookiesDisabled, formatNumber, hasOnlyFreePlan, hasMultipleProductsFeature, getProductBenefits, getFreeTierDescription, getFreeTierTitle, getFreeProductBenefits} from '../../utils/helpers';
 import ProductsSection, {ChangeProductSection} from './ProductsSection';
 
 export const PlanSectionStyles = `
@@ -489,21 +489,28 @@ function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
     const {site} = useContext(AppContext);
     addDiscountToPlans(plans);
 
-    return plans.map(({name, currency_symbol: currencySymbol, amount, description, interval, id}) => {
+    return plans.map(({name, type, currency_symbol: currencySymbol, amount, description, interval, id}) => {
         const price = amount / 100;
         const isChecked = selectedPlan === id;
         const planDetails = {};
         let displayName = name;
-        switch (name) {
-        case 'Free':
-            displayName = name;
+        if (type === 'free') {
+            displayName = getFreeTierTitle({site});
             planDetails.feature = 'Free preview';
-            break;
-        default:
+        } else {
             displayName = interval === 'month' ? 'Monthly' : 'Yearly';
             planDetails.feature = description || 'Full access';
-            break;
         }
+        // switch (name) {
+        // case 'Free':
+        //     displayName = getFreeTierTitle({site});
+        //     planDetails.feature = 'Free preview';
+        //     break;
+        // default:
+        //     displayName = interval === 'month' ? 'Monthly' : 'Yearly';
+        //     planDetails.feature = description || 'Full access';
+        //     break;
+        // }
 
         let planClass = isChecked ? 'gh-portal-plan-section checked' : 'gh-portal-plan-section';
         const planNameClass = planDetails.feature ? 'gh-portal-plan-name' : 'gh-portal-plan-name no-description';
@@ -565,8 +572,8 @@ function PlanBenefits({product, plans, selectedPlan}) {
         planDescription = `Full access to ` + site.title;
     }
     if (selectedPlan === 'free') {
-        planBenefits = [];
-        planDescription = `Free preview of ` + site.title;
+        planBenefits = getFreeProductBenefits({site});
+        planDescription = getFreeTierDescription({site});
     } else if (plan?.interval === 'month') {
         planBenefits = productBenefits.monthly;
     } else if (plan?.interval === 'year') {
