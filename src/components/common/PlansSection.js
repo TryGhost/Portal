@@ -567,8 +567,8 @@ function PlanBenefits({product, plans, selectedPlan}) {
         return _plan.id === selectedPlan;
     });
     let planBenefits = [];
-    let planDescription = product.description;
-    if (!product.description) {
+    let planDescription = product?.description || '';
+    if (!product?.description) {
         planDescription = `Full access to ` + site.title;
     }
     if (selectedPlan === 'free') {
@@ -675,16 +675,23 @@ export function MultipleProductsPlansSection({products, selectedPlan, onPlanSele
 
 export function SingleProductPlansSection({product, plans, selectedPlan, onPlanSelect, changePlan = false}) {
     const {site} = useContext(AppContext);
-    if (!product || hasOnlyFreePlan({plans})) {
-        return null;
-    }
-
     const cookiesDisabled = isCookiesDisabled();
     /**Don't allow plans selection if cookies are disabled */
     if (cookiesDisabled) {
         onPlanSelect = () => {};
     }
     const className = getPlanClassNames({cookiesDisabled, changePlan, plans, site});
+
+    if (!product || hasOnlyFreePlan({plans})) {
+        return (
+            <section className="gh-portal-plans mt8">
+                <div className={className}>
+                    <PlanOptions plans={plans} onPlanSelect={onPlanSelect} selectedPlan={selectedPlan} changePlan={changePlan} />
+                </div>
+                <PlanBenefits product={product} plans={plans} selectedPlan={selectedPlan} />
+            </section>
+        );
+    }
 
     return (
         <section className="gh-portal-plans mt8">

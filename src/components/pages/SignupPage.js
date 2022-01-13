@@ -231,7 +231,7 @@ export const SignupPageStyles = `
 
     @media (min-width: 480px) and (max-width: 820px) {
         .gh-portal-powered.outside {
-            left: 50%; 
+            left: 50%;
             transform: translateX(-50%);
         }
 

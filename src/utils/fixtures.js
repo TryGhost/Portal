@@ -144,7 +144,12 @@ export function getProductsData({numOfProducts = 3} = {}) {
             numOfBenefits: 4
         })
     ];
-    return products.slice(0, numOfProducts);
+    const paidProducts = products.slice(0, numOfProducts);
+    const freeProduct = getFreeProduct({});
+    return [
+        ...paidProducts,
+        freeProduct
+    ];
 }
 
 function getProductData({
@@ -161,6 +166,22 @@ function getProductData({
         description,
         monthlyPrice,
         yearlyPrice,
+        type: 'paid',
+        benefits: getBenefits({numOfBenefits})
+    };
+}
+
+function getFreeProduct({
+    name = 'Free tier',
+    description = 'Free tier description',
+    id = `product_${objectId()}`,
+    numOfBenefits = 2
+}) {
+    return {
+        id: id,
+        name: name,
+        type: 'free',
+        description,
         benefits: getBenefits({numOfBenefits})
     };
 }
@@ -272,11 +293,11 @@ function getTestSite() {
 export const testSite = getTestSite();
 
 export const site = getSiteData({
-    products: getProductsData({numOfProducts: 1})
+    products: getProductsData({numOfProducts: 0})
 });
 
 export const offer = getOfferData({
-    tierId: site.products[0].id
+    tierId: site.products[0]?.id
 });
 
 export const member = {
