@@ -1,52 +1,53 @@
+/* eslint-disable no-unused-vars*/
 import {getFreeProduct, getMemberData, getOfferData, getPriceData, getProductData, getSiteData, getSubscriptionData, getTestSite} from './fixtures-generator';
 
 export const testSite = getTestSite();
 
 const products = [
-    getFreeProduct({
-        name: 'Free',
-        description: 'Free tier description',
-        numOfBenefits: 1
-    }),
-    getProductData({
-        name: 'Bronze',
-        description: 'Access to all members articles',
-        monthlyPrice: getPriceData({
-            interval: 'month',
-            amount: 700
-        }),
-        yearlyPrice: getPriceData({
-            interval: 'year',
-            amount: 7000
-        }),
-        numOfBenefits: 2
-    }),
-    getProductData({
-        name: 'Silver',
-        description: 'Access to all members articles and weekly podcast',
-        monthlyPrice: getPriceData({
-            interval: 'month',
-            amount: 1200
-        }),
-        yearlyPrice: getPriceData({
-            interval: 'year',
-            amount: 12000
-        }),
-        numOfBenefits: 3
-    }),
-    getProductData({
-        name: 'Friends of the Blueprint',
-        description: 'Get access to everything and lock in early adopter pricing for life + listen to my podcast',
-        monthlyPrice: getPriceData({
-            interval: 'month',
-            amount: 18000
-        }),
-        yearlyPrice: getPriceData({
-            interval: 'year',
-            amount: 17000
-        }),
-        numOfBenefits: 4
-    })
+    // getFreeProduct({
+    //     name: 'Free',
+    //     description: 'Free tier description',
+    //     numOfBenefits: 1
+    // }),
+    // getProductData({
+    //     name: 'Bronze',
+    //     description: 'Access to all members articles',
+    //     monthlyPrice: getPriceData({
+    //         interval: 'month',
+    //         amount: 700
+    //     }),
+    //     yearlyPrice: getPriceData({
+    //         interval: 'year',
+    //         amount: 7000
+    //     }),
+    //     numOfBenefits: 2
+    // }),
+    // getProductData({
+    //     name: 'Silver',
+    //     description: 'Access to all members articles and weekly podcast',
+    //     monthlyPrice: getPriceData({
+    //         interval: 'month',
+    //         amount: 1200
+    //     }),
+    //     yearlyPrice: getPriceData({
+    //         interval: 'year',
+    //         amount: 12000
+    //     }),
+    //     numOfBenefits: 3
+    // }),
+    // getProductData({
+    //     name: 'Friends of the Blueprint',
+    //     description: 'Get access to everything and lock in early adopter pricing for life + listen to my podcast',
+    //     monthlyPrice: getPriceData({
+    //         interval: 'month',
+    //         amount: 18000
+    //     }),
+    //     yearlyPrice: getPriceData({
+    //         interval: 'year',
+    //         amount: 17000
+    //     }),
+    //     numOfBenefits: 4
+    // })
 ];
 
 export const site = getSiteData({
@@ -62,7 +63,7 @@ export const site = getSiteData({
         currency: 'USD'
     },
     products,
-    portalProducts: products.filter(d => d.type === 'paid').map(p => p.id),
+    portalProducts: null,
     allowSelfSignup: true,
     membersSignupAccess: 'all',
     freePriceName: 'Free',
@@ -129,3 +130,4 @@ export const member = {
         ]
     })
 };
+/* eslint-enable no-unused-vars*/
