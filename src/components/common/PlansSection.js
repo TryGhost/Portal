@@ -2,7 +2,7 @@ import React, {useContext} from 'react';
 import AppContext from '../../AppContext';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
 import calculateDiscount from '../../utils/discount';
-import {isCookiesDisabled, formatNumber, hasOnlyFreePlan, hasMultipleProductsFeature, getProductBenefits, getFreeTierDescription, getFreeTierTitle, getFreeProductBenefits} from '../../utils/helpers';
+import {isCookiesDisabled, formatNumber, hasOnlyFreePlan, hasMultipleProductsFeature, getProductBenefits, getFreeTierDescription, getFreeTierTitle, getFreeProductBenefits, getProductFromPrice} from '../../utils/helpers';
 import ProductsSection, {ChangeProductSection} from './ProductsSection';
 
 export const PlanSectionStyles = `
@@ -604,7 +604,7 @@ function PlanBenefits({product, plans, selectedPlan}) {
 
     return (
         <div className={'gh-portal-singleproduct-benefits gh-portal-product-benefits ' + benefitsClass}>
-            {planDescription ? <div className='gh-portal-product-description'> {planDescription} </div> : ''} 
+            {planDescription ? <div className='gh-portal-product-description'> {planDescription} </div> : ''}
             {benefits}
         </div>
     );
@@ -619,8 +619,11 @@ function PlanLabel({showLabel}) {
     );
 }
 
-function productHasDescriptionOrBenefits() {
-    return true;
+function productHasDescriptionOrBenefits({product}) {
+    if (product?.description || product?.benefits?.length) {
+        return true;
+    }
+    return false;
 }
 
 function getPlanClassNames({changePlan, cookiesDisabled, plans = [], selectedPlan, showVertical = false, site}) {
@@ -636,8 +639,9 @@ function getPlanClassNames({changePlan, cookiesDisabled, plans = [], selectedPla
     }
     if (hasMultipleProductsFeature({site})) {
         className += ' has-multiple-products';
+        const selectedProduct = getProductFromPrice({site, priceId: selectedPlan});
 
-        if (!productHasDescriptionOrBenefits()) {
+        if (!productHasDescriptionOrBenefits({product: selectedProduct})) {
             className += ' empty-selected-benefits';
         }
 
