@@ -422,6 +422,11 @@ export const PlanSectionStyles = `
         border-radius: 0 0 5px 5px;
     }
 
+    .gh-portal-singleproduct-benefits.free {
+        border-top: 1px solid var(--grey11) !important;
+        border-radius: 5px;
+    }
+
     .gh-portal-singleproduct-benefits .gh-portal-product-benefit {
         padding: 0 8px;
     }
@@ -586,8 +591,8 @@ function PlanBenefits({product, plans, selectedPlan}) {
         );
     });
 
-    let benefitsClass = (selectedPlan === 'free') ? `no-benefits` : ``;
-    benefitsClass = benefits.length === 0 ? `no-benefits` : ``;
+    let benefitsClass = (selectedPlan === 'free') ? `free` : ``;
+    benefitsClass = benefits.length === 0 ? `${benefitsClass} no-benefits` : benefitsClass;
 
     return (
         <div className={'gh-portal-singleproduct-benefits gh-portal-product-benefits ' + benefitsClass}>
@@ -685,9 +690,6 @@ export function SingleProductPlansSection({product, plans, selectedPlan, onPlanS
     if (!product || hasOnlyFreePlan({plans})) {
         return (
             <section className="gh-portal-plans mt8">
-                <div className={className}>
-                    <PlanOptions plans={plans} onPlanSelect={onPlanSelect} selectedPlan={selectedPlan} changePlan={changePlan} />
-                </div>
                 <PlanBenefits product={product} plans={plans} selectedPlan={selectedPlan} />
             </section>
         );

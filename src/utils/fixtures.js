@@ -153,6 +153,7 @@ export function getProductsData({numOfProducts = 3} = {}) {
 }
 
 function getProductData({
+    type = 'paid',
     name = 'Basic',
     description = '',
     id = `product_${objectId()}`,
@@ -164,9 +165,9 @@ function getProductData({
         id: id,
         name: name,
         description,
-        monthlyPrice,
-        yearlyPrice,
-        type: 'paid',
+        monthlyPrice: type === 'free' ? null : monthlyPrice,
+        yearlyPrice: type === 'free' ? null : yearlyPrice,
+        type: type,
         benefits: getBenefits({numOfBenefits})
     };
 }
@@ -214,7 +215,7 @@ function getPriceData({
     currency = 'usd',
     active = true,
     id = `price_${objectId()}`
-}) {
+} = {}) {
     return {
         id: id,
         active,
@@ -293,7 +294,7 @@ function getTestSite() {
 export const testSite = getTestSite();
 
 export const site = getSiteData({
-    products: getProductsData({numOfProducts: 0})
+    products: [getProductData({numOfBenefits: 2, type: 'free'})]
 });
 
 export const offer = getOfferData({

@@ -563,7 +563,7 @@ class SignupPage extends React.Component {
 
         if (plansData.length <= 1 || isInviteOnlySite({site})) {
             if ((plansData.length === 1 && plansData[0].type === 'free') || isInviteOnlySite({site, pageQuery})) {
-                sectionClass = 'noplan';
+                sectionClass = 'singleplan';
                 if (fields.length === 1) {
                     sectionClass = 'single-field';
                 }
