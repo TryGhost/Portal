@@ -86,19 +86,7 @@ export const SignupPageStyles = `
         padding-top: 24px;
         height: unset;
     }
-
-    /* Needed to cover small horizontal line glitch by the scroll shadow */
-    footer.gh-portal-signup-footer::before {
-        position: absolute;
-        content: "";
-        top: -2px;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: #fff;
-        z-index: 9999;
-    }
-
+    
     .gh-portal-content.signup,
     .gh-portal-content.signin {
         max-height: unset !important;

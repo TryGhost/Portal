@@ -283,7 +283,7 @@ export function getFreeTierTitle({site}) {
 
 export function getFreeTierDescription({site}) {
     const freeProduct = getFreeProduct({site});
-    return freeProduct?.description || `Free preview of ${site?.title}`;
+    return freeProduct?.description;
 }
 
 export function getProductBenefits({product, site = null}) {

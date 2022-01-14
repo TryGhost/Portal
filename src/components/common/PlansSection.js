@@ -68,7 +68,7 @@ export const PlanSectionStyles = `
         margin-bottom: 2px;
     }
 
-    .gh-portal-plans-container.has-multiple-products .gh-portal-plan-section::before {
+    .gh-portal-plans-container.has-multiple-products:not(.empty-selected-benefits) .gh-portal-plan-section::before {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
@@ -371,7 +371,7 @@ export const PlanSectionStyles = `
         border: none;
     }
 
-    .gh-portal-plans-container.has-multiple-products {
+    .gh-portal-plans-container.has-multiple-products:not(.empty-selected-benefits) {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
@@ -422,9 +422,10 @@ export const PlanSectionStyles = `
         border-radius: 0 0 5px 5px;
     }
 
-    .gh-portal-singleproduct-benefits.free {
+    .gh-portal-singleproduct-benefits.onlyfree {
         border-top: 1px solid var(--grey11) !important;
         border-radius: 5px;
+        margin-top: 30px !important;
     }
 
     .gh-portal-singleproduct-benefits .gh-portal-product-benefit {
@@ -432,7 +433,11 @@ export const PlanSectionStyles = `
     }
 
     .gh-portal-singleproduct-benefits .gh-portal-product-benefit:last-of-type {
-        margin-bottom: 12px;
+        margin-bottom: 16px;
+    }
+
+    .gh-portal-singleproduct-benefits.onlyfree .gh-portal-product-benefit:last-of-type {
+        margin-bottom: 4px;
     }
 
     .gh-portal-singleproduct-benefits:not(.no-benefits) .gh-portal-product-description {
@@ -573,9 +578,6 @@ function PlanBenefits({product, plans, selectedPlan}) {
     });
     let planBenefits = [];
     let planDescription = product?.description || '';
-    if (!product?.description) {
-        planDescription = `Full access to ` + site.title;
-    }
     if (selectedPlan === 'free') {
         planBenefits = getFreeProductBenefits({site});
         planDescription = getFreeTierDescription({site});
@@ -591,12 +593,18 @@ function PlanBenefits({product, plans, selectedPlan}) {
         );
     });
 
-    let benefitsClass = (selectedPlan === 'free') ? `free` : ``;
-    benefitsClass = benefits.length === 0 ? `${benefitsClass} no-benefits` : benefitsClass;
+    if (!planDescription && benefits.length === 0) {
+        return '';
+    }
+
+    let benefitsClass = benefits.length === 0 ? `no-benefits` : '';
+    if (!product || hasOnlyFreePlan({plans})) {
+        benefitsClass += ' onlyfree';
+    }
 
     return (
         <div className={'gh-portal-singleproduct-benefits gh-portal-product-benefits ' + benefitsClass}>
-            <div className='gh-portal-product-description'> {planDescription} </div>
+            {planDescription ? <div className='gh-portal-product-description'> {planDescription} </div> : ''} 
             {benefits}
         </div>
     );
@@ -611,7 +619,11 @@ function PlanLabel({showLabel}) {
     );
 }
 
-function getPlanClassNames({changePlan, cookiesDisabled, plans = [], showVertical = false, site}) {
+function productHasDescriptionOrBenefits() {
+    return true;
+}
+
+function getPlanClassNames({changePlan, cookiesDisabled, plans = [], selectedPlan, showVertical = false, site}) {
     let className = 'gh-portal-plans-container';
     if (changePlan) {
         className += ' hide-checkbox';
@@ -624,6 +636,10 @@ function getPlanClassNames({changePlan, cookiesDisabled, plans = [], showVertica
     }
     if (hasMultipleProductsFeature({site})) {
         className += ' has-multiple-products';
+
+        if (!productHasDescriptionOrBenefits()) {
+            className += ' empty-selected-benefits';
+        }
 
         const filteredPlans = plans.filter(d => d.id !== 'free');
         const monthlyPlan = plans.find((d) => {
@@ -685,18 +701,18 @@ export function SingleProductPlansSection({product, plans, selectedPlan, onPlanS
     if (cookiesDisabled) {
         onPlanSelect = () => {};
     }
-    const className = getPlanClassNames({cookiesDisabled, changePlan, plans, site});
+    const className = getPlanClassNames({cookiesDisabled, changePlan, plans, selectedPlan, site});
 
     if (!product || hasOnlyFreePlan({plans})) {
         return (
-            <section className="gh-portal-plans mt8">
+            <section>
                 <PlanBenefits product={product} plans={plans} selectedPlan={selectedPlan} />
             </section>
         );
     }
 
     return (
-        <section className="gh-portal-plans mt8">
+        <section>
             <div className={className}>
                 <PlanOptions plans={plans} onPlanSelect={onPlanSelect} selectedPlan={selectedPlan} changePlan={changePlan} />
             </div>
@@ -774,7 +790,7 @@ function PlansSection({plans, showLabel = true, selectedPlan, onPlanSelect, chan
     if (cookiesDisabled) {
         onPlanSelect = () => {};
     }
-    const className = getPlanClassNames({cookiesDisabled, changePlan, plans, site});
+    const className = getPlanClassNames({cookiesDisabled, changePlan, plans, selectedPlan, site});
     return (
         <section className="gh-portal-plans">
             <PlanLabel showLabel={showLabel} />

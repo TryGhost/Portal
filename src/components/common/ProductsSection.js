@@ -659,6 +659,7 @@ function FreeProductCard() {
 
     const cardClass = selectedProduct === 'free' ? 'gh-portal-product-card free checked' : 'gh-portal-product-card free';
     const product = getFreeProduct({site});
+    const freeProductDescription = getFreeTierDescription({site});
     // Product cards are duplicated because their design is too different for mobile devices to handle it purely in CSS
     return (
         <>
@@ -672,7 +673,7 @@ function FreeProductCard() {
                         setSelectedProduct('free');
                     }} />
                     <h4 className="gh-portal-product-name">{getFreeTierTitle({site})}</h4>
-                    <div className="gh-portal-product-description">{getFreeTierDescription({site})}</div>
+                    {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
                     <ProductBenefitsContainer product={product} />
                 </div>
                 <div className="gh-portal-product-card-pricecontainer">
@@ -698,7 +699,7 @@ function FreeProductCard() {
                     <span className="amount">0</span>
                     <span className="billing-period">/{selectedInterval}</span>
                 </div>
-                <div className="gh-portal-product-description">{getFreeTierDescription({site})}</div>
+                {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
                 <ProductBenefitsContainer product={product} />
             </div>
         </>

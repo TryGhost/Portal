@@ -4,24 +4,28 @@ import {getFreeProduct, getMemberData, getOfferData, getPriceData, getProductDat
 export const testSite = getTestSite();
 
 const products = [
-    // getFreeProduct({
-    //     name: 'Free',
-    //     description: 'Free tier description',
-    //     numOfBenefits: 1
-    // }),
-    // getProductData({
-    //     name: 'Bronze',
-    //     description: 'Access to all members articles',
-    //     monthlyPrice: getPriceData({
-    //         interval: 'month',
-    //         amount: 700
-    //     }),
-    //     yearlyPrice: getPriceData({
-    //         interval: 'year',
-    //         amount: 7000
-    //     }),
-    //     numOfBenefits: 2
-    // }),
+    getFreeProduct({
+        name: 'Free',
+        // description: 'Free tier description which is actually a pretty long description',
+        description: '',
+        numOfBenefits: 0
+    })
+    ,
+    getProductData({
+        name: 'Bronze',
+        // description: 'Access to all members articles',
+        description: '',
+        monthlyPrice: getPriceData({
+            interval: 'month',
+            amount: 700
+        }),
+        yearlyPrice: getPriceData({
+            interval: 'year',
+            amount: 7000
+        }),
+        numOfBenefits: 2
+    })
+    // ,
     // getProductData({
     //     name: 'Silver',
     //     description: 'Access to all members articles and weekly podcast',
@@ -34,7 +38,8 @@ const products = [
     //         amount: 12000
     //     }),
     //     numOfBenefits: 3
-    // }),
+    // })
+    // ,
     // getProductData({
     //     name: 'Friends of the Blueprint',
     //     description: 'Get access to everything and lock in early adopter pricing for life + listen to my podcast',
@@ -62,8 +67,16 @@ export const site = getSiteData({
         yearly: 150000,
         currency: 'USD'
     },
+    
+    // Simulate pre-multiple-tiers state:
+    // products: [products.find(d => d.type === 'paid')],
+    // portalProducts: null,
+
+    // Simulate multiple-tiers state:
     products,
-    portalProducts: null,
+    portalProducts: products.map(p => p.id),
+
+    //
     allowSelfSignup: true,
     membersSignupAccess: 'all',
     freePriceName: 'Free',
