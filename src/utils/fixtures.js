@@ -6,7 +6,7 @@ const products = [
     getFreeProduct({
         name: 'Free',
         description: 'Free tier description',
-        numOfBenefits: 2
+        numOfBenefits: 1
     }),
     getProductData({
         name: 'Bronze',
