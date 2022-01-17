@@ -1,5 +1,3 @@
-// import calculateDiscount from './discount';
-
 export function removePortalLinkFromUrl() {
     const [path] = window.location.hash.substr(1).split('?');
     const linkRegex = /^\/portal\/?(?:\/(\w+(?:\/\w+)*))?\/?$/;
@@ -271,14 +269,10 @@ export function getSiteProducts({site}) {
 export function getFreeProductBenefits({site}) {
     const freeProduct = getFreeProduct({site});
     return freeProduct?.benefits || [];
-    // return [{
-    //     name: 'Access to free articles'
-    // }];
 }
 
 export function getFreeTierTitle({site}) {
-    const freeProduct = getFreeProduct({site});
-    return freeProduct?.name || 'Free';
+    return 'Free';
 }
 
 export function getFreeTierDescription({site}) {
