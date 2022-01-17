@@ -5,7 +5,7 @@ import PlansSection, {SingleProductPlansSection} from '../common/PlansSection';
 import ProductsSection from '../common/ProductsSection';
 import InputForm from '../common/InputForm';
 import {ValidateInputForm} from '../../utils/form';
-import {getSiteProducts, getSitePrices, hasMultipleProducts, hasOnlyFreePlan, isInviteOnlySite, getAvailableProducts, hasMultipleProductsFeature} from '../../utils/helpers';
+import {getSiteProducts, getSitePrices, hasMultipleProducts, hasOnlyFreePlan, isInviteOnlySite, getAvailableProducts, hasMultipleProductsFeature, freeHasBenefitsOrDescription} from '../../utils/helpers';
 import {ReactComponent as InvitationIcon} from '../../images/icons/invitation.svg';
 
 const React = require('react');
@@ -86,7 +86,7 @@ export const SignupPageStyles = `
         padding-top: 24px;
         height: unset;
     }
-    
+
     .gh-portal-content.signup,
     .gh-portal-content.signin {
         max-height: unset !important;
@@ -551,7 +551,7 @@ class SignupPage extends React.Component {
 
         if (plansData.length <= 1 || isInviteOnlySite({site})) {
             if ((plansData.length === 1 && plansData[0].type === 'free') || isInviteOnlySite({site, pageQuery})) {
-                sectionClass = 'singleplan';
+                sectionClass = freeHasBenefitsOrDescription({site}) ? 'singleplan' : 'noplan';
                 if (fields.length === 1) {
                     sectionClass = 'single-field';
                 }

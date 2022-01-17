@@ -286,6 +286,15 @@ export function getFreeTierDescription({site}) {
     return freeProduct?.description;
 }
 
+export function freeHasBenefitsOrDescription({site}) {
+    const freeProduct = getFreeProduct({site});
+
+    if (freeProduct?.description || freeProduct?.benefits?.length) {
+        return true;
+    }
+    return false;
+}
+
 export function getProductBenefits({product, site = null}) {
     if (product?.monthlyPrice && product?.yearlyPrice) {
         const productBenefits = product?.benefits || [];
