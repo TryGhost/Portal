@@ -28,6 +28,11 @@ function handleDataAttributes({siteUrl, site, member}) {
             if (form.dataset.membersForm) {
                 emailType = form.dataset.membersForm;
             }
+            
+            // Use the portal of an alternate Ghost site if specified
+            if (form.dataset.siteUrl) {
+                siteUrl = form.dataset.siteUrl;
+            }
 
             form.classList.add('loading');
             fetch(`${siteUrl}/members/api/send-magic-link/`, {
