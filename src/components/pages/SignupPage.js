@@ -166,14 +166,6 @@ export const SignupPageStyles = `
         background: #fff;
     }
 
-    .gh-portal-popup-wrapper.multiple-products .gh-portal-signin-header {
-        padding-top: 18vmin;
-    }
-
-    .gh-portal-popup-wrapper.signin.multiple-products .gh-portal-popup-container {
-        padding-bottom: 3vmin;
-    }
-
     .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signup-footer,
     .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signin-footer {
         width: 100%;
@@ -182,7 +174,6 @@ export const SignupPageStyles = `
         padding: 0 !important;
         margin: 24px 32px;
     }
-
 
     .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signin-footer {
         padding-top: 24px;

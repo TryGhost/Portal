@@ -814,15 +814,25 @@ const MultipleProductsGlobalStyles = `
     margin: 0 auto;
 }
 
+/* Multiple product signup/signin-only modifications! */
 .gh-portal-popup-wrapper.multiple-products {
-    margin: 32px;
-    height: calc(100vh - 64px) !important;
-    overflow-y: scroll;
-    overflow-x: clip;
     background: #fff;
     box-shadow: 0 3.8px 2.2px rgba(0, 0, 0, 0.028), 0 9.2px 5.3px rgba(0, 0, 0, 0.04), 0 17.3px 10px rgba(0, 0, 0, 0.05), 0 30.8px 17.9px rgba(0, 0, 0, 0.06), 0 57.7px 33.4px rgba(0, 0, 0, 0.072), 0 138px 80px rgba(0, 0, 0, 0.1);
     padding: 0;
     border-radius: 5px;
+    height: calc(100vh - 64px);
+}
+
+.gh-portal-popup-wrapper.multiple-products.signup {
+    overflow-y: scroll;
+    overflow-x: clip;
+    margin: 32px;
+}
+
+.gh-portal-popup-wrapper.multiple-products.signin {
+    margin: 12vmin auto;
+    max-width: 480px;
+    height: unset;
 }
 
 .gh-portal-popup-wrapper.multiple-products.preview {
@@ -830,13 +840,15 @@ const MultipleProductsGlobalStyles = `
 }
 
 .gh-portal-popup-wrapper.multiple-products .gh-portal-popup-container {
-    position: unset;
     align-items: center;
     width: 100% !important;
     box-shadow: none !important;
-    border-radius: 0px;
     animation: fadein 0.35s ease-in-out;
-    padding: 3vmin 0;
+    padding: 1vmin 0;
+}
+
+.gh-portal-popup-wrapper.multiple-products.signup .gh-portal-popup-container {
+    position: unset;
 }
 
 .gh-portal-popup-wrapper.multiple-products .gh-portal-powered {
