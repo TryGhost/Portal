@@ -866,7 +866,7 @@ const MultipleProductsGlobalStyles = `
 }
 
 @media (max-width: 960px) {
-    .gh-portal-popup-wrapper.multiple-products.signup {
+    .gh-portal-popup-wrapper.multiple-products.signup:not(.preview) {
         margin: 20px !important;
         height: 100%;
         max-height: calc(100vh - 40px) !important;
