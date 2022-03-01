@@ -821,16 +821,17 @@ const MultipleProductsGlobalStyles = `
     padding: 0;
     border-radius: 5px;
     height: calc(100vh - 64px);
+    max-width: calc(100vw - 64px);
 }
 
 .gh-portal-popup-wrapper.multiple-products.signup {
     overflow-y: scroll;
     overflow-x: clip;
-    margin: 32px;
+    margin: 32px auto;
 }
 
 .gh-portal-popup-wrapper.multiple-products.signin {
-    margin: 12vmin auto;
+    margin: 10vmin auto;
     max-width: 480px;
     height: unset;
 }
@@ -870,15 +871,19 @@ const MultipleProductsGlobalStyles = `
 
 @media (max-width: 960px) {
     .gh-portal-popup-wrapper.multiple-products {
-        margin: 20px;
-        height: calc(100vh - 40px) !important;
+        margin: 20px !important;
+        height: 100%;
+        max-height: calc(100vh - 40px) !important;
+        max-width: calc(100vw - 40px) !important;
     }
 }
 
 @media (max-width: 480px) {
     .gh-portal-popup-wrapper.multiple-products {
-        margin: 0;
-        height: 100vh !important;
+        margin: 0 !important;
+        max-width: unset !important;
+        max-height: 100% !important;
+        height: 100% !important;
         border-radius: 0px;
         box-shadow: none;
     }
