@@ -138,9 +138,9 @@ export const SignupPageStyles = `
 
     .gh-portal-popup-wrapper.multiple-products .gh-portal-powered {
         display: flex;
-        margin-top: 24px;
+        margin-top: 48px;
         margin-bottom: 0;
-        padding-bottom: 0;
+        padding-bottom: 0 !important;
     }
 
     .gh-portal-invite-only-notification {
@@ -184,6 +184,11 @@ export const SignupPageStyles = `
     }
 
     @media (max-width: 480px) {
+        .gh-portal-popup-wrapper.multiple-products .gh-portal-powered {
+            margin-top: 0;
+            margin-bottom: -32px;
+        }
+
         .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signup-footer,
         .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signin-footer {
             max-width: unset;

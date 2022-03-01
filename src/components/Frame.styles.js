@@ -284,10 +284,6 @@ const FrameStyles = `
         border-radius: 4px;
     }
 
-    .gh-portal-powered img {
-        box-shadow: 0 1px 3px rgba(0,0,0,.08);
-    }
-
     @keyframes powered-fade-in {
         0% {
             transform: scale(0.98);
@@ -870,7 +866,7 @@ const MultipleProductsGlobalStyles = `
 }
 
 @media (max-width: 960px) {
-    .gh-portal-popup-wrapper.multiple-products {
+    .gh-portal-popup-wrapper.multiple-products.signup {
         margin: 20px !important;
         height: 100%;
         max-height: calc(100vh - 40px) !important;
