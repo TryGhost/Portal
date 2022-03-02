@@ -218,10 +218,6 @@ export const SignupPageStyles = `
             left: 50%;
             transform: translateX(-50%);
         }
-
-        .gh-portal-popup-wrapper.signup {
-            padding-bottom: 20vmin;
-        }
     }
 
     @media (min-width: 480px) {

@@ -251,7 +251,8 @@ const FrameStyles = `
         text-rendering: optimizeLegibility;
         background: var(--white);
         width: 420px;
-        margin: 0 auto;
+        margin: 0 auto 40px;
+        transform: translateY(20px);
         border-radius: 5px;
         box-shadow: 0 3.8px 2.2px rgba(0, 0, 0, 0.028), 0 9.2px 5.3px rgba(0, 0, 0, 0.04), 0 17.3px 10px rgba(0, 0, 0, 0.05), 0 30.8px 17.9px rgba(0, 0, 0, 0.06), 0 57.7px 33.4px rgba(0, 0, 0, 0.072), 0 138px 80px rgba(0, 0, 0, 0.1);
         animation: popup 0.25s ease-in-out;
@@ -260,14 +261,20 @@ const FrameStyles = `
 
     @keyframes popup {
         0% {
-            transform: scale(0.9) translateY(20px);
+            transform: scale(0.9) translateY(0px);
             opacity: 0;
         }
         75% {
             opacity: 1.0;
         }
         100%{
-            transform: scale(1) translateY(0);
+            transform: scale(1) translateY(20px);
+        }
+    }
+
+    @media (max-height: 670px) {
+        .gh-portal-popup-container {
+            transform-origin: top;
         }
     }
 
@@ -330,13 +337,11 @@ const FrameStyles = `
         position: relative;
         overflow-y: scroll;
         padding: 24px 32px 32px;
-        max-height: calc(100vh - 20vmin);
     }
 
     .gh-portal-content.with-footer {
         overflow-y: scroll;
         padding-bottom: 0;
-        max-height: calc(100vh - 20vmin - 132px);
     }
 
     /* Hide scrollbar for Chrome, Safari and Opera */
@@ -631,6 +636,7 @@ const MobileStyles = `
         overflow: unset;
         animation: popup-mobile 0.25s ease-in-out;
         box-shadow: none !important;
+        transform: translateY(0);
     }
 
     .gh-portal-popup-wrapper.account-home,
@@ -790,7 +796,7 @@ const MobileStyles = `
 
 @media (min-width: 480px) and (max-height: 880px) {
     .gh-portal-popup-wrapper {
-        padding: 4vmin 0;
+        padding: 4vmin 0 72px;
     }
 }
 
@@ -842,6 +848,8 @@ const MultipleProductsGlobalStyles = `
     box-shadow: none !important;
     animation: fadein 0.35s ease-in-out;
     padding: 1vmin 0;
+    transform: translateY(0px);
+    margin-bottom: 0;
 }
 
 .gh-portal-popup-wrapper.multiple-products.signup .gh-portal-popup-container {
