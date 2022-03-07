@@ -286,9 +286,25 @@ const FrameStyles = `
 
     .gh-portal-powered a {
         border: none;
-        display: block;
+        display: flex;
+        align-items: center;
         line-height: 0;
         border-radius: 4px;
+        background: #ffffff;
+        padding: 6px 8px 6px 7px;
+        color: #303336;
+        font-size: 1.25rem;
+        letter-spacing: -0.2px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: color 0.5s ease-in-out;
+        width: 146px;
+        height: 28px;
+        line-height: 28px;
+    }
+
+    .gh-portal-powered a:hover {
+        color: #15171A;
     }
 
     @keyframes powered-fade-in {
@@ -667,8 +683,8 @@ const MobileStyles = `
         padding-top: 32px;
     }
 
-    .gh-portal-popup-container.preview .gh-portal-powered {
-        display: none;
+    .gh-portal-popup-wrapper.preview .gh-portal-powered a {
+        display: none !important;
     }
 
     .gh-portal-popup-wrapper.account-home .gh-portal-powered {
@@ -859,7 +875,7 @@ const MultipleProductsGlobalStyles = `
 .gh-portal-popup-wrapper.multiple-products .gh-portal-powered {
     position: relative;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     bottom: unset;
     left: unset;
     width: 100%;
