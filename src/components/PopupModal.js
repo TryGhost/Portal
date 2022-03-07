@@ -206,7 +206,7 @@ class PopupContent extends React.Component {
                         window.open('https://ghost.org', '_blank');
                     }}>
                         <GhostLogo />
-                        Publish with Ghost
+                        Powered by Ghost
                     </a>
                 </div>
             </>

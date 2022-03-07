@@ -617,7 +617,7 @@ class SignupPage extends React.Component {
                             window.open('https://ghost.org', '_blank');
                         }}>
                             <GhostLogo />
-                            <span>Publish with Ghost</span>
+                            <span>Powered by Ghost</span>
                         </a>
                     </div>
                 </footer>
