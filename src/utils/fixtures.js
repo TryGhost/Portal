@@ -92,7 +92,7 @@ export const site = getSiteData({
 });
 
 export const offer = getOfferData({
-    tierId: site.products[0]?.id
+    tierId: site.products[1]?.id
 });
 
 export const member = {

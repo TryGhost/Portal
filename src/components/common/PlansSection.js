@@ -774,6 +774,9 @@ export function ChangeProductPlansSection({product, plans, selectedPlan, onPlanS
     );
 }
 
+// @TODO: PlansSection is only used in pre-tiers. This should be deleted ->
+// Also, tests should be updated
+
 function PlansSection({plans, showLabel = true, selectedPlan, onPlanSelect, changePlan = false}) {
     const {site} = useContext(AppContext);
     if (hasOnlyFreePlan({plans})) {

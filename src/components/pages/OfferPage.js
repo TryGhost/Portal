@@ -525,7 +525,7 @@ export default class OfferPage extends React.Component {
         const price = offer.cadence === 'month' ? product.monthlyPrice : product.yearlyPrice;
         const updatedPrice = this.getUpdatedPrice({offer, product});
         const benefits = product.benefits || [];
-        let planNameContainerClass = 'gh-portal-plans-container gh-portal-offer-container has-multiple-products';
+        let planNameContainerClass = 'gh-portal-plans-container gh-portal-offer-container';
         planNameContainerClass += !benefits.length && !product.description ? ' bordered' : '';
         return (
             <>
