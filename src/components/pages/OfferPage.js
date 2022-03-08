@@ -181,7 +181,7 @@ export const OfferPageStyles = `
     }
 
     .gh-portal-offer .gh-portal-product-benefit {
-        margin-bottom: 4px;
+        margin-bottom: -4px;
     }
 
     .gh-portal-offer .gh-portal-singleproduct-benefits {

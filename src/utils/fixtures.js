@@ -39,7 +39,8 @@ const products = [
     //     }),
     //     numOfBenefits: 3
     // })
-
+    //
+    // ,
     // getProductData({
     //     name: 'Friends of the Blueprint',
     //     description: 'Get access to everything and lock in early adopter pricing for life + listen to my podcast',
