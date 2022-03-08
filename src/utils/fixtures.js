@@ -42,6 +42,21 @@ const products = [
 
     // ,
     // getProductData({
+    //     name: 'Silver',
+    //     description: 'Access to all members articles and weekly podcast',
+    //     monthlyPrice: getPriceData({
+    //         interval: 'month',
+    //         amount: 1200
+    //     }),
+    //     yearlyPrice: getPriceData({
+    //         interval: 'year',
+    //         amount: 12000
+    //     }),
+    //     numOfBenefits: 3
+    // })
+    //
+    // ,
+    // getProductData({
     //     name: 'Friends of the Blueprint',
     //     description: 'Get access to everything and lock in early adopter pricing for life + listen to my podcast',
     //     monthlyPrice: getPriceData({
