@@ -1,11 +1,11 @@
 import ActionButton from '../common/ActionButton';
 import CloseButton from '../common/CloseButton';
 import AppContext from '../../AppContext';
-import PlansSection, {SingleProductPlansSection} from '../common/PlansSection';
+import {SingleProductPlansSection} from '../common/PlansSection';
 import ProductsSection from '../common/ProductsSection';
 import InputForm from '../common/InputForm';
 import {ValidateInputForm} from '../../utils/form';
-import {getSiteProducts, getSitePrices, hasMultipleProducts, hasOnlyFreePlan, isInviteOnlySite, getAvailableProducts, hasMultipleProductsFeature, freeHasBenefitsOrDescription} from '../../utils/helpers';
+import {getSiteProducts, getSitePrices, hasMultipleProducts, hasOnlyFreePlan, isInviteOnlySite, getAvailableProducts, freeHasBenefitsOrDescription} from '../../utils/helpers';
 import {ReactComponent as InvitationIcon} from '../../images/icons/invitation.svg';
 import {ReactComponent as GhostLogo} from '../../images/ghost-logo-small.svg';
 
@@ -416,22 +416,11 @@ class SignupPage extends React.Component {
     renderPlans() {
         const {site, pageQuery} = this.context;
         const prices = getSitePrices({site, pageQuery});
-        if (hasMultipleProductsFeature({site})) {
-            const availableProducts = getAvailableProducts({site});
-            const product = availableProducts?.[0];
-            return (
-                <SingleProductPlansSection
-                    product={product}
-                    plans={prices}
-                    selectedPlan={this.state.plan}
-                    onPlanSelect={(e, id) => {
-                        this.handleSelectPlan(e, id);
-                    }}
-                />
-            );
-        }
+        const availableProducts = getAvailableProducts({site});
+        const product = availableProducts?.[0];
         return (
-            <PlansSection
+            <SingleProductPlansSection
+                product={product}
                 plans={prices}
                 selectedPlan={this.state.plan}
                 onPlanSelect={(e, id) => {
