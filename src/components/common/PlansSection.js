@@ -64,25 +64,21 @@ export const PlanSectionStyles = `
         border-right: none;
     }
 
-    .gh-portal-plans-container:not(.has-multiple-products) {
-        margin-bottom: 2px;
-    }
-
-    .gh-portal-plans-container.has-multiple-products:not(.empty-selected-benefits) .gh-portal-plan-section::before {
+    .gh-portal-plans-container:not(.empty-selected-benefits) .gh-portal-plan-section::before {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    .gh-portal-plans-container.has-multiple-products.has-discount {
+    .gh-portal-plans-container.has-discount {
         margin-top: 40px;
     }
 
-    .gh-portal-plans-container.has-multiple-products.has-discount,
-    .gh-portal-plans-container.has-multiple-products.has-discount .gh-portal-plan-section:last-of-type::before {
+    .gh-portal-plans-container.has-discount,
+    .gh-portal-plans-container.has-discount .gh-portal-plan-section:last-of-type::before {
         border-top-right-radius: 0;
     }
 
-    .gh-portal-plans-container.is-change-plan.has-multiple-products .gh-portal-plan-section::before {
+    .gh-portal-plans-container.is-change-plan .gh-portal-plan-section::before {
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
@@ -98,7 +94,7 @@ export const PlanSectionStyles = `
         margin-top: 2px;
     }
 
-    .gh-portal-plans-container.has-multiple-products .gh-portal-plan-pricelabel {
+    .gh-portal-plans-container .gh-portal-plan-pricelabel {
         min-height: unset;
     }
 
@@ -371,17 +367,17 @@ export const PlanSectionStyles = `
         border: none;
     }
 
-    .gh-portal-plans-container.has-multiple-products:not(.empty-selected-benefits) {
+    .gh-portal-plans-container:not(.empty-selected-benefits) {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
     }
 
-    .gh-portal-plans-container.has-multiple-products.is-change-plan {
+    .gh-portal-plans-container.is-change-plan {
         border-radius: 0 0 5px 5px;
         border-top: none;
     }
 
-    .gh-portal-plans-container.has-multiple-products.is-change-plan .gh-portal-plan-section {
+    .gh-portal-plans-container.is-change-plan .gh-portal-plan-section {
         min-height: 90px;
     }
 
@@ -637,27 +633,24 @@ function getPlanClassNames({changePlan, cookiesDisabled, plans = [], selectedPla
     if (changePlan || plans.length > 3 || showVertical) {
         className += ' vertical';
     }
-    if (hasMultipleProductsFeature({site})) {
-        className += ' has-multiple-products';
-        const selectedProduct = getProductFromPrice({site, priceId: selectedPlan});
+    const selectedProduct = getProductFromPrice({site, priceId: selectedPlan});
 
-        if (!productHasDescriptionOrBenefits({product: selectedProduct})) {
-            className += ' empty-selected-benefits';
-        }
+    if (!productHasDescriptionOrBenefits({product: selectedProduct})) {
+        className += ' empty-selected-benefits';
+    }
 
-        const filteredPlans = plans.filter(d => d.id !== 'free');
-        const monthlyPlan = plans.find((d) => {
-            return d.name === 'Monthly' && !d.description && d.interval === 'month';
-        });
-        const yearlyPlan = plans.find((d) => {
-            return d.name === 'Yearly' && !d.description && d.interval === 'year';
-        });
+    const filteredPlans = plans.filter(d => d.id !== 'free');
+    const monthlyPlan = plans.find((d) => {
+        return d.name === 'Monthly' && !d.description && d.interval === 'month';
+    });
+    const yearlyPlan = plans.find((d) => {
+        return d.name === 'Yearly' && !d.description && d.interval === 'year';
+    });
 
-        if (filteredPlans.length === 2 && monthlyPlan && yearlyPlan) {
-            const discount = calculateDiscount(monthlyPlan.amount, yearlyPlan.amount);
-            if (discount) {
-                className += ' has-discount';
-            }
+    if (filteredPlans.length === 2 && monthlyPlan && yearlyPlan) {
+        const discount = calculateDiscount(monthlyPlan.amount, yearlyPlan.amount);
+        if (discount) {
+            className += ' has-discount';
         }
     }
     return className;
@@ -731,9 +724,6 @@ function getChangePlanClassNames({cookiesDisabled, site}) {
         className += ' disabled';
     }
 
-    if (hasMultipleProductsFeature({site})) {
-        className += ' has-multiple-products';
-    }
     return className;
 }
 
