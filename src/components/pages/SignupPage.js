@@ -565,8 +565,8 @@ class SignupPage extends React.Component {
 
         return (
             <>
+                <CloseButton />
                 <div className={'gh-portal-content signup' + sectionClass}>
-                    <CloseButton />
                     {this.renderFormHeader()}
                     {this.renderForm()}
                 </div>
@@ -583,8 +583,8 @@ class SignupPage extends React.Component {
 
         return (
             <>
+                <CloseButton />
                 <div className={'gh-portal-content signup ' + sectionClass}>
-                    <CloseButton />
                     {this.renderFormHeader()}
                     {this.renderForm()}
                 </div>
@@ -601,8 +601,8 @@ class SignupPage extends React.Component {
 
         return (
             <>
+                <CloseButton />
                 <div className={'gh-portal-content signup ' + sectionClass}>
-                    <CloseButton />
                     {this.renderFormHeader()}
                     {this.renderForm()}
                 </div>

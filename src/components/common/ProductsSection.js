@@ -14,7 +14,7 @@ export const ProductsSectionStyles = ({site}) => {
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 40px -32px 0;
+            margin: 24px -32px 0;
             padding: 0 32px;
         }
 
@@ -22,7 +22,7 @@ export const ProductsSectionStyles = ({site}) => {
             display: flex;
             justify-content: center;
             align-items: center;
-            padding-top: 32px;
+            margin-top: 24px;
         }
 
         .gh-portal-priceoption-label {

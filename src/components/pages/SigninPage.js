@@ -133,29 +133,31 @@ export default class SigninPage extends React.Component {
     }
 
     renderFormHeader() {
-        const siteTitle = this.context.site.title || 'Site Title';
+        // const siteTitle = this.context.site.title || 'Site Title';
 
         return (
             <header className='gh-portal-signin-header'>
                 {this.renderSiteLogo()}
-                <h1 className="gh-portal-main-title">Log in to {siteTitle}</h1>
+                <h1 className="gh-portal-main-title">Log in</h1>
             </header>
         );
     }
 
     render() {
         return (
-            <div className='gh-portal-logged-out-form-container'>
-                <div className='gh-portal-content signin'>
-                    <CloseButton />
-                    {this.renderFormHeader()}
-                    {this.renderForm()}
+            <>
+                <CloseButton />
+                <div className='gh-portal-logged-out-form-container'>
+                    <div className='gh-portal-content signin'>
+                        {this.renderFormHeader()}
+                        {this.renderForm()}
+                    </div>
+                    <footer className='gh-portal-signin-footer'>
+                        {this.renderSubmitButton()}
+                        {this.renderSignupMessage()}
+                    </footer>
                 </div>
-                <footer className='gh-portal-signin-footer'>
-                    {this.renderSubmitButton()}
-                    {this.renderSignupMessage()}
-                </footer>
-            </div>
+            </>
         );
     }
 }

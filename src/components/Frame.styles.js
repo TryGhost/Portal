@@ -420,6 +420,17 @@ const FrameStyles = `
         color: var(--grey5);
     }
 
+    .gh-portal-popup-container.full-size .gh-portal-closeicon-container {
+        top: 20px;
+        right: 20px;
+    }
+
+    .gh-portal-popup-container.full-size .gh-portal-closeicon {
+        color: var(--grey9);
+        width: 24px;
+        height: 24px;
+    }
+
     .gh-portal-logout-container {
         position: absolute;
         top: 8px;
