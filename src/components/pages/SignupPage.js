@@ -28,7 +28,8 @@ export const SignupPageStyles = `
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0 32px 24px;
+        padding: 0 32px;
+        margin-bottom: 32px;
     }
 
     .gh-portal-signup-header .gh-portal-main-title,
@@ -529,7 +530,7 @@ class SignupPage extends React.Component {
         return (
             <header className='gh-portal-signup-header'>
                 {this.renderSiteLogo()}
-                <h2 className="gh-portal-main-title">{siteTitle}</h2>
+                <h1 className="gh-portal-main-title">{siteTitle}</h1>
             </header>
         );
     }

@@ -38,7 +38,7 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-priceoption-label.inactive {
-            opacity: 0.5;
+            color: var(--grey8);
         }
 
         .gh-portal-products-priceswitch .gh-portal-for-switch label, .gh-portal-for-switch .container {
@@ -48,21 +48,38 @@ export const ProductsSectionStyles = ({site}) => {
         .gh-portal-products-priceswitch .gh-portal-for-switch .input-toggle-component,
         .gh-portal-products-priceswitch .gh-portal-for-switch label:hover input:not(:checked) + .input-toggle-component,
         .gh-portal-products-priceswitch .gh-portal-for-switch .container:hover input:not(:checked) + .input-toggle-component {
-            background: var(--grey1);
-            border-color: var(--grey1);
+            background: var(--white);
+            border-color: var(--grey11);
             box-shadow: none;
             width: 43px !important;
             height: 24px !important;
         }
 
+        .gh-portal-products-priceswitch .gh-portal-for-switch input:checked + .input-toggle-component {
+            background: var(--white);
+            border-color: var(--grey11);
+        }
+
         .gh-portal-products-priceswitch .gh-portal-for-switch .input-toggle-component:before {
             height: 18px !important;
             width: 18px !important;
+            background: var(--grey1);
+            z-index: 900;
+            box-shadow: none;
         }
 
-        .gh-portal-products-priceswitch .gh-portal-for-switch input:checked + .input-toggle-component {
-            background: var(--grey1);
-        }
+        /*.gh-portal-products-priceswitch .gh-portal-for-switch .input-toggle-component:after {
+            position: absolute;
+            display: block;
+            content: "";
+            background: var(--grey10);
+            height: 2px;
+            border-radius: 999px;
+            left: 4px;
+            right: 4px;
+            top: 10px;
+            z-index: 800;
+        }*/
 
         .gh-portal-products-priceswitch .gh-portal-for-switch input:checked + .input-toggle-component:before {
             transform: translateX(19px);
@@ -141,7 +158,7 @@ export const ProductsSectionStyles = ({site}) => {
             align-items: flex-start;
             justify-content: flex-start;
             background: white;
-            padding: 24px;
+            padding: 32px;
             border-radius: 7px;
             border: 1px solid var(--grey11);
             min-height: 240px;
@@ -168,7 +185,7 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-product-name {
-            font-size: 1.6rem;
+            font-size: 1.85rem;
             font-weight: 600;
             line-height: 1.6em;
             letter-spacing: -0.1px;
@@ -179,34 +196,41 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-product-card-pricecontainer {
-            margin-top: 14px;
+            flex: 1;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            justify-content: space-between;
+            margin-top: 32px;
+            width: 100%;
         }
 
         .gh-portal-product-price {
             display: flex;
             justify-content: center;
+            color: var(--grey0);
         }
 
         .gh-portal-product-price .currency-sign {
             align-self: flex-start;
-            font-size: 3.0rem;
-            font-weight: 600;
+            font-size: 2.9rem;
+            font-weight: 700;
             line-height: 1.1em;
         }
 
         .gh-portal-product-price .amount {
             font-size: 3.8rem;
-            font-weight: 600;
+            font-weight: 700;
             line-height: 1em;
             letter-spacing: -1.3px;
-            color: var(--grey2);
+            color: var(--grey0);
         }
 
         .gh-portal-product-price .billing-period {
             align-self: flex-end;
             font-size: 1.4rem;
             line-height: 1.6em;
-            color: var(--grey7);
+            color: var(--grey4);
             letter-spacing: 0.3px;
             margin-left: 8px;
         }
@@ -214,25 +238,23 @@ export const ProductsSectionStyles = ({site}) => {
         .gh-portal-product-alternative-price {
             font-size: 1.4rem;
             line-height: 1.6em;
-            color: var(--grey7);
-            margin-bottom: 8px;
+            color: var(--grey9);
             letter-spacing: 0.3px;
-            height: 18px;
         }
 
         .gh-portal-product-description {
-            font-size: 1.5rem;
+            font-size: 1.55rem;
             font-weight: 500;
             line-height: 1.45em;
             width: 100%;
-            margin-top: 12px;
+            margin-top: 16px;
         }
 
         .gh-portal-product-benefits {
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             line-height: 1.45em;
             width: 100%;
-            margin-top: 24px;
+            margin-top: 16px;
         }
 
         .gh-portal-product-benefit {
@@ -562,7 +584,7 @@ function ProductCardPrice({product}) {
             <div className="gh-portal-product-price">
                 <span className="currency-sign">{getCurrencySymbol(activePrice.currency)}</span>
                 <span className="amount">{getStripeAmount(activePrice.amount)}</span>
-                <span className="billing-period">/ {activePrice.interval}</span>
+                <span className="billing-period">/{activePrice.interval}</span>
             </div>
             <ProductCardAlternatePrice price={alternatePrice} />
         </div>
@@ -585,9 +607,9 @@ function ProductCard({product}) {
                     setSelectedProduct(product.id);
                 }} />
                 <h4 className="gh-portal-product-name">{product.name}</h4>
-                <ProductCardPrice product={product} />
                 {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''}
                 <ProductBenefitsContainer product={product} />
+                <ProductCardPrice product={product} />
             </div>
         </>
     );
@@ -625,14 +647,15 @@ function FreeProductCard() {
                     setSelectedProduct('free');
                 }} />
                 <h4 className="gh-portal-product-name">{getFreeTierTitle({site})}</h4>
+                {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
+                <ProductBenefitsContainer product={product} />
                 <div className="gh-portal-product-card-pricecontainer">
                     <div className="gh-portal-product-price">
                         <span className="currency-sign">$</span>
                         <span className="amount">0</span>
                     </div>
+                    {/* <div className="gh-portal-product-alternative-price"></div> */}
                 </div>
-                {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
-                <ProductBenefitsContainer product={product} />
             </div>
         </>
     );
@@ -872,10 +895,10 @@ function ChangeProductCard({product}) {
                 setSelectedProduct(product.id);
             }} />
             <h4 className="gh-portal-product-name">{product.name}</h4>
-            <ProductCardPrice product={product} />
             {/* {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''} */}
             <ProductDescription product={product} selectedPrice={selectedPrice} activePrice={memberActivePrice} />
             <ProductBenefitsContainer product={product} />
+            <ProductCardPrice product={product} />
         </div>
     );
 }

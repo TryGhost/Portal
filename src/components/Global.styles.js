@@ -61,19 +61,19 @@ export const GlobalStyles = `
 
     h1 {
         font-size: 38px;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: -0.15px;
     }
 
     h2 {
         font-size: 32px;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: -0.15px;
     }
 
     h3 {
         font-size: 24px;
-        font-weight: 500;
+        font-weight: 600;
         letter-spacing: 0.2px;
     }
 

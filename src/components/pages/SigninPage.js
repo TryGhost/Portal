@@ -138,7 +138,7 @@ export default class SigninPage extends React.Component {
         return (
             <header className='gh-portal-signin-header'>
                 {this.renderSiteLogo()}
-                <h2 className="gh-portal-main-title">Log in to {siteTitle}</h2>
+                <h1 className="gh-portal-main-title">Log in to {siteTitle}</h1>
             </header>
         );
     }

@@ -281,6 +281,7 @@ const FrameStyles = `
     .gh-portal-popup-container.full-size {
         width: 100vw;
         height: 100vh;
+        justify-content: center;
         transform: none;
         animation: popup-full-size 0.25s ease-in-out;
         margin: 0;

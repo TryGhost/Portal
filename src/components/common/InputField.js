@@ -51,7 +51,7 @@ export const InputFieldStyles = `
     }
 
     .gh-portal-input::placeholder {
-        color: var(--grey7);
+        color: var(--grey8);
     }
 
     .gh-portal-popup-container:not(.preview) .gh-portal-input:disabled {
