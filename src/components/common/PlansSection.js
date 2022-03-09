@@ -165,7 +165,7 @@ export const PlanSectionStyles = `
 
     .gh-portal-plan-checkbox {
         position: relative;
-        display: block;
+        display: none;
         font-size: 22px;
         height: 18px;
         cursor: pointer;

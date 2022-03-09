@@ -53,6 +53,12 @@ export const SignupPageStyles = `
         margin-bottom: 0;
     }
 
+    .gh-portal-logged-out-form-container {
+        width: 100%;
+        max-width: 450px;
+        margin: 0 auto;
+    }
+
     .gh-portal-signup-message {
         display: flex;
         justify-content: center;
@@ -484,11 +490,13 @@ class SignupPage extends React.Component {
         return (
             <section>
                 <div className='gh-portal-section'>
-                    <InputForm
-                        fields={fields}
-                        onChange={(e, field) => this.handleInputChange(e, field)}
-                        onKeyDown={e => this.onKeyDown(e)}
-                    />
+                    <div className='gh-portal-logged-out-form-container'>
+                        <InputForm
+                            fields={fields}
+                            onChange={(e, field) => this.handleInputChange(e, field)}
+                            onKeyDown={e => this.onKeyDown(e)}
+                        />
+                    </div>
                     {this.renderProductsOrPlans()}
                 </div>
             </section>
@@ -561,7 +569,7 @@ class SignupPage extends React.Component {
                     {this.renderFormHeader()}
                     {this.renderForm()}
                 </div>
-                <footer className={'gh-portal-signup-footer ' + footerClass}>
+                <footer className={'gh-portal-signup-footer gh-portal-logged-out-form-container ' + footerClass}>
                     {this.renderSubmitButton()}
                     {this.renderLoginMessage()}
                 </footer>
@@ -579,7 +587,7 @@ class SignupPage extends React.Component {
                     {this.renderFormHeader()}
                     {this.renderForm()}
                 </div>
-                <footer className={'gh-portal-signup-footer ' + footerClass}>
+                <footer className={'gh-portal-signup-footer gh-portal-logged-out-form-container ' + footerClass}>
                     {this.renderSubmitButton()}
                     {this.renderLoginMessage()}
                 </footer>
@@ -597,7 +605,7 @@ class SignupPage extends React.Component {
                     {this.renderFormHeader()}
                     {this.renderForm()}
                 </div>
-                <footer className={'gh-portal-signup-footer ' + footerClass}>
+                <footer className={'gh-portal-signup-footer gh-portal-logged-out-form-container ' + footerClass}>
                     {this.renderSubmitButton()}
                     {this.renderLoginMessage()}
                     <div className="gh-portal-powered inside">

@@ -4,7 +4,7 @@ import AppContext from '../AppContext';
 import {getFrameStyles} from './Frame.styles';
 import Pages, {getActivePage} from '../pages';
 import PopupNotification from './common/PopupNotification';
-import {hasMultipleProducts, isCookiesDisabled} from '../utils/helpers';
+import {isCookiesDisabled} from '../utils/helpers';
 import {ReactComponent as GhostLogo} from '../images/ghost-logo-small.svg';
 
 const React = require('react');
@@ -161,9 +161,9 @@ class PopupContent extends React.Component {
 
         if (page === 'signup' || page === 'signin') {
             pageClass += ' full-size';
-            if (hasMultipleProducts({site})) {
-                pageClass += ' multiple-products';
-            }
+            // if (hasMultipleProducts({site})) {
+            //     pageClass += ' multiple-products';
+            // }
         }
 
         let className = 'gh-portal-popup-container';

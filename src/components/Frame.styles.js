@@ -282,9 +282,10 @@ const FrameStyles = `
         width: 100vw;
         height: 100vh;
         transform: none;
-        animation: none;
+        animation: popup-full-size 0.25s ease-in-out;
         margin: 0;
         border-radius: 0;
+        overflow: scroll;
     }
 
     @keyframes popup {
@@ -297,6 +298,19 @@ const FrameStyles = `
         }
         100%{
             transform: scale(1) translateY(20px);
+        }
+    }
+
+    @keyframes popup-full-size {
+        0% {
+            transform: scale(0.95);
+            opacity: 0;
+        }
+        75% {
+            opacity: 1.0;
+        }
+        100%{
+            transform: scale(1);
         }
     }
 
