@@ -10,18 +10,17 @@ export const InputFieldStyles = `
 
         display: block;
         box-sizing: border-box;
-        font-size: 1.5rem;
+        font-size: 1.55rem;
         color: inherit;
         background: transparent;
         outline: none;
-        border: 1px solid var(--grey12);
-        border-radius: 3px;
+        border: 1px solid var(--grey11);
+        border-radius: 7px;
         width: 100%;
-        height: 40px;
+        height: 46px;
         padding: 0 12px;
         margin-bottom: 18px;
         letter-spacing: 0.2px;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.05);
         transition: border-color 0.25s ease-in-out;
     }
 
@@ -44,7 +43,7 @@ export const InputFieldStyles = `
     }
 
     .gh-portal-input:focus {
-        border-color: #cdcdcd;
+        border-color: var(--grey9);
     }
 
     .gh-portal-input.error {

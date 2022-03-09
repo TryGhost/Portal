@@ -23,7 +23,7 @@ const FrameStyles = `
     .gh-portal-main-title {
         text-align: center;
         color: var(--grey0);
-        line-height: 1.35em;
+        line-height: 1.1em;
     }
 
     .gh-portal-text-disabled {
@@ -39,9 +39,9 @@ const FrameStyles = `
     .gh-portal-input-label {
         color: var(--grey1);
         font-size: 1.3rem;
-        font-weight: 500;
+        font-weight: 600;
         margin-bottom: 2px;
-        letter-spacing: 0.35px;
+        letter-spacing: 0px;
     }
 
     .gh-portal-setting-data {
@@ -64,7 +64,7 @@ const FrameStyles = `
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.4rem;
+        font-size: 1.6rem;
         font-weight: 500;
         line-height: 1em;
         letter-spacing: 0.2px;
@@ -75,13 +75,13 @@ const FrameStyles = `
         background: var(--white);
         border: 1px solid var(--grey12);
         min-width: 80px;
-        height: 42px;
+        height: 46px;
         padding: 0 1.8rem;
-        border-radius: 4px;
+        border-radius: 7px;
         cursor: pointer;
         transition: all .25s ease;
         box-shadow: none;
-        box-shadow: 0 2px 6px -3px rgba(0,0,0,0.19);
+        /*box-shadow: 0 2px 6px -3px rgba(0,0,0,0.19);*/
         user-select: none;
         outline: none;
     }
@@ -126,7 +126,7 @@ const FrameStyles = `
     }
 
     .gh-portal-btn-list {
-        font-size: 1.4rem;
+        font-size: 1.5rem;
         color: var(--brandcolor);
         height: 38px;
         width: unset;
@@ -209,7 +209,7 @@ const FrameStyles = `
         bottom: 0;
         left: 0;
         animation: fadein 0.2s;
-        background: linear-gradient(315deg , rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.3) 100%);
+        background: linear-gradient(315deg , rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.1) 100%);
         backdrop-filter: blur(2px);
         -webkit-backdrop-filter: blur(2px);
         -webkit-transform: translate3d(0, 0, 0);
@@ -249,6 +249,12 @@ const FrameStyles = `
         display: none;
     }
 
+    .gh-portal-popup-wrapper.full-size {
+        width: 100vw;
+        height: 100vh;
+        padding: 0;
+    }
+
     .gh-portal-popup-container {
         outline: none;
         position: relative;
@@ -257,18 +263,28 @@ const FrameStyles = `
         flex-direction: column;
         justify-content: flex-start;
         overflow: hidden;
-        font-size: 1.5rem;
+        font-size: 1.55rem;
         text-align: left;
         letter-spacing: 0;
         text-rendering: optimizeLegibility;
         background: var(--white);
-        width: 420px;
+        width: 500px;
         margin: 0 auto 40px;
+        padding: 48px;
         transform: translateY(20px);
-        border-radius: 5px;
+        border-radius: 12px;
         box-shadow: 0 3.8px 2.2px rgba(0, 0, 0, 0.028), 0 9.2px 5.3px rgba(0, 0, 0, 0.04), 0 17.3px 10px rgba(0, 0, 0, 0.05), 0 30.8px 17.9px rgba(0, 0, 0, 0.06), 0 57.7px 33.4px rgba(0, 0, 0, 0.072), 0 138px 80px rgba(0, 0, 0, 0.1);
         animation: popup 0.25s ease-in-out;
         z-index: 9999;
+    }
+
+    .gh-portal-popup-container.full-size {
+        width: 100vw;
+        height: 100vh;
+        transform: none;
+        animation: none;
+        margin: 0;
+        border-radius: 0;
     }
 
     @keyframes popup {
@@ -338,14 +354,6 @@ const FrameStyles = `
         margin: 0 6px 0 0;
     }
 
-    .gh-portal-container-wide {
-        width: 440px;
-    }
-
-    .gh-portal-container-narrow {
-        width: 380px;
-    }
-
     .gh-portal-popup-container.preview {
         box-shadow:
             0 0 0 1px rgba(0,0,0,0.02),
@@ -364,13 +372,6 @@ const FrameStyles = `
     */
     .gh-portal-content {
         position: relative;
-        overflow-y: scroll;
-        padding: 24px 32px 32px;
-    }
-
-    .gh-portal-content.with-footer {
-        overflow-y: scroll;
-        padding-bottom: 0;
     }
 
     /* Hide scrollbar for Chrome, Safari and Opera */
@@ -384,23 +385,18 @@ const FrameStyles = `
         scrollbar-width: none;  /* Firefox */
     }
 
-    .gh-portal-popup-container footer {
-        padding: 0 32px 32px;
-        height: 72px;
-    }
-
     .gh-portal-closeicon-container {
         position: absolute;
-        top: 14px;
-        right: 14px;
+        top: -22px;
+        right: -22px;
         z-index: 999;
     }
 
     .gh-portal-closeicon {
-        color: var(--grey9);
+        color: var(--grey10);
         cursor: pointer;
-        width: 16px;
-        height: 16px;
+        width: 20px;
+        height: 20px;
         padding: 12px;
         transition: all 0.2s ease-in-out;
     }
@@ -423,7 +419,7 @@ const FrameStyles = `
     }
 
     .gh-portal-section {
-        margin-bottom: 32px;
+        margin-bottom: 40px;
     }
 
     .gh-portal-section.form {
@@ -435,7 +431,7 @@ const FrameStyles = `
         display: flex;
         align-items: center;
         justify-content: center;
-        margin: -4px 0 24px;
+        margin: -14px 0 40px;
     }
 
     .gh-portal-detail-footer .gh-portal-btn {
@@ -465,12 +461,7 @@ const FrameStyles = `
     .gh-portal-list {
         background: var(--white);
         padding: 20px;
-        border-radius: 3px;
-        box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.07), 0px 1px 1.5px 0px rgba(0, 0, 0, 0.05);
-    }
-
-    .gh-portal-list.outline {
-        box-shadow: none;
+        border-radius: 8px;
         border: 1px solid var(--grey12);
     }
 
@@ -493,16 +484,16 @@ const FrameStyles = `
     }
 
     .gh-portal-list-detail h3 {
-        font-size: 1.5rem;
-        font-weight: 500;
+        font-size: 1.55rem;
+        font-weight: 600;
     }
 
     .gh-portal-list-detail p {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         letter-spacing: 0.3px;
-        line-height: 1.25em;
+        line-height: 1.3em;
         padding: 0;
-        margin: 4px 0 0;
+        margin: 5px 0 0;
         color: var(--grey6);
     }
 
@@ -538,11 +529,6 @@ const FrameStyles = `
         letter-spacing: 0.2px;
         line-height: 1.4em;
         padding: 8px;
-    }
-
-    .gh-portal-popup-container.account-profile .gh-portal-action-footer {
-        height: unset;
-        padding-bottom: 36px;
     }
 
     /* Icons
@@ -673,12 +659,6 @@ const MobileStyles = `
         background: var(--grey13);
     }
 
-    .gh-portal-popup-container.account-home .gh-portal-account-footer {
-        border-top: none;
-        padding-top: 0;
-        height: unset;
-    }
-
     .gh-portal-popup-container:not(.multiple-products) .gh-portal-content {
         position: relative !important;
         overflow-y: auto !important;
@@ -750,10 +730,6 @@ const MobileStyles = `
     .gh-portal-signup-header,
     .gh-portal-signin-header {
         padding-bottom: 16px;
-    }
-
-    .gh-portal-account-main {
-        padding: 24px 24px 0;
     }
 
     .gh-portal-powered {

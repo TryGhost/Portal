@@ -18,8 +18,8 @@ export const SignupPageStyles = `
         background-position: 50%;
         background-size: cover;
         border-radius: 2px;
-        width: 56px;
-        height: 56px;
+        width: 60px;
+        height: 60px;
         margin: 12px 0 10px;
     }
 
@@ -41,7 +41,7 @@ export const SignupPageStyles = `
     }
 
     .gh-portal-signup-header .gh-portal-main-subtitle {
-        font-size: 1.5rem;
+        font-size: 1.55rem;
         text-align: center;
         line-height: 1.45em;
         margin: 4px 0 0;
@@ -57,13 +57,12 @@ export const SignupPageStyles = `
         display: flex;
         justify-content: center;
         color: var(--grey4);
-        font-size: 1.3rem;
-        letter-spacing: 0.2px;
+        font-size: 1.4rem;
         margin-top: 8px;
     }
 
     .gh-portal-signup-message button {
-        font-size: 1.3rem;
+        font-size: 1.4rem;
         font-weight: 600;
         margin-left: 4px;
     }

@@ -122,7 +122,7 @@ const PlanConfirmationSection = ({plan, type, onConfirm}) => {
     if (type === 'changePlan') {
         return (
             <>
-                <div className='gh-portal-list outline mb6'>
+                <div className='gh-portal-list mb6'>
                     <section>
                         <div className='gh-portal-list-detail'>
                             <h3>Account</h3>

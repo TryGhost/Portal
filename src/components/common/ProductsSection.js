@@ -14,7 +14,6 @@ export const ProductsSectionStyles = ({site}) => {
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: var(--grey13);
             margin: 40px -32px;
             padding: 0 32px;
         }
@@ -422,7 +421,7 @@ export const ProductsSectionStyles = ({site}) => {
             }
 
             .gh-portal-product-price .currency-sign {
-                font-size: 1.5rem;
+                font-size: 1.55rem;
             }
 
             .gh-portal-product-price .amount {

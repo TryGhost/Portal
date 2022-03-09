@@ -4,7 +4,7 @@ import AppContext from '../AppContext';
 import {getFrameStyles} from './Frame.styles';
 import Pages, {getActivePage} from '../pages';
 import PopupNotification from './common/PopupNotification';
-import {hasMultipleProducts, isCookiesDisabled, getSitePrices, isInviteOnlySite} from '../utils/helpers';
+import {hasMultipleProducts, isCookiesDisabled} from '../utils/helpers';
 import {ReactComponent as GhostLogo} from '../images/ghost-logo-small.svg';
 
 const React = require('react');
@@ -126,8 +126,7 @@ class PopupContent extends React.Component {
     }
 
     render() {
-        const {page, site, pageQuery, customSiteUrl} = this.context;
-        const {is_stripe_configured: isStripeConfigured} = site;
+        const {page, site, customSiteUrl} = this.context;
 
         getActivePage({page});
         const Styles = StylesWrapper({page});
@@ -136,19 +135,6 @@ class PopupContent extends React.Component {
         };
         let popupWidthStyle = '';
 
-        const portalPlans = getSitePrices({site, pageQuery});
-
-        if (page === 'signup' || page === 'signin' || page === 'offer') {
-            if (!isInviteOnlySite({site, pageQuery}) && portalPlans.length === 3 && (page === 'signup' || page === 'signin')) {
-                popupWidthStyle = ' gh-portal-container-wide';
-            }
-            if (portalPlans.length <= 1 || !isStripeConfigured) {
-                popupWidthStyle = 'gh-portal-container-narrow';
-            }
-            if (page === 'offer') {
-                popupWidthStyle = ' gh-portal-container-wide';
-            }
-        }
         let cookieBannerText = '';
         let pageClass = page;
         switch (page) {
@@ -173,8 +159,11 @@ class PopupContent extends React.Component {
             break;
         }
 
-        if (hasMultipleProducts({site}) && (page === 'signup' || page === 'signin')) {
-            pageClass += ' multiple-products';
+        if (page === 'signup' || page === 'signin') {
+            pageClass += ' full-size';
+            if (hasMultipleProducts({site})) {
+                pageClass += ' multiple-products';
+            }
         }
 
         let className = 'gh-portal-popup-container';

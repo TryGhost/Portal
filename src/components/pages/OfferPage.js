@@ -165,7 +165,7 @@ export const OfferPageStyles = `
     .gh-portal-offer-price .new .currency {
         font-weight: 500;
         line-height: 1;
-        font-size: 1.5rem;
+        font-size: 1.55rem;
         margin-right: 1px;
         white-space: nowrap;
     }
