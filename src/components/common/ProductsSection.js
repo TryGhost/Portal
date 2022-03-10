@@ -85,23 +85,6 @@ export const ProductsSectionStyles = ({site}) => {
             transform: translateX(19px);
         }
 
-        .gh-portal-discount-label {
-            position: absolute;
-            top: -19px;
-            left: -1px;
-            right: -1px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            color: var(--grey0);
-            padding: 0px 4px;
-            text-align: center;
-            white-space: nowrap;
-            z-index: 999;
-            background: var(--grey11);
-            border-radius: 999px;
-        }
-
         .gh-portal-products-priceswitch .gh-portal-discount-label {
             position: relative;
             font-size: 1.25rem;
@@ -184,6 +167,12 @@ export const ProductsSectionStyles = ({site}) => {
             border-radius: 7px;
         }
 
+        .gh-portal-product-card-header {
+            display: flex;
+            width: 100%;
+            jusitify-content: space-between;
+        }
+
         .gh-portal-product-name {
             font-size: 1.85rem;
             font-weight: 600;
@@ -193,6 +182,20 @@ export const ProductsSectionStyles = ({site}) => {
             word-break: break-word;
             width: 100%;
             color: var(--brandcolor);
+        }
+
+        .gh-portal-discount-label {
+            font-size: 1.3rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            color: var(--grey0);
+            padding: 1px 10px;
+            text-align: center;
+            white-space: nowrap;
+            background: var(--grey12);
+            border-radius: 999px 0 0 999px;
+            margin-right: -32px;
+            margin-top: -2px;
         }
 
         .gh-portal-product-card-pricecontainer {
@@ -228,17 +231,17 @@ export const ProductsSectionStyles = ({site}) => {
 
         .gh-portal-product-price .billing-period {
             align-self: flex-end;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             line-height: 1.6em;
-            color: var(--grey4);
+            color: var(--grey5);
             letter-spacing: 0.3px;
-            margin-left: 8px;
+            margin-left: 5px;
         }
 
         .gh-portal-product-alternative-price {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             line-height: 1.6em;
-            color: var(--grey9);
+            color: var(--grey8);
             letter-spacing: 0.3px;
         }
 
@@ -591,11 +594,12 @@ function ProductCardPrice({product}) {
     );
 }
 
-function ProductCard({product}) {
+function ProductCard({product, selectedInterval}) {
     const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
     const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
 
-    // Product cards are duplicated because their design is too different for mobile devices to handle it purely in CSS
+    const yearlyDiscount = calculateDiscount(product.monthlyPrice.amount, product.yearlyPrice.amount);
+
     return (
         <>
             {/* Standard, desktop card */}
@@ -606,7 +610,10 @@ function ProductCard({product}) {
                 <Checkbox name={product.id} id={`${product.id}-checkbox`} isChecked={selectedProduct === product.id} onProductSelect={() => {
                     setSelectedProduct(product.id);
                 }} />
-                <h4 className="gh-portal-product-name">{product.name}</h4>
+                <div className='gh-portal-product-card-header'>
+                    <h4 className="gh-portal-product-name">{product.name}</h4>
+                    {(selectedInterval === 'year' ? <YearlyDiscount discount={yearlyDiscount} /> : '')}
+                </div>
                 {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''}
                 <ProductBenefitsContainer product={product} />
                 <ProductCardPrice product={product} />
@@ -615,7 +622,7 @@ function ProductCard({product}) {
     );
 }
 
-function ProductCards({products}) {
+function ProductCards({products, selectedInterval}) {
     return products.map((product) => {
         if (product.id === 'free') {
             return (
@@ -623,7 +630,7 @@ function ProductCards({products}) {
             );
         }
         return (
-            <ProductCard product={product} key={product.id} />
+            <ProductCard product={product} selectedInterval={selectedInterval} key={product.id} />
         );
     });
 }
@@ -675,17 +682,9 @@ function YearlyDiscount({discount}) {
 
 function ProductPriceSwitch({products, selectedInterval, setSelectedInterval}) {
     const {site} = useContext(AppContext);
-    const {selectedProduct} = useContext(ProductsContext);
     const {portal_plans: portalPlans} = site;
     if (!portalPlans.includes('monthly') || !portalPlans.includes('yearly')) {
         return null;
-    }
-
-    let yearlyDiscount = 0;
-
-    if (products && selectedProduct !== 'free') {
-        const product = products.find(prod => prod.id === selectedProduct);
-        yearlyDiscount = calculateDiscount(product.monthlyPrice.amount, product.yearlyPrice.amount);
     }
 
     return (
@@ -697,7 +696,6 @@ function ProductPriceSwitch({products, selectedInterval, setSelectedInterval}) {
             }} checked={selectedInterval === 'year'} />
             <span className={'gh-portal-priceoption-label' + (selectedInterval === 'year' ? '' : ' inactive')}>
                 Yearly
-                <YearlyDiscount discount={yearlyDiscount} />
             </span>
         </div>
     );
@@ -783,7 +781,7 @@ function ProductsSection({onPlanSelect, products, type = null}) {
                 />
 
                 <div className="gh-portal-products-grid">
-                    <ProductCards products={products} />
+                    <ProductCards products={products} selectedInterval={activeInterval} />
                 </div>
             </section>
         </ProductsContext.Provider>
