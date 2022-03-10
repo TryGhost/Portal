@@ -1,17 +1,32 @@
 import ActionButton from '../common/ActionButton';
-import CloseButton from '../common/CloseButton';
 import AppContext from '../../AppContext';
+import CloseButton from '../common/CloseButton';
+// import SiteTitleBackButton from '../common/SiteTitleBackButton';
 import {SingleProductPlansSection} from '../common/PlansSection';
 import ProductsSection from '../common/ProductsSection';
 import InputForm from '../common/InputForm';
 import {ValidateInputForm} from '../../utils/form';
 import {getSiteProducts, getSitePrices, hasMultipleProducts, hasOnlyFreePlan, isInviteOnlySite, getAvailableProducts, freeHasBenefitsOrDescription} from '../../utils/helpers';
 import {ReactComponent as InvitationIcon} from '../../images/icons/invitation.svg';
-import {ReactComponent as GhostLogo} from '../../images/ghost-logo-small.svg';
 
 const React = require('react');
 
 export const SignupPageStyles = `
+    .gh-portal-back-sitetitle {
+        position: absolute;
+        top: 35px;
+        left: 32px;
+    }
+
+    .gh-portal-back-sitetitle .gh-portal-btn {
+        padding: 0;
+        border: 0;
+        font-size: 1.5rem;
+        height: auto;
+        line-height: 1em;
+        color: var(--grey1);
+    }
+
     .gh-portal-signup-logo {
         position: relative;
         display: block;
@@ -42,7 +57,7 @@ export const SignupPageStyles = `
     }
 
     .gh-portal-signup-header .gh-portal-main-subtitle {
-        font-size: 1.55rem;
+        font-size: 1.5rem;
         text-align: center;
         line-height: 1.45em;
         margin: 4px 0 0;
@@ -56,7 +71,7 @@ export const SignupPageStyles = `
 
     .gh-portal-logged-out-form-container {
         width: 100%;
-        max-width: 450px;
+        max-width: 420px;
         margin: 0 auto;
     }
 
@@ -128,11 +143,6 @@ export const SignupPageStyles = `
 
     .gh-portal-content.signin .gh-portal-section {
         margin-bottom: 0;
-    }
-
-    .gh-portal-content.signup.single-field + footer.gh-portal-signup-footer,
-    .gh-portal-content.signin + footer.gh-portal-signin-footer {
-        height: 120px;
     }
 
     footer.gh-portal-signup-footer.invite-only {
@@ -214,6 +224,16 @@ export const SignupPageStyles = `
         .gh-portal-popup-wrapper.signin.multiple-products.preview .gh-portal-content {
             overflow: unset;
         }
+
+        .gh-portal-signup-logo {
+            width: 48px;
+            height: 48px;
+        }
+
+        .gh-portal-signup-header, 
+        .gh-portal-signin-header {
+            margin-top: 32px;
+        }
     }
 
     @media (max-width: 390px) {
@@ -227,12 +247,6 @@ export const SignupPageStyles = `
         .gh-portal-powered.outside {
             left: 50%;
             transform: translateX(-50%);
-        }
-    }
-
-    @media (min-width: 480px) {
-        .gh-portal-popup-wrapper:not(.multiple-products) .gh-portal-powered {
-            display: none;
         }
     }
 `;
@@ -391,6 +405,8 @@ class SignupPage extends React.Component {
         let label = 'Continue';
         if (hasOnlyFreePlan({site})) {
             label = 'Sign up';
+        } else {
+            return null;
         }
 
         let isRunning = false;
@@ -470,7 +486,7 @@ class SignupPage extends React.Component {
         if (hasMultipleProducts({site})) {
             return this.renderProducts();
         } else {
-            return this.renderPlans();
+            return this.renderProducts();
         }
     }
 
@@ -565,7 +581,6 @@ class SignupPage extends React.Component {
 
         return (
             <>
-                <CloseButton />
                 <div className={'gh-portal-content signup' + sectionClass}>
                     {this.renderFormHeader()}
                     {this.renderForm()}
@@ -583,7 +598,6 @@ class SignupPage extends React.Component {
 
         return (
             <>
-                <CloseButton />
                 <div className={'gh-portal-content signup ' + sectionClass}>
                     {this.renderFormHeader()}
                     {this.renderForm()}
@@ -601,6 +615,9 @@ class SignupPage extends React.Component {
 
         return (
             <>
+                {/* <div className='gh-portal-back-sitetitle'>
+                    <SiteTitleBackButton />
+                </div> */}
                 <CloseButton />
                 <div className={'gh-portal-content signup ' + sectionClass}>
                     {this.renderFormHeader()}
@@ -609,14 +626,6 @@ class SignupPage extends React.Component {
                 <footer className={'gh-portal-signup-footer gh-portal-logged-out-form-container ' + footerClass}>
                     {this.renderSubmitButton()}
                     {this.renderLoginMessage()}
-                    <div className="gh-portal-powered inside">
-                        <a href='https://ghost.org' target='_blank' rel='noopener noreferrer' onClick={() => {
-                            window.open('https://ghost.org', '_blank');
-                        }}>
-                            <GhostLogo />
-                            <span>Powered by Ghost</span>
-                        </a>
-                    </div>
                 </footer>
             </>
         );

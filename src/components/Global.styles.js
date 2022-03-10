@@ -60,7 +60,7 @@ export const GlobalStyles = `
     }
 
     h1 {
-        font-size: 38px;
+        font-size: 33px;
         font-weight: 700;
         letter-spacing: -0.15px;
     }
@@ -73,13 +73,13 @@ export const GlobalStyles = `
 
     h3 {
         font-size: 24px;
-        font-weight: 600;
+        font-weight: 700;
         letter-spacing: 0.2px;
     }
 
     p {
         font-size: 15px;
-        line-height: 1.55em;
+        line-height: 1.5em;
         margin-bottom: 24px;
     }
 
@@ -99,12 +99,29 @@ export const GlobalStyles = `
     input,
     textarea {
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-        font-size: 1.55rem;
+        font-size: 1.5rem;
     }
 
     textarea {
         padding: 10px;
         line-height: 1.5em;
+    }
+
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 30px;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: 600;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+        }
     }
 `;
 

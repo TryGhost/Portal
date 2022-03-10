@@ -4,8 +4,8 @@ import AppContext from '../AppContext';
 import {getFrameStyles} from './Frame.styles';
 import Pages, {getActivePage} from '../pages';
 import PopupNotification from './common/PopupNotification';
-import {isCookiesDisabled} from '../utils/helpers';
-import {ReactComponent as GhostLogo} from '../images/ghost-logo-small.svg';
+import PoweredBy from './common/PoweredBy';
+import {getSiteProducts, isCookiesDisabled} from '../utils/helpers';
 
 const React = require('react');
 
@@ -127,6 +127,8 @@ class PopupContent extends React.Component {
 
     render() {
         const {page, site, customSiteUrl} = this.context;
+        const products = getSiteProducts({site});
+        const noOfProducts = products.length;
 
         getActivePage({page});
         const Styles = StylesWrapper({page});
@@ -134,6 +136,7 @@ class PopupContent extends React.Component {
             ...Styles.page[page]
         };
         let popupWidthStyle = '';
+        let popupSize = 'regular';
 
         let cookieBannerText = '';
         let pageClass = page;
@@ -159,8 +162,9 @@ class PopupContent extends React.Component {
             break;
         }
 
-        if (page === 'signup' || page === 'signin') {
+        if ((page === 'signup') && noOfProducts > 1) {
             pageClass += ' full-size';
+            popupSize = 'full';
             // if (hasMultipleProducts({site})) {
             //     pageClass += ' multiple-products';
             // }
@@ -188,15 +192,15 @@ class PopupContent extends React.Component {
                         <CookieDisabledBanner message={cookieBannerText} />
                         {this.renderPopupNotification()}
                         {this.renderActivePage()}
+                        {(popupSize === 'full' ? 
+                            <div className={'gh-portal-powered inside ' + (hasMode(['preview']) ? 'hidden ' : '') + pageClass}>
+                                <PoweredBy />
+                            </div>
+                            : '')}
                     </div>
                 </div>
                 <div className={'gh-portal-powered outside ' + (hasMode(['preview']) ? 'hidden ' : '') + pageClass}>
-                    <a href='https://ghost.org' target='_blank' rel='noopener noreferrer' onClick={() => {
-                        window.open('https://ghost.org', '_blank');
-                    }}>
-                        <GhostLogo />
-                        Powered by Ghost
-                    </a>
+                    <PoweredBy />
                 </div>
             </>
         );

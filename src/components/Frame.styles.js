@@ -64,7 +64,7 @@ const FrameStyles = `
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         font-weight: 500;
         line-height: 1em;
         letter-spacing: 0.2px;
@@ -75,9 +75,9 @@ const FrameStyles = `
         background: var(--white);
         border: 1px solid var(--grey12);
         min-width: 80px;
-        height: 46px;
+        height: 44px;
         padding: 0 1.8rem;
-        border-radius: 7px;
+        border-radius: 6px;
         cursor: pointer;
         transition: all .25s ease;
         box-shadow: none;
@@ -263,16 +263,16 @@ const FrameStyles = `
         flex-direction: column;
         justify-content: flex-start;
         overflow: hidden;
-        font-size: 1.55rem;
+        font-size: 1.5rem;
         text-align: left;
         letter-spacing: 0;
         text-rendering: optimizeLegibility;
         background: var(--white);
         width: 500px;
         margin: 0 auto 40px;
-        padding: 48px;
-        transform: translateY(20px);
-        border-radius: 12px;
+        padding: 36px;
+        transform: translateY(0px);
+        border-radius: 10px;
         box-shadow: 0 3.8px 2.2px rgba(0, 0, 0, 0.028), 0 9.2px 5.3px rgba(0, 0, 0, 0.04), 0 17.3px 10px rgba(0, 0, 0, 0.05), 0 30.8px 17.9px rgba(0, 0, 0, 0.06), 0 57.7px 33.4px rgba(0, 0, 0, 0.072), 0 138px 80px rgba(0, 0, 0, 0.1);
         animation: popup 0.25s ease-in-out;
         z-index: 9999;
@@ -281,44 +281,44 @@ const FrameStyles = `
     .gh-portal-popup-container.full-size {
         width: 100vw;
         min-height: 100vh;
-        justify-content: center;
+        justify-content: flex-start;
         animation: popup-full-size 0.25s ease-in-out;
         margin: 0;
         border-radius: 0;
         overflow: scroll;
-        transform: none;
+        transform: translateY(0px);
         transform-origin: top;
+        padding: 2vmin 6vmin;
+        padding-bottom: 4vw;
     }
 
     @keyframes popup {
         0% {
-            transform: scale(0.9) translateY(0px);
+            transform: translateY(-30px);
             opacity: 0;
         }
-        75% {
-            opacity: 1.0;
+        1% {
+            transform: translateY(30px);
+            opacity: 0;
         }
         100%{
-            transform: scale(1) translateY(20px);
+            transform: translateY(0);
+            opacity: 1.0;
         }
     }
 
     @keyframes popup-full-size {
         0% {
-            transform: scale(0.95);
+            transform: translateY(0px);
             opacity: 0;
         }
-        75% {
-            opacity: 1.0;
+        1% {
+            transform: translateY(30px);
+            opacity: 0;
         }
         100%{
-            transform: scale(1);
-        }
-    }
-
-    @media (max-height: 670px) {
-        .gh-portal-popup-container {
-            transform-origin: top;
+            transform: translateY(0);
+            opacity: 1.0;
         }
     }
 
@@ -326,6 +326,7 @@ const FrameStyles = `
         position: absolute;
         bottom: 24px;
         left: 24px;
+        z-index: 9999;
     }
 
     .gh-portal-powered a {
@@ -370,17 +371,8 @@ const FrameStyles = `
         margin: 0 6px 0 0;
     }
 
-    .gh-portal-popup-container.preview {
-        box-shadow:
-            0 0 0 1px rgba(0,0,0,0.02),
-            0 2.8px 2.2px rgba(0, 0, 0, 0.02),
-            0 6.7px 5.3px rgba(0, 0, 0, 0.028),
-            0 12.5px 10px rgba(0, 0, 0, 0.035),
-            0 22.3px 17.9px rgba(0, 0, 0, 0.042),
-            0 41.8px 33.4px rgba(0, 0, 0, 0.05),
-            0 100px 80px rgba(0, 0, 0, 0.07);
-        animation: none;
-        margin-bottom: 0;
+    .gh-portal-powered.outside.full-size {
+        display: none;
     }
 
     /* Sets the main content area of the popup scrollable.
@@ -402,10 +394,10 @@ const FrameStyles = `
     }
 
     .gh-portal-closeicon-container {
-        position: absolute;
-        top: -22px;
-        right: -22px;
-        z-index: 999;
+        position: fixed;
+        top: 17px;
+        right: 17px;
+        z-index: 10000;
     }
 
     .gh-portal-closeicon {
@@ -421,13 +413,15 @@ const FrameStyles = `
         color: var(--grey5);
     }
 
+    .gh-portal-popup-wrapper.full-size .gh-portal-closeicon-container,
     .gh-portal-popup-container.full-size .gh-portal-closeicon-container {
         top: 20px;
         right: 20px;
     }
 
+    .gh-portal-popup-wrapper.full-size .gh-portal-closeicon,
     .gh-portal-popup-container.full-size .gh-portal-closeicon {
-        color: var(--grey9);
+        color: var(--grey6);
         width: 24px;
         height: 24px;
     }
@@ -511,12 +505,12 @@ const FrameStyles = `
     }
 
     .gh-portal-list-detail h3 {
-        font-size: 1.55rem;
+        font-size: 1.5rem;
         font-weight: 600;
     }
 
     .gh-portal-list-detail p {
-        font-size: 1.4rem;
+        font-size: 1.45rem;
         letter-spacing: 0.3px;
         line-height: 1.3em;
         padding: 0;
@@ -660,6 +654,40 @@ const FrameStyles = `
 `;
 
 const MobileStyles = `
+@media (min-width: 520px) {
+    .gh-portal-popup-wrapper.full-size .gh-portal-popup-container.preview {
+        box-shadow:
+            0 0 0 1px rgba(0,0,0,0.02),
+            0 2.8px 2.2px rgba(0, 0, 0, 0.02),
+            0 6.7px 5.3px rgba(0, 0, 0, 0.028),
+            0 12.5px 10px rgba(0, 0, 0, 0.035),
+            0 22.3px 17.9px rgba(0, 0, 0, 0.042),
+            0 41.8px 33.4px rgba(0, 0, 0, 0.05),
+            0 100px 80px rgba(0, 0, 0, 0.07);
+        animation: none;
+        margin: 32px;
+        padding: 32px 32px 120px;
+        width: calc(100vw - 64px);
+        height: calc(100vh - 160px);
+        min-height: unset;
+        border-radius: 12px;
+    }
+}
+
+
+@media (max-width: 960px) {
+    .gh-portal-powered {
+        display: flex;
+        position: relative;
+        bottom: unset;
+        left: unset;
+        background: var(--white);
+        justify-content: center;
+        width: 100%;
+        padding-top: 32px;
+    }
+}
+
 @media (max-width: 480px) {
     .gh-portal-popup-wrapper {
         height: 100%;
@@ -679,6 +707,11 @@ const MobileStyles = `
         animation: popup-mobile 0.25s ease-in-out;
         box-shadow: none !important;
         transform: translateY(0);
+        padding: 28px;
+    }
+
+    .gh-portal-popup-container.preview:not(.full-size) {
+        max-height: 620px;
     }
 
     .gh-portal-popup-wrapper.account-home,
@@ -686,26 +719,10 @@ const MobileStyles = `
         background: var(--grey13);
     }
 
-    .gh-portal-popup-container:not(.multiple-products) .gh-portal-content {
-        position: relative !important;
-        overflow-y: auto !important;
-        max-height: unset !important;
-    }
-
-    .gh-portal-powered {
-        display: flex;
-        position: relative;
-        bottom: unset;
-        left: unset;
-        background: var(--white);
-        justify-content: center;
-        width: 100%;
-        padding-top: 32px;
-    }
-
-    .gh-portal-popup-wrapper.preview .gh-portal-powered,
-    .gh-portal-popup-wrapper.preview .gh-portal-powered a {
-        display: none !important;
+    .gh-portal-popup-wrapper.full-size .gh-portal-closeicon, 
+    .gh-portal-popup-container.full-size .gh-portal-closeicon {
+        width: 16px;
+        height: 16px;
     }
 
     .gh-portal-popup-wrapper.account-home .gh-portal-powered {

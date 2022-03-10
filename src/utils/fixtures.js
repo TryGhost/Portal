@@ -23,7 +23,11 @@ const products = [
             interval: 'year',
             amount: 7000
         }),
+<<<<<<< HEAD
         numOfBenefits: 1
+=======
+        numOfBenefits: 5
+>>>>>>> 2fb6ad6 (Updated product cards)
     })
     ,
     getProductData({

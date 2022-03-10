@@ -1,5 +1,6 @@
 import ActionButton from '../common/ActionButton';
 import CloseButton from '../common/CloseButton';
+// import SiteTitleBackButton from '../common/SiteTitleBackButton';
 import AppContext from '../../AppContext';
 import InputForm from '../common/InputForm';
 import {ValidateInputForm} from '../../utils/form';
@@ -138,7 +139,7 @@ export default class SigninPage extends React.Component {
         return (
             <header className='gh-portal-signin-header'>
                 {this.renderSiteLogo()}
-                <h1 className="gh-portal-main-title">Log in</h1>
+                <h1 className="gh-portal-main-title">Sign in</h1>
             </header>
         );
     }
@@ -146,6 +147,9 @@ export default class SigninPage extends React.Component {
     render() {
         return (
             <>
+                {/* <div className='gh-portal-back-sitetitle'>
+                    <SiteTitleBackButton />
+                </div> */}
                 <CloseButton />
                 <div className='gh-portal-logged-out-form-container'>
                     <div className='gh-portal-content signin'>
