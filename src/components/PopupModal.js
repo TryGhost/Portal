@@ -162,9 +162,17 @@ class PopupContent extends React.Component {
             break;
         }
 
-        if ((page === 'signup') && noOfProducts > 1) {
-            pageClass += ' full-size';
-            popupSize = 'full';
+        if (noOfProducts > 1) {
+            if (page === 'signup') {
+                pageClass += ' full-size';
+                popupSize = 'full';
+            }
+        }
+        if (noOfProducts > 2) {
+            if (page === 'accountPlan') {
+                pageClass += ' full-size';
+                popupSize = 'full';
+            }
         }
 
         let className = 'gh-portal-popup-container';

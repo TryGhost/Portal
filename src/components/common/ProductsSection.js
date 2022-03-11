@@ -3,7 +3,7 @@ import React, {useContext, useEffect, useState} from 'react';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
 import {getSiteProducts, getCurrencySymbol, getPriceString, getStripeAmount, isCookiesDisabled, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct} from '../../utils/helpers';
 import AppContext from '../../AppContext';
-import ActionButton from './ActionButton';
+// import ActionButton from './ActionButton';
 import calculateDiscount from '../../utils/discount';
 
 export const ProductsSectionStyles = ({site}) => {
@@ -166,7 +166,7 @@ export const ProductsSectionStyles = ({site}) => {
             display: flex;
             flex-direction: column;
             align-items: flex-start;
-            justify-content: flex-start;
+            justify-content: stretch;
             background: white;
             padding: 32px;
             border-radius: 7px;
@@ -343,7 +343,6 @@ export const ProductsSectionStyles = ({site}) => {
             width: 100%;
             justify-self: flex-end;
             padding: 40px 0 32px;
-            margin-top: 22px;
             margin-bottom: -32px;
             background: rgb(255,255,255);
             background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,255,255,0) 100%);
@@ -401,7 +400,6 @@ export const ProductsSectionStyles = ({site}) => {
             margin-top: -70px;
             margin-bottom: 32px;
             padding-top: 60px;
-            padding-bottom: 32px;
         }
 
         .gh-portal-upgrade-product .gh-portal-products-grid {
@@ -409,14 +407,6 @@ export const ProductsSectionStyles = ({site}) => {
             grid-gap: 20px;
             width: 100%;
             padding: 32px 0 0;
-        }
-
-        .gh-portal-upgrade-product .gh-portal-product-card {
-            display: none !important;
-        }
-
-        .gh-portal-upgrade-product .gh-portal-product-card.vertical {
-            display: grid !important;
         }
 
         .gh-portal-upgrade-product .gh-portal-discount-label {
@@ -617,7 +607,6 @@ function ProductCard({product, selectedInterval}) {
 
     return (
         <>
-            {/* Standard, desktop card */}
             <div className={cardClass} key={product.id} onClick={(e) => {
                 e.stopPropagation();
                 setSelectedProduct(product.id);
@@ -791,7 +780,7 @@ function ProductsSection({onPlanSelect, products, type = null}) {
 }
 
 export function ChangeProductSection({onPlanSelect, selectedPlan, products, type = null}) {
-    const {site, member, brandColor} = useContext(AppContext);
+    const {site, member} = useContext(AppContext);
     const {portal_plans: portalPlans} = site;
     const activePrice = getMemberActivePrice({member});
     const activeMemberProduct = getProductFromPrice({site, priceId: activePrice.id});
@@ -800,7 +789,7 @@ export function ChangeProductSection({onPlanSelect, selectedPlan, products, type
     const [selectedInterval, setSelectedInterval] = useState(defaultInterval);
     const [selectedProduct, setSelectedProduct] = useState(defaultProductId);
 
-    const selectedPrice = getSelectedPrice({products, selectedInterval, selectedProduct});
+    // const selectedPrice = getSelectedPrice({products, selectedInterval, selectedProduct});
     const activeInterval = getActiveInterval({portalPlans, selectedInterval});
 
     useEffect(() => {
@@ -839,7 +828,7 @@ export function ChangeProductSection({onPlanSelect, selectedPlan, products, type
                 <div className="gh-portal-products-grid">
                     <ChangeProductCards products={products} />
                 </div>
-                <ActionButton
+                {/* <ActionButton
                     onClick={e => onPlanSelect(null, selectedPrice?.id)}
                     isRunning={false}
                     disabled={!selectedPrice?.id || (activePrice.id === selectedPrice?.id)}
@@ -847,7 +836,7 @@ export function ChangeProductSection({onPlanSelect, selectedPlan, products, type
                     brandColor={brandColor}
                     label={'Continue'}
                     style={{height: '40px', width: '100%', marginTop: '24px'}}
-                />
+                /> */}
             </section>
         </ProductsContext.Provider>
     );
@@ -891,15 +880,33 @@ function ChangeProductCard({product}) {
             e.stopPropagation();
             setSelectedProduct(product.id);
         }}>
-            <Checkbox name={product.id} id={`${product.id}-checkbox`} isChecked={selectedProduct === product.id} onProductSelect={() => {
-                setSelectedProduct(product.id);
-            }} />
-            <h4 className="gh-portal-product-name">{product.name}</h4>
-            {/* {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''} */}
-            <ProductDescription product={product} selectedPrice={selectedPrice} activePrice={memberActivePrice} />
-            <ProductBenefitsContainer product={product} />
-            <ProductCardPrice product={product} />
+            <div className='gh-portal-product-card-header'>
+                <h4 className="gh-portal-product-name">{product.name}</h4>
+                <ProductCardPrice product={product} />
+            </div>
+            <div className='gh-portal-product-card-details'>
+                <div className='gh-portal-product-card-detaildata'>
+                    {product.description ? <ProductDescription product={product} selectedPrice={selectedPrice} activePrice={memberActivePrice} /> : ''}
+                    <ProductBenefitsContainer product={product} />
+                </div>
+                <div className='gh-portal-btn-product'>
+                    <button className='gh-portal-btn'>Choose</button>
+                </div>
+            </div>
         </div>
+        // <div className={cardClass} key={product.id} onClick={(e) => {
+        //     e.stopPropagation();
+        //     setSelectedProduct(product.id);
+        // }}>
+        //     <Checkbox name={product.id} id={`${product.id}-checkbox`} isChecked={selectedProduct === product.id} onProductSelect={() => {
+        //         setSelectedProduct(product.id);
+        //     }} />
+        //     <h4 className="gh-portal-product-name">{product.name}</h4>
+        //     {/* {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''} */}
+        //     <ProductDescription product={product} selectedPrice={selectedPrice} activePrice={memberActivePrice} />
+        //     <ProductBenefitsContainer product={product} />
+        //     <ProductCardPrice product={product} />
+        // </div>
     );
 }
 

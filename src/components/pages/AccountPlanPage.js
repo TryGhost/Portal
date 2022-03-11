@@ -8,6 +8,10 @@ import {getDateString} from '../../utils/date-time';
 import {formatNumber, getAvailablePrices, getFilteredPrices, getMemberActivePrice, getMemberSubscription, getPriceFromSubscription, getProductFromPrice, getSubscriptionFromId, getUpgradeProducts, hasMultipleProducts, hasMultipleProductsFeature, isPaidMember} from '../../utils/helpers';
 
 export const AccountPlanPageStyles = `
+    .account-plan.full-size .gh-portal-main-title {
+        font-size: 3.2rem;
+    }
+
     .gh-portal-accountplans-main {
         margin-top: 24px;
         margin-bottom: 0;
@@ -46,14 +50,13 @@ function getConfirmationPageTitle({confirmationType}) {
 }
 
 const Header = ({onBack, showConfirmation, confirmationType}) => {
-    const {member, brandColor, lastPage} = useContext(AppContext);
+    const {member} = useContext(AppContext);
     let title = isPaidMember({member}) ? 'Change plan' : 'Choose a plan';
     if (showConfirmation) {
         title = getConfirmationPageTitle({confirmationType});
     }
     return (
         <header className='gh-portal-detail-header'>
-            <BackButton brandColor={brandColor} onClick={e => onBack(e)} hidden={!lastPage && !showConfirmation} />
             <h3 className='gh-portal-main-title'>{title}</h3>
         </header>
     );
@@ -455,9 +458,11 @@ export default class AccountPlanPage extends React.Component {
     render() {
         const plans = this.prices;
         const {selectedPlan, showConfirmation, confirmationPlan, confirmationType} = this.state;
+        const {lastPage} = this.context;
         return (
             <>
                 <div className='gh-portal-content'>
+                    <BackButton onClick={e => this.onBack(e)} hidden={!lastPage && !showConfirmation} />
                     <CloseButton />
                     <Header
                         onBack={e => this.onBack(e)}

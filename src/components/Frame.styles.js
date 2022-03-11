@@ -176,6 +176,21 @@ const FrameStyles = `
     transform: translateX(-4px);
 }
 
+.gh-portal-btn-site-title-back {
+    transition: transform 0.25s ease-in-out;
+    z-index: 10000;
+}
+
+.gh-portal-btn-site-title-back:hover {
+    transform: translateX(-6px);
+}
+
+@media (max-width: 960px) {
+    .gh-portal-btn-site-title-back {
+        display: none;
+    }
+}
+
 .gh-portal-logouticon {
     color: var(--grey9);
     cursor: pointer;
@@ -393,8 +408,8 @@ const FrameStyles = `
 
 .gh-portal-closeicon-container {
     position: fixed;
-    top: 17px;
-    right: 17px;
+    top: 24px;
+    right: 24px;
     z-index: 10000;
 }
 
@@ -450,7 +465,7 @@ const FrameStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: -14px 0 40px;
+    margin: -5px 0 40px;
 }
 
 .gh-portal-detail-footer .gh-portal-btn {
