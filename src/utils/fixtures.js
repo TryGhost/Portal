@@ -25,20 +25,20 @@ const products = [
         }),
         numOfBenefits: 3
     })
-    ,
-    getProductData({
-        name: 'Friends of the Blueprint Silver',
-        description: 'Access to all members articles and weekly podcast',
-        monthlyPrice: getPriceData({
-            interval: 'month',
-            amount: 1200
-        }),
-        yearlyPrice: getPriceData({
-            interval: 'year',
-            amount: 11000
-        }),
-        numOfBenefits: 4
-    })
+    // ,
+    // getProductData({
+    //     name: 'Friends of the Blueprint Silver',
+    //     description: 'Access to all members articles and weekly podcast',
+    //     monthlyPrice: getPriceData({
+    //         interval: 'month',
+    //         amount: 1200
+    //     }),
+    //     yearlyPrice: getPriceData({
+    //         interval: 'year',
+    //         amount: 11000
+    //     }),
+    //     numOfBenefits: 4
+    // })
 
     // ,
     // getProductData({
