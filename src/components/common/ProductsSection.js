@@ -176,7 +176,11 @@ export const ProductsSectionStyles = ({site}) => {
             transition: border-color 0.25s ease-in-out;
         }
 
-        .gh-portal-product-card:hover {
+        .gh-portal-product-card.disabled {
+            cursor: auto;
+        }
+
+        .gh-portal-product-card:not(.disabled):hover {
             border-color: var(--grey9);
         }
 
@@ -353,6 +357,23 @@ export const ProductsSectionStyles = ({site}) => {
             color: #fff;
             border: none;
             width: 100%;
+        }
+
+        .gh-portal-current-plan {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 500;
+            line-height: 1em;
+            letter-spacing: 0.2px;
+            text-align: center;
+            white-space: nowrap;
+            width: 100%;
+            height: 44px;
+            border-radius: 5px;
+            border: 1px solid var(--grey11);
+            color: var(--grey6);
         }
         
         @media (max-width: 670px) {
@@ -840,23 +861,11 @@ export function ChangeProductSection({onPlanSelect, selectedPlan, products, type
     );
 }
 
-function CurrentPlanLabel({selectedPrice, activePrice}) {
-    if (selectedPrice.id === activePrice.id) {
-        return (
-            <div className="mt1">
-                <span className="gh-portal-plan-current">Current Plan</span>
-            </div>
-        );
-    }
-    return null;
-}
-
 function ProductDescription({product, selectedPrice, activePrice}) {
     if (product?.description) {
         return (
             <div className="gh-portal-product-description">
                 {product.description}
-                <CurrentPlanLabel selectedPrice={selectedPrice} activePrice={activePrice} />
             </div>
         );
     }
@@ -873,8 +882,10 @@ function ChangeProductCard({product}) {
 
     const selectedPrice = selectedInterval === 'month' ? monthlyPrice : yearlyPrice;
 
+    const currentPlan = (selectedPrice.id === memberActivePrice.id);
+
     return (
-        <div className={cardClass} key={product.id} onClick={(e) => {
+        <div className={cardClass + (currentPlan ? ' disabled' : '')} key={product.id} onClick={(e) => {
             e.stopPropagation();
             setSelectedProduct(product.id);
         }}>
@@ -887,9 +898,14 @@ function ChangeProductCard({product}) {
                     {product.description ? <ProductDescription product={product} selectedPrice={selectedPrice} activePrice={memberActivePrice} /> : ''}
                     <ProductBenefitsContainer product={product} />
                 </div>
-                <div className='gh-portal-btn-product'>
-                    <button className='gh-portal-btn'>Choose</button>
-                </div>
+                {(currentPlan ? 
+                    <div className='gh-portal-btn-product'>
+                        <span className='gh-portal-current-plan'>Current plan</span>
+                    </div>
+                    : 
+                    <div className='gh-portal-btn-product'>
+                        <button className='gh-portal-btn'>Choose</button>
+                    </div>)}
             </div>
         </div>
         // <div className={cardClass} key={product.id} onClick={(e) => {
