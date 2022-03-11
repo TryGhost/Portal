@@ -19,7 +19,7 @@ export const AccountPlanPageStyles = `
     }
 
     .gh-portal-expire-container {
-        margin: 24px 0 0;
+        margin: 32px 0 0;
     }
 
     .gh-portal-cancellation-form p {
