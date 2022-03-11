@@ -1,14 +1,14 @@
 import React, {useContext, useEffect, useState} from 'react';
 // import Switch from '../common/Switch';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
-import {getSiteProducts, getCurrencySymbol, getPriceString, getStripeAmount, isCookiesDisabled, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct} from '../../utils/helpers';
+import {getCurrencySymbol, getPriceString, getStripeAmount, isCookiesDisabled, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct} from '../../utils/helpers';
 import AppContext from '../../AppContext';
 // import ActionButton from './ActionButton';
 import calculateDiscount from '../../utils/discount';
 
 export const ProductsSectionStyles = ({site}) => {
-    const products = getSiteProducts({site});
-    const noOfProducts = products.length;
+    // const products = getSiteProducts({site});
+    // const noOfProducts = products.length;
     return `
         .gh-portal-products {
             display: flex;
@@ -45,13 +45,6 @@ export const ProductsSectionStyles = ({site}) => {
             box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);
         }
 
-        .gh-portal-products-priceswitch {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-top: 24px;
-        }
-
         .gh-portal-priceoption-label {
             font-size: 1.4rem;
             font-weight: 400;
@@ -68,66 +61,6 @@ export const ProductsSectionStyles = ({site}) => {
             color: var(--grey8);
         }
 
-        .gh-portal-products-priceswitch .gh-portal-for-switch label, .gh-portal-for-switch .container {
-            width: 43px !important;
-        }
-
-        .gh-portal-products-priceswitch .gh-portal-for-switch .input-toggle-component,
-        .gh-portal-products-priceswitch .gh-portal-for-switch label:hover input:not(:checked) + .input-toggle-component,
-        .gh-portal-products-priceswitch .gh-portal-for-switch .container:hover input:not(:checked) + .input-toggle-component {
-            background: var(--white);
-            border-color: var(--grey11);
-            box-shadow: none;
-            width: 43px !important;
-            height: 24px !important;
-        }
-
-        .gh-portal-products-priceswitch .gh-portal-for-switch input:checked + .input-toggle-component {
-            background: var(--white);
-            border-color: var(--grey11);
-        }
-
-        .gh-portal-products-priceswitch .gh-portal-for-switch .input-toggle-component:before {
-            height: 18px !important;
-            width: 18px !important;
-            background: var(--grey1);
-            z-index: 900;
-            box-shadow: none;
-        }
-
-        /*.gh-portal-products-priceswitch .gh-portal-for-switch .input-toggle-component:after {
-            position: absolute;
-            display: block;
-            content: "";
-            background: var(--grey10);
-            height: 2px;
-            border-radius: 999px;
-            left: 4px;
-            right: 4px;
-            top: 10px;
-            z-index: 800;
-        }*/
-
-        .gh-portal-products-priceswitch .gh-portal-for-switch input:checked + .input-toggle-component:before {
-            transform: translateX(19px);
-        }
-
-        .gh-portal-products-priceswitch .gh-portal-discount-label {
-            position: relative;
-            font-size: 1.25rem;
-            letter-spacing: 0.25px;
-            margin: 0 0 0 6px;
-            padding: 5px 10px;
-            top: unset;
-            left: unset;
-            right: unset;
-            width: unset;
-        }
-
-        .gh-portal-products-priceswitch .gh-portal-discount-label:before {
-            border-radius: 3px;
-        }
-
         .gh-portal-products-grid {
             display: flex;
             flex-wrap: wrap;
@@ -137,25 +70,6 @@ export const ProductsSectionStyles = ({site}) => {
             margin: 0 auto;
             padding: 44px 0 0px;
             width: 100%;
-        }
-
-        @media (max-width: 1280px) {
-            .gh-portal-products-grid {
-                grid-template-columns: repeat(${((productColumns(noOfProducts) >= 3) ? 3 : productColumns(noOfProducts))}, minmax(0, 300px));
-            }
-        }
-
-        @media (max-width: 960px) {
-            .gh-portal-products-grid {
-                grid-template-columns: repeat(${((productColumns(noOfProducts) >= 2) ? 2 : productColumns(noOfProducts))}, minmax(0, 300px));
-            }
-        }
-
-        @media (max-width: 360px) {
-            div:not(.gh-portal-products-priceswitch) .gh-portal-discount-label {
-                font-size: 0.9rem;
-                white-space: nowrap;
-            }
         }
 
         .gh-portal-product-card {
@@ -172,12 +86,7 @@ export const ProductsSectionStyles = ({site}) => {
             border-radius: 7px;
             border: 1px solid var(--grey11);
             min-height: 200px;
-            cursor: pointer;
             transition: border-color 0.25s ease-in-out;
-        }
-
-        .gh-portal-product-card.disabled {
-            cursor: auto;
         }
 
         .gh-portal-product-card:not(.disabled):hover {
@@ -359,10 +268,13 @@ export const ProductsSectionStyles = ({site}) => {
             width: 100%;
         }
 
+        .gh-portal-btn-product .gh-portal-btn:hover {
+            opacity: 0.9;
+        }
+
         .gh-portal-current-plan {
             display: flex;
             align-items: center;
-            justify-content: center;
             font-size: 1.5rem;
             font-weight: 500;
             line-height: 1em;
@@ -372,8 +284,8 @@ export const ProductsSectionStyles = ({site}) => {
             width: 100%;
             height: 44px;
             border-radius: 5px;
-            border: 1px solid var(--grey11);
-            color: var(--grey6);
+            color: var(--grey0);
+            font-weight: 600;
         }
 
         @media (max-width: 670px) {
@@ -475,10 +387,6 @@ const ProductsContext = React.createContext({
     selectedPlan: null,
     setSelectedProduct: null
 });
-
-function productColumns(noOfProducts) {
-    return noOfProducts >= 5 ? 5 : noOfProducts;
-}
 
 function Checkbox({name, id, onProductSelect, isChecked, disabled = false}) {
     if (isCookiesDisabled()) {
@@ -690,7 +598,6 @@ function ProductPriceSwitch({products, selectedInterval, setSelectedInterval}) {
 
     return (
         <div className='gh-portal-logged-out-form-container'>
-            {/* <div class="gh-portal-input-labelcontainer"><label for="input-email" class="gh-portal-input-label">Membership</label></div> */}
             <div className='gh-portal-products-pricetoggle'>
                 <button className={'gh-portal-btn' + (selectedInterval === 'month' ? ' active' : '')} onClick={(e) => {
                     setSelectedInterval('month');
@@ -701,19 +608,6 @@ function ProductPriceSwitch({products, selectedInterval, setSelectedInterval}) {
             </div>
         </div>
     );
-
-    // return (
-    //     <div className="gh-portal-products-priceswitch">
-    //         <span className={'gh-portal-priceoption-label monthly' + (selectedInterval === 'month' ? '' : ' inactive')}>Monthly</span>
-    //         <Switch id='product-interval' onToggle={(e) => {
-    //             const interval = selectedInterval === 'month' ? 'year' : 'month';
-    //             setSelectedInterval(interval);
-    //         }} checked={selectedInterval === 'year'} />
-    //         <span className={'gh-portal-priceoption-label' + (selectedInterval === 'year' ? '' : ' inactive')}>
-    //             Yearly
-    //         </span>
-    //     </div>
-    // );
 }
 
 function getSelectedPrice({products, selectedProduct, selectedInterval}) {
