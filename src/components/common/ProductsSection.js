@@ -342,10 +342,10 @@ export const ProductsSectionStyles = ({site}) => {
             align-items: flex-end;
             width: 100%;
             justify-self: flex-end;
-            padding: 32px 0 32px;
+            padding: 40px 0 32px;
             margin-bottom: -32px;
             background: rgb(255,255,255);
-            background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(0deg, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
         }
 
         .gh-portal-btn-product .gh-portal-btn {
@@ -398,7 +398,6 @@ export const ProductsSectionStyles = ({site}) => {
         /* Upgrade and change plan*/
         .gh-portal-upgrade-product {
             margin-top: -70px;
-            margin-bottom: 32px;
             padding-top: 60px;
         }
 

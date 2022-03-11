@@ -3,7 +3,7 @@ import AppContext from '../../AppContext';
 import ActionButton from '../common/ActionButton';
 import CloseButton from '../common/CloseButton';
 import BackButton from '../common/BackButton';
-import {MultipleProductsPlansSection, SingleProductPlansSection} from '../common/PlansSection';
+import {MultipleProductsPlansSection} from '../common/PlansSection';
 import {getDateString} from '../../utils/date-time';
 import {formatNumber, getAvailablePrices, getFilteredPrices, getMemberActivePrice, getMemberSubscription, getPriceFromSubscription, getProductFromPrice, getSubscriptionFromId, getUpgradeProducts, hasMultipleProducts, hasMultipleProductsFeature, isPaidMember} from '../../utils/helpers';
 
@@ -232,12 +232,18 @@ function PlansOrProductSection({showLabel, plans, selectedPlan, onPlanSelect, ch
         );
     } else {
         return (
-            <SingleProductPlansSection
-                product={products?.[0]}
-                plans={plans}
+            <MultipleProductsPlansSection
+                products={products}
                 selectedPlan={selectedPlan}
+                changePlan={false}
                 onPlanSelect={onPlanSelect}
             />
+            // <SingleProductPlansSection
+            //     product={products?.[0]}
+            //     plans={plans}
+            //     selectedPlan={selectedPlan}
+            //     onPlanSelect={onPlanSelect}
+            // />
         );
     }
 }
@@ -246,8 +252,8 @@ function PlansOrProductSection({showLabel, plans, selectedPlan, onPlanSelect, ch
 const UpgradePlanSection = ({
     plans, selectedPlan, onPlanSelect, onPlanCheckout
 }) => {
-    const {action, brandColor} = useContext(AppContext);
-    const isRunning = ['checkoutPlan:running'].includes(action);
+    // const {action, brandColor} = useContext(AppContext);
+    // const isRunning = ['checkoutPlan:running'].includes(action);
     let singlePlanClass = '';
     if (plans.length === 1) {
         singlePlanClass = 'singleplan';
@@ -262,14 +268,14 @@ const UpgradePlanSection = ({
                     onPlanSelect={onPlanSelect}
                 />
             </div>
-            <ActionButton
+            {/* <ActionButton
                 onClick={e => onPlanCheckout(e)}
                 isRunning={isRunning}
                 isPrimary={true}
                 brandColor={brandColor}
                 label={'Continue'}
                 style={{height: '40px', width: '100%', marginTop: '24px'}}
-            />
+            /> */}
         </section>
     );
 };
