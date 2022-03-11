@@ -165,9 +165,6 @@ class PopupContent extends React.Component {
         if ((page === 'signup') && noOfProducts > 1) {
             pageClass += ' full-size';
             popupSize = 'full';
-            // if (hasMultipleProducts({site})) {
-            //     pageClass += ' multiple-products';
-            // }
         }
 
         let className = 'gh-portal-popup-container';

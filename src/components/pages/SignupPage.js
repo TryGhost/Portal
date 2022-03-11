@@ -158,13 +158,6 @@ export const SignupPageStyles = `
         margin-top: 0;
     }
 
-    .gh-portal-popup-wrapper.multiple-products .gh-portal-powered {
-        display: flex;
-        margin-top: 48px;
-        margin-bottom: 0;
-        padding-bottom: 0 !important;
-    }
-
     .gh-portal-invite-only-notification {
         margin: 8px 32px;
         padding: 0;
@@ -178,58 +171,7 @@ export const SignupPageStyles = `
         margin: 12px 0 2px;
     }
 
-
-    /* Multiple products signup */
-
-    .gh-portal-popup-wrapper.signup.multiple-products .gh-portal-content,
-    .gh-portal-popup-wrapper.signin.multiple-products .gh-portal-content {
-        width: 100%;
-        background: #fff;
-    }
-
-    .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signup-footer,
-    .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signin-footer {
-        flex: 1;
-        width: 100%;
-        height: unset;
-        padding: 0 32px !important;
-        margin: 24px 32px;
-    }
-
-    .gh-portal-popup-wrapper.multiple-products footer .gh-portal-btn {
-        max-width: 420px;
-    }
-
-    .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signin-footer {
-        padding-top: 24px;
-    }
-
-    .gh-portal-powered.multiple-products.signup {
-        display: none;
-    }
-
     @media (max-width: 480px) {
-        .gh-portal-popup-wrapper.multiple-products .gh-portal-powered {
-            margin-top: 0;
-            margin-bottom: -32px;
-        }
-
-        .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signup-footer,
-        .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signin-footer {
-            max-width: unset;
-            padding: 0 32px !important;
-        }
-
-        .gh-portal-popup-wrapper.multiple-products.preview footer.gh-portal-signup-footer,
-        .gh-portal-popup-wrapper.multiple-products.preview footer.gh-portal-signin-footer {
-            padding-bottom: 32px !important;
-        }
-
-        .gh-portal-popup-wrapper.signup.multiple-products.preview .gh-portal-content,
-        .gh-portal-popup-wrapper.signin.multiple-products.preview .gh-portal-content {
-            overflow: unset;
-        }
-
         .gh-portal-signup-logo {
             width: 48px;
             height: 48px;
@@ -238,13 +180,6 @@ export const SignupPageStyles = `
         .gh-portal-signup-header, 
         .gh-portal-signin-header {
             margin-top: 32px;
-        }
-    }
-
-    @media (max-width: 390px) {
-        .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signup-footer,
-        .gh-portal-popup-wrapper.multiple-products footer.gh-portal-signin-footer {
-            padding: 0 24px !important;
         }
     }
 

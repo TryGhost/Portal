@@ -363,10 +363,6 @@ export const PlanSectionStyles = `
         grid-row: 1 / 3;
     }
 
-    .gh-portal-plans-container.multiple-products {
-        border: none;
-    }
-
     .gh-portal-plans-container:not(.empty-selected-benefits) {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
