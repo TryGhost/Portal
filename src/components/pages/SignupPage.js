@@ -1,12 +1,11 @@
 import ActionButton from '../common/ActionButton';
 import AppContext from '../../AppContext';
 import CloseButton from '../common/CloseButton';
-// import SiteTitleBackButton from '../common/SiteTitleBackButton';
-import {SingleProductPlansSection} from '../common/PlansSection';
+import SiteTitleBackButton from '../common/SiteTitleBackButton';
 import ProductsSection from '../common/ProductsSection';
 import InputForm from '../common/InputForm';
 import {ValidateInputForm} from '../../utils/form';
-import {getSiteProducts, getSitePrices, hasMultipleProducts, hasOnlyFreePlan, isInviteOnlySite, getAvailableProducts, freeHasBenefitsOrDescription} from '../../utils/helpers';
+import {getSiteProducts, getSitePrices, hasMultipleProducts, hasOnlyFreePlan, isInviteOnlySite, freeHasBenefitsOrDescription} from '../../utils/helpers';
 import {ReactComponent as InvitationIcon} from '../../images/icons/invitation.svg';
 
 const React = require('react');
@@ -375,23 +374,6 @@ class SignupPage extends React.Component {
         );
     }
 
-    renderPlans() {
-        const {site, pageQuery} = this.context;
-        const prices = getSitePrices({site, pageQuery});
-        const availableProducts = getAvailableProducts({site});
-        const product = availableProducts?.[0];
-        return (
-            <SingleProductPlansSection
-                product={product}
-                plans={prices}
-                selectedPlan={this.state.plan}
-                onPlanSelect={(e, id) => {
-                    this.handleSelectPlan(e, id);
-                }}
-            />
-        );
-    }
-
     renderProducts() {
         const {site, pageQuery} = this.context;
         const products = getSiteProducts({site, pageQuery});
@@ -555,9 +537,9 @@ class SignupPage extends React.Component {
 
         return (
             <>
-                {/* <div className='gh-portal-back-sitetitle'>
+                <div className='gh-portal-back-sitetitle'>
                     <SiteTitleBackButton />
-                </div> */}
+                </div>
                 <CloseButton />
                 <div className={'gh-portal-content signup ' + sectionClass}>
                     {this.renderFormHeader()}

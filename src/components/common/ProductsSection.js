@@ -251,7 +251,7 @@ export const ProductsSectionStyles = ({site}) => {
             align-items: flex-end;
             justify-content: space-between;
             width: 100%;
-            margin-top: 32px;
+            margin-top: 16px;
         }
 
         .gh-portal-product-price {

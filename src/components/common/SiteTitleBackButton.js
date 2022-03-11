@@ -8,7 +8,7 @@ export default class CloseButton extends React.Component {
         const {site} = this.context;
         return (
             <>
-                <button className='gh-portal-btn' onClick = {() => this.context.onAction('closePopup')}>{site.title}</button>
+                <button className='gh-portal-btn' onClick = {() => this.context.onAction('closePopup')}>&larr; {site.title}</button>
             </>
         );
     }
