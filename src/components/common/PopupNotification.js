@@ -15,7 +15,7 @@ export const PopupNotificationStyles = `
         padding: 12px;
         background: var(--grey2);
         z-index: 11000;
-        border-radius: 4px;
+        border-radius: 5px;
         font-size: 1.5rem;
         box-shadow: 0px 0.8151839971542358px 0.8151839971542358px 0px rgba(0,0,0,0.01),
                     0px 2.2538793087005615px 2.2538793087005615px 0px rgba(0,0,0,0.02),
