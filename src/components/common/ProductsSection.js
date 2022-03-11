@@ -375,7 +375,7 @@ export const ProductsSectionStyles = ({site}) => {
             border: 1px solid var(--grey11);
             color: var(--grey6);
         }
-        
+
         @media (max-width: 670px) {
             .gh-portal-products-grid {
                 grid-template-columns: unset;
@@ -461,7 +461,7 @@ export const ProductsSectionStyles = ({site}) => {
                 margin: 0 auto;
                 max-width: 420px;
             }
-    
+
             .gh-portal-product-card-header {
                 min-height: unset;
             }
@@ -578,7 +578,7 @@ function ProductCardPrice({product}) {
     );
 }
 
-function FreeProductCard() {
+function FreeProductCard({handleChooseSignup}) {
     const {site} = useContext(AppContext);
     const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
 
@@ -612,7 +612,9 @@ function FreeProductCard() {
                         <ProductBenefitsContainer product={product} />
                     </div>
                     <div className='gh-portal-btn-product'>
-                        <button className='gh-portal-btn'>Choose</button>
+                        <button className='gh-portal-btn' onClick={(e) => {
+                            handleChooseSignup(e, 'free');
+                        }}>Choose</button>
                     </div>
                 </div>
             </div>
@@ -620,7 +622,7 @@ function FreeProductCard() {
     );
 }
 
-function ProductCard({product, selectedInterval}) {
+function ProductCard({product, products, selectedInterval, handleChooseSignup}) {
     const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
     const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
 
@@ -643,7 +645,10 @@ function ProductCard({product, selectedInterval}) {
                         <ProductBenefitsContainer product={product} />
                     </div>
                     <div className='gh-portal-btn-product'>
-                        <button className='gh-portal-btn'>Choose</button>
+                        <button className='gh-portal-btn' onClick={(e) => {
+                            const selectedPrice = getSelectedPrice({products, selectedInterval, selectedProduct: product.id});
+                            handleChooseSignup(e, selectedPrice.id);
+                        }}>Choose</button>
                     </div>
                 </div>
             </div>
@@ -651,15 +656,15 @@ function ProductCard({product, selectedInterval}) {
     );
 }
 
-function ProductCards({products, selectedInterval}) {
+function ProductCards({products, selectedInterval, handleChooseSignup}) {
     return products.map((product) => {
         if (product.id === 'free') {
             return (
-                <FreeProductCard key={product.id} />
+                <FreeProductCard key={product.id} handleChooseSignup={handleChooseSignup} />
             );
         }
         return (
-            <ProductCard product={product} selectedInterval={selectedInterval} key={product.id} />
+            <ProductCard products={products} product={product} selectedInterval={selectedInterval} key={product.id} handleChooseSignup={handleChooseSignup} />
         );
     });
 }
@@ -743,7 +748,7 @@ function getActiveInterval({portalPlans, selectedInterval = 'year'}) {
     }
 }
 
-function ProductsSection({onPlanSelect, products, type = null}) {
+function ProductsSection({onPlanSelect, products, type = null, handleChooseSignup}) {
     const {site} = useContext(AppContext);
     const {portal_plans: portalPlans} = site;
     const defaultInterval = getActiveInterval({portalPlans});
@@ -791,7 +796,7 @@ function ProductsSection({onPlanSelect, products, type = null}) {
                 />
 
                 <div className="gh-portal-products-grid">
-                    <ProductCards products={products} selectedInterval={activeInterval} />
+                    <ProductCards products={products} selectedInterval={activeInterval} handleChooseSignup={handleChooseSignup} />
                 </div>
             </section>
         </ProductsContext.Provider>
@@ -898,11 +903,11 @@ function ChangeProductCard({product}) {
                     {product.description ? <ProductDescription product={product} selectedPrice={selectedPrice} activePrice={memberActivePrice} /> : ''}
                     <ProductBenefitsContainer product={product} />
                 </div>
-                {(currentPlan ? 
+                {(currentPlan ?
                     <div className='gh-portal-btn-product'>
                         <span className='gh-portal-current-plan'>Current plan</span>
                     </div>
-                    : 
+                    :
                     <div className='gh-portal-btn-product'>
                         <button className='gh-portal-btn'>Choose</button>
                     </div>)}

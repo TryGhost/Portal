@@ -179,7 +179,7 @@ footer.gh-portal-signup-footer.invite-only .gh-portal-signup-message {
 }
 
 @media (min-width: 480px) {
-    
+
 }
 
 @media (max-width: 480px) {
@@ -250,6 +250,25 @@ class SignupPage extends React.Component {
         }, () => {
             const {onAction} = this.context;
             const {name, email, plan, errors} = this.state;
+            const hasFormErrors = (errors && Object.values(errors).filter(d => !!d).length > 0);
+            if (!hasFormErrors) {
+                onAction('signup', {name, email, plan});
+                this.setState({
+                    errors: {}
+                });
+            }
+        });
+    }
+
+    handleChooseSignup(e, plan) {
+        e.preventDefault();
+        this.setState((state) => {
+            return {
+                errors: ValidateInputForm({fields: this.getInputFields({state})})
+            };
+        }, () => {
+            const {onAction} = this.context;
+            const {name, email, errors} = this.state;
             const hasFormErrors = (errors && Object.values(errors).filter(d => !!d).length > 0);
             if (!hasFormErrors) {
                 onAction('signup', {name, email, plan});
@@ -387,6 +406,7 @@ class SignupPage extends React.Component {
         return (
             <>
                 <ProductsSection
+                    handleChooseSignup={(...args) => this.handleChooseSignup(...args)}
                     products={products}
                     onPlanSelect={this.handleSelectPlan}
                 />
