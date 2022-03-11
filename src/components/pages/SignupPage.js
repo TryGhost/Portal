@@ -174,11 +174,12 @@ footer.gh-portal-signup-footer.invite-only .gh-portal-signup-message {
     margin: 12px 0 2px;
 }
 
+.gh-portal-popup-wrapper.full-size .gh-portal-popup-container.preview footer.gh-portal-signup-footer {
+    padding-bottom: 32px;
+}
+
 @media (min-width: 480px) {
-    .gh-portal-popup-container.preview footer.gh-portal-signup-footer,
-    .gh-portal-popup-container.preview footer.gh-portal-signin-footer {
-        padding-bottom: 40px;
-    }
+    
 }
 
 @media (max-width: 480px) {

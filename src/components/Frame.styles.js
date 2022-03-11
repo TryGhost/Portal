@@ -721,7 +721,7 @@ const MobileStyles = `
         animation: popup-mobile 0.25s ease-in-out;
         box-shadow: none !important;
         transform: translateY(0);
-        padding: 28px;
+        padding: 28px !important;
     }
 
     .gh-portal-popup-container.full-size {
