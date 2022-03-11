@@ -195,11 +195,15 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-product-card-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
             width: 100%;
             min-height: 56px;
+        }
+
+        .gh-portal-product-card-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
         }
 
         .gh-portal-product-name {
@@ -247,6 +251,7 @@ export const ProductsSectionStyles = ({site}) => {
             align-items: flex-end;
             justify-content: space-between;
             width: 100%;
+            margin-top: 32px;
         }
 
         .gh-portal-product-price {
@@ -288,6 +293,7 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-product-description {
+            flex: 1;
             font-size: 1.55rem;
             font-weight: 600;
             line-height: 1.4em;
@@ -296,6 +302,7 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-product-benefits {
+            flex: 1;
             font-size: 1.5rem;
             line-height: 1.4em;
             width: 100%;
@@ -326,12 +333,18 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-btn-product {
-            flex: 1;
+            position: sticky;
+            bottom: 0;
             display: flex;
             flex-direction: row;
             align-items: flex-end;
             width: 100%;
             justify-self: flex-end;
+            padding: 20px 0 32px;
+            margin-top: 8px;
+            margin-bottom: -32px;
+            background: rgb(255,255,255);
+            background: linear-gradient(0deg, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%);
         }
 
         .gh-portal-btn-product .gh-portal-btn {
@@ -339,7 +352,6 @@ export const ProductsSectionStyles = ({site}) => {
             color: #fff;
             border: none;
             width: 100%;
-            margin-top: 24px;
         }
         
         @media (max-width: 670px) {
@@ -555,47 +567,6 @@ function ProductCardPrice({product}) {
     );
 }
 
-function ProductCard({product, selectedInterval}) {
-    const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
-    const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
-
-    return (
-        <>
-            {/* Standard, desktop card */}
-            <div className={cardClass} key={product.id} onClick={(e) => {
-                e.stopPropagation();
-                setSelectedProduct(product.id);
-            }}>
-                <Checkbox name={product.id} id={`${product.id}-checkbox`} isChecked={selectedProduct === product.id} onProductSelect={() => {
-                    setSelectedProduct(product.id);
-                }} />
-                <div className='gh-portal-product-card-header'>
-                    <h4 className="gh-portal-product-name">{product.name}</h4>
-                </div>
-                <ProductCardPrice product={product} />
-                {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''}
-                <ProductBenefitsContainer product={product} />
-                <div className='gh-portal-btn-product'>
-                    <button className='gh-portal-btn'>Choose</button>
-                </div>
-            </div>
-        </>
-    );
-}
-
-function ProductCards({products, selectedInterval}) {
-    return products.map((product) => {
-        if (product.id === 'free') {
-            return (
-                <FreeProductCard key={product.id} />
-            );
-        }
-        return (
-            <ProductCard product={product} selectedInterval={selectedInterval} key={product.id} />
-        );
-    });
-}
-
 function FreeProductCard() {
     const {site} = useContext(AppContext);
     const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
@@ -616,22 +587,67 @@ function FreeProductCard() {
                 }} />
                 <div className='gh-portal-product-card-header'>
                     <h4 className="gh-portal-product-name">{getFreeTierTitle({site})}</h4>
-                </div>
-                <div className="gh-portal-product-card-pricecontainer">
-                    <div className="gh-portal-product-price">
-                        <span className="currency-sign">$</span>
-                        <span className="amount">0</span>
+                    <div className="gh-portal-product-card-pricecontainer">
+                        <div className="gh-portal-product-price">
+                            <span className="currency-sign">$</span>
+                            <span className="amount">0</span>
+                        </div>
+                        {/* <div className="gh-portal-product-alternative-price"></div> */}
                     </div>
-                    {/* <div className="gh-portal-product-alternative-price"></div> */}
                 </div>
-                {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
-                <ProductBenefitsContainer product={product} />
-                <div className='gh-portal-btn-product'>
-                    <button className='gh-portal-btn'>Choose</button>
+                <div className='gh-portal-product-card-details'>
+                    {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
+                    <ProductBenefitsContainer product={product} />
+                    <div className='gh-portal-btn-product'>
+                        <button className='gh-portal-btn'>Choose</button>
+                    </div>
                 </div>
             </div>
         </>
     );
+}
+
+function ProductCard({product, selectedInterval}) {
+    const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
+    const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
+
+    return (
+        <>
+            {/* Standard, desktop card */}
+            <div className={cardClass} key={product.id} onClick={(e) => {
+                e.stopPropagation();
+                setSelectedProduct(product.id);
+            }}>
+                <Checkbox name={product.id} id={`${product.id}-checkbox`} isChecked={selectedProduct === product.id} onProductSelect={() => {
+                    setSelectedProduct(product.id);
+                }} />
+                <div className='gh-portal-product-card-header'>
+                    <h4 className="gh-portal-product-name">{product.name}</h4>
+                    <ProductCardPrice product={product} />
+                </div>
+                <div className='gh-portal-product-card-details'>
+                    {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''}
+                    <ProductBenefitsContainer product={product} />
+                    <div className='gh-portal-btn-product'>
+                        <button className='gh-portal-btn'>Choose</button>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+}
+
+function ProductCards({products, selectedInterval}) {
+    return products.map((product) => {
+        if (product.id === 'free') {
+            return (
+                <FreeProductCard key={product.id} />
+            );
+        }
+        return (
+            <ProductCard product={product} selectedInterval={selectedInterval} key={product.id} />
+        );
+    });
 }
 
 function YearlyDiscount({discount}) {

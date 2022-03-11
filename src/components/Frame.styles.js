@@ -20,6 +20,31 @@ import {OfferPageStyles} from './pages/OfferPage';
 
 // Global styles
 const FrameStyles = `
+
+    .sticky-container {
+        height: 100vh;
+        width: 100vw;
+        overflow: scroll;
+    }
+
+    .sticky-test {
+        position: sticky;
+        bottom: 0;
+        background: red;
+    }
+
+    .sticky-cards {
+        display: flex;
+    }
+
+    .sticky-card {
+        margin: 50px;
+    }
+
+    .sticky-content p {
+        font-size: 30px !important;
+    }
+
     .gh-portal-main-title {
         text-align: center;
         color: var(--grey0);
@@ -203,7 +228,7 @@ const FrameStyles = `
     /* ----------------------------------------------------- */
     .gh-portal-popup-background {
         position: absolute;
-        display: block;
+        display: none;
         top: 0;
         right: 0;
         bottom: 0;
@@ -262,7 +287,6 @@ const FrameStyles = `
         box-sizing: border-box;
         flex-direction: column;
         justify-content: flex-start;
-        overflow: hidden;
         font-size: 1.5rem;
         text-align: left;
         letter-spacing: 0;
@@ -271,10 +295,10 @@ const FrameStyles = `
         width: 500px;
         margin: 0 auto 40px;
         padding: 36px;
-        transform: translateY(0px);
+        /*transform: translateY(0px);*/
         border-radius: 10px;
         box-shadow: 0 3.8px 2.2px rgba(0, 0, 0, 0.028), 0 9.2px 5.3px rgba(0, 0, 0, 0.04), 0 17.3px 10px rgba(0, 0, 0, 0.05), 0 30.8px 17.9px rgba(0, 0, 0, 0.06), 0 57.7px 33.4px rgba(0, 0, 0, 0.072), 0 138px 80px rgba(0, 0, 0, 0.1);
-        animation: popup 0.25s ease-in-out;
+        /*animation: popup 0.25s ease-in-out;*/
         z-index: 9999;
     }
 
@@ -282,11 +306,10 @@ const FrameStyles = `
         width: 100vw;
         min-height: 100vh;
         justify-content: flex-start;
-        animation: popup-full-size 0.25s ease-in-out;
+        /*animation: popup-full-size 0.25s ease-in-out;*/
         margin: 0;
         border-radius: 0;
-        overflow: scroll;
-        transform: translateY(0px);
+        /*transform: translateY(0px);*/
         transform-origin: top;
         padding: 2vmin 6vmin;
         padding-bottom: 4vw;
