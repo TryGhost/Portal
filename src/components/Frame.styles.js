@@ -664,11 +664,12 @@ const MobileStyles = `
             0 100px 80px rgba(0, 0, 0, 0.07);
         animation: none;
         margin: 32px;
-        padding: 32px 32px 120px;
+        padding: 32px 32px 0;
         width: calc(100vw - 64px);
         height: calc(100vh - 160px);
         min-height: unset;
         border-radius: 12px;
+        overflow: scroll;
     }
 }
 
@@ -781,7 +782,7 @@ const MobileStyles = `
 
 @media (min-width: 480px) and (max-height: 880px) {
     .gh-portal-popup-wrapper {
-        padding: 4vmin 0 72px;
+        padding: 4vmin 0 0;
     }
 }
 

@@ -109,6 +109,11 @@ export const SignupPageStyles = `
         height: unset;
     }
 
+    .gh-portal-popup-container.preview footer.gh-portal-signup-footer,
+    .gh-portal-popup-container.preview footer.gh-portal-signin-footer {
+        padding-bottom: 40px;
+    }
+
     .gh-portal-content.signup,
     .gh-portal-content.signin {
         max-height: unset !important;
