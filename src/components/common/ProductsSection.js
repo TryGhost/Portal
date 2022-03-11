@@ -301,14 +301,14 @@ export const ProductsSectionStyles = ({site}) => {
             font-weight: 600;
             line-height: 1.4em;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .gh-portal-product-benefits {
             font-size: 1.5rem;
             line-height: 1.4em;
             width: 100%;
-            margin-top: 20px;
+            margin-top: 16px;
         }
 
         .gh-portal-product-benefit {
@@ -342,7 +342,7 @@ export const ProductsSectionStyles = ({site}) => {
             align-items: flex-end;
             width: 100%;
             justify-self: flex-end;
-            padding: 40px 0 32px;
+            padding: 32px 0 32px;
             margin-bottom: -32px;
             background: rgb(255,255,255);
             background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,255,255,0) 100%);
@@ -444,7 +444,6 @@ export const ProductsSectionStyles = ({site}) => {
     
             .gh-portal-product-card-header {
                 min-height: unset;
-                margin-bottom: 12px;
             }
         }
     `;

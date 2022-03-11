@@ -295,7 +295,7 @@ const FrameStyles = `
 .gh-portal-popup-container.full-size {
     width: 100vw;
     min-height: 100vh;
-    justify-content: center;
+    justify-content: flex-start;
     animation: popup-full-size 0.25s ease-in-out;
     margin: 0;
     border-radius: 0;
@@ -724,8 +724,13 @@ const MobileStyles = `
         padding: 28px;
     }
 
+    .gh-portal-popup-container.full-size {
+        justify-content: flex-start;
+    }
+
     .gh-portal-popup-container.preview:not(.full-size) {
         max-height: 620px;
+        margin-bottom: 0;
     }
 
     .gh-portal-popup-wrapper.account-home,
@@ -756,16 +761,6 @@ const MobileStyles = `
 
     .gh-portal-popup-wrapper.account-home .gh-portal-powered a {
         box-shadow: none;
-    }
-}
-
-@media (max-width: 414px) {
-    .gh-portal-input {
-        height: 44px;
-    }
-
-    .gh-portal-btn:not(.gh-portal-btn-link):not(.gh-portal-btn-back) {
-        min-height: 44px;
     }
 }
 

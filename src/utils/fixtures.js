@@ -17,11 +17,11 @@ const products = [
         description: '',
         monthlyPrice: getPriceData({
             interval: 'month',
-            amount: 700
+            amount: 500
         }),
         yearlyPrice: getPriceData({
             interval: 'year',
-            amount: 7000
+            amount: 5000
         }),
         numOfBenefits: 3
     })
