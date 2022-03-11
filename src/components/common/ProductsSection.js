@@ -487,12 +487,14 @@ function ProductCardPrice({product}) {
 }
 
 function FreeProductCard({handleChooseSignup}) {
-    const {site} = useContext(AppContext);
+    const {site, action} = useContext(AppContext);
     const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
 
     const cardClass = selectedProduct === 'free' ? 'gh-portal-product-card free checked' : 'gh-portal-product-card free';
     const product = getFreeProduct({site});
     const freeProductDescription = getFreeTierDescription({site});
+
+    const disabled = (action === 'signup:running') ? true : false;
     // Product cards are duplicated because their design is too different for mobile devices to handle it purely in CSS
     return (
         <>
@@ -520,9 +522,14 @@ function FreeProductCard({handleChooseSignup}) {
                         <ProductBenefitsContainer product={product} />
                     </div>
                     <div className='gh-portal-btn-product'>
-                        <button className='gh-portal-btn' onClick={(e) => {
-                            handleChooseSignup(e, 'free');
-                        }}>Choose</button>
+                        <button
+                            className='gh-portal-btn'
+                            disabled={disabled}
+                            onClick={(e) => {
+                                handleChooseSignup(e, 'free');
+                            }}>
+                            Choose
+                        </button>
                     </div>
                 </div>
             </div>
@@ -532,8 +539,10 @@ function FreeProductCard({handleChooseSignup}) {
 
 function ProductCard({product, products, selectedInterval, handleChooseSignup}) {
     const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
-    const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
+    const {action} = useContext(AppContext);
 
+    const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
+    const disabled = (action === 'signup:running') ? true : false;
     return (
         <>
             <div className={cardClass} key={product.id} onClick={(e) => {
@@ -553,10 +562,15 @@ function ProductCard({product, products, selectedInterval, handleChooseSignup}) 
                         <ProductBenefitsContainer product={product} />
                     </div>
                     <div className='gh-portal-btn-product'>
-                        <button className='gh-portal-btn' onClick={(e) => {
-                            const selectedPrice = getSelectedPrice({products, selectedInterval, selectedProduct: product.id});
-                            handleChooseSignup(e, selectedPrice.id);
-                        }}>Choose</button>
+                        <button
+                            disabled={disabled}
+                            className='gh-portal-btn'
+                            onClick={(e) => {
+                                const selectedPrice = getSelectedPrice({products, selectedInterval, selectedProduct: product.id});
+                                handleChooseSignup(e, selectedPrice.id);
+                            }}>
+                            Choose
+                        </button>
                     </div>
                 </div>
             </div>
