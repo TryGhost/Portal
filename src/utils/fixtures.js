@@ -23,7 +23,7 @@ const products = [
             interval: 'year',
             amount: 7000
         }),
-        numOfBenefits: 1
+        numOfBenefits: 3
     })
     ,
     getProductData({
@@ -37,7 +37,7 @@ const products = [
             interval: 'year',
             amount: 11000
         }),
-        numOfBenefits: 1
+        numOfBenefits: 4
     })
 
     // ,

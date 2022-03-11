@@ -135,7 +135,7 @@ export const ProductsSectionStyles = ({site}) => {
             justify-content: center;
             gap: 44px;
             margin: 0 auto;
-            padding: 44px 0 20px;
+            padding: 44px 0 0px;
             width: 100%;
         }
 
@@ -292,8 +292,11 @@ export const ProductsSectionStyles = ({site}) => {
             display: none;
         }
 
-        .gh-portal-product-description {
+        .gh-portal-product-card-detaildata {
             flex: 1;
+        }
+
+        .gh-portal-product-description {
             font-size: 1.55rem;
             font-weight: 600;
             line-height: 1.4em;
@@ -302,7 +305,6 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-product-benefits {
-            flex: 1;
             font-size: 1.5rem;
             line-height: 1.4em;
             width: 100%;
@@ -340,11 +342,11 @@ export const ProductsSectionStyles = ({site}) => {
             align-items: flex-end;
             width: 100%;
             justify-self: flex-end;
-            padding: 20px 0 32px;
-            margin-top: 8px;
+            padding: 40px 0 32px;
+            margin-top: 22px;
             margin-bottom: -32px;
             background: rgb(255,255,255);
-            background: linear-gradient(0deg, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(0deg, rgba(255,255,255,1) 65%, rgba(255,255,255,0) 100%);
         }
 
         .gh-portal-btn-product .gh-portal-btn {
@@ -596,8 +598,10 @@ function FreeProductCard() {
                     </div>
                 </div>
                 <div className='gh-portal-product-card-details'>
-                    {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
-                    <ProductBenefitsContainer product={product} />
+                    <div className='gh-portal-product-card-detaildata'>
+                        {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
+                        <ProductBenefitsContainer product={product} />
+                    </div>
                     <div className='gh-portal-btn-product'>
                         <button className='gh-portal-btn'>Choose</button>
                     </div>
@@ -626,8 +630,10 @@ function ProductCard({product, selectedInterval}) {
                     <ProductCardPrice product={product} />
                 </div>
                 <div className='gh-portal-product-card-details'>
-                    {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''}
-                    <ProductBenefitsContainer product={product} />
+                    <div className='gh-portal-product-card-detaildata'>
+                        {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''}
+                        <ProductBenefitsContainer product={product} />
+                    </div>
                     <div className='gh-portal-btn-product'>
                         <button className='gh-portal-btn'>Choose</button>
                     </div>
