@@ -17,6 +17,7 @@ export const ProductsSectionStyles = ({site}) => {
         }
 
         .gh-portal-products-pricetoggle {
+            position: relative;
             display: flex;
             background: #F3F3F3;
             width: 100%;
@@ -24,6 +25,24 @@ export const ProductsSectionStyles = ({site}) => {
             padding: 4px;
             height: 44px;
             margin-top: 24px;
+        }
+
+        .gh-portal-products-pricetoggle:before {
+            position: absolute;
+            content: "";
+            display: block;
+            width: 50%;
+            top: 4px;
+            bottom: 4px;
+            right: 4px;
+            background: #fff;
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);
+            border-radius: 999px;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .gh-portal-products-pricetoggle.left:before {
+            transform: translateX(calc(-100% + 8px));
         }
 
         .gh-portal-products-pricetoggle .gh-portal-btn {
@@ -41,8 +60,8 @@ export const ProductsSectionStyles = ({site}) => {
             height: 100%;
             width: 50%;
             color: var(--grey0);
-            background: white;
-            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);
+            /*background: white;
+            box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.08);*/
         }
 
         .gh-portal-priceoption-label {
@@ -612,7 +631,7 @@ function ProductPriceSwitch({products, selectedInterval, setSelectedInterval}) {
 
     return (
         <div className='gh-portal-logged-out-form-container'>
-            <div className='gh-portal-products-pricetoggle'>
+            <div className={'gh-portal-products-pricetoggle' + (selectedInterval === 'month' ? ' left' : '')}>
                 <button className={'gh-portal-btn' + (selectedInterval === 'month' ? ' active' : '')} onClick={(e) => {
                     setSelectedInterval('month');
                 }}>Monthly</button>
