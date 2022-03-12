@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-// import Switch from '../common/Switch';
+import {ReactComponent as LoaderIcon} from '../../images/icons/loader.svg';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
 import {getCurrencySymbol, getPriceString, getStripeAmount, isCookiesDisabled, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct} from '../../utils/helpers';
 import AppContext from '../../AppContext';
@@ -495,10 +495,9 @@ function FreeProductCard({handleChooseSignup}) {
     const freeProductDescription = getFreeTierDescription({site});
 
     const disabled = (action === 'signup:running') ? true : false;
-    // Product cards are duplicated because their design is too different for mobile devices to handle it purely in CSS
+
     return (
         <>
-            {/* Standard, desktop card */}
             <div className={cardClass} onClick={(e) => {
                 e.stopPropagation();
                 setSelectedProduct('free');
@@ -528,7 +527,7 @@ function FreeProductCard({handleChooseSignup}) {
                             onClick={(e) => {
                                 handleChooseSignup(e, 'free');
                             }}>
-                            Choose
+                            {((selectedProduct === 'free' && disabled) ? <LoaderIcon className='gh-portal-loadingicon' /> : 'Choose')}
                         </button>
                     </div>
                 </div>
@@ -543,6 +542,7 @@ function ProductCard({product, products, selectedInterval, handleChooseSignup}) 
 
     const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
     const disabled = (action === 'signup:running') ? true : false;
+
     return (
         <>
             <div className={cardClass} key={product.id} onClick={(e) => {
@@ -569,7 +569,7 @@ function ProductCard({product, products, selectedInterval, handleChooseSignup}) 
                                 const selectedPrice = getSelectedPrice({products, selectedInterval, selectedProduct: product.id});
                                 handleChooseSignup(e, selectedPrice.id);
                             }}>
-                            Choose
+                            {((selectedProduct === product.id && disabled) ? <LoaderIcon className='gh-portal-loadingicon' /> : 'Choose')}
                         </button>
                     </div>
                 </div>

@@ -91,7 +91,7 @@ const FrameStyles = `
 }
 
 .gh-portal-btn:disabled {
-    opacity: 0.3 !important;
+    opacity: 0.5 !important;
     cursor: auto;
 }
 
