@@ -513,7 +513,7 @@ function ProductCardPrice({product}) {
     );
 }
 
-function FreeProductCard({handleChooseSignup}) {
+function FreeProductCard({products, handleChooseSignup}) {
     const {site, action} = useContext(AppContext);
     const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
 
@@ -522,6 +522,14 @@ function FreeProductCard({handleChooseSignup}) {
     const freeProductDescription = getFreeTierDescription({site});
 
     const disabled = (action === 'signup:running') ? true : false;
+
+    // @TODO: doublecheck this!
+    let currencySymbol = '$';
+    if (products && products[1]) {
+        currencySymbol = getCurrencySymbol(products[1].monthlyPrice.currency);
+    } else {
+        currencySymbol = '$';
+    }
 
     return (
         <>
@@ -536,7 +544,7 @@ function FreeProductCard({handleChooseSignup}) {
                     <h4 className="gh-portal-product-name">{getFreeTierTitle({site})}</h4>
                     <div className="gh-portal-product-card-pricecontainer">
                         <div className="gh-portal-product-price">
-                            <span className="currency-sign">$</span>
+                            <span className={'currency-sign' + (currencySymbol.length > 1 ? ' long' : '')}>{currencySymbol}</span>
                             <span className="amount">0</span>
                         </div>
                         {/* <div className="gh-portal-product-alternative-price"></div> */}
@@ -609,7 +617,7 @@ function ProductCards({products, selectedInterval, handleChooseSignup}) {
     return products.map((product) => {
         if (product.id === 'free') {
             return (
-                <FreeProductCard key={product.id} handleChooseSignup={handleChooseSignup} />
+                <FreeProductCard products={products} key={product.id} handleChooseSignup={handleChooseSignup} />
             );
         }
         return (
