@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {ReactComponent as LoaderIcon} from '../../images/icons/loader.svg';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
-import {getCurrencySymbol, getPriceString, getStripeAmount, isCookiesDisabled, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct} from '../../utils/helpers';
+import {getCurrencySymbol, getPriceString, getStripeAmount, isCookiesDisabled, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct, formatNumber} from '../../utils/helpers';
 import AppContext from '../../AppContext';
 // import ActionButton from './ActionButton';
 import calculateDiscount from '../../utils/discount';
@@ -182,6 +182,9 @@ export const ProductsSectionStyles = ({site}) => {
             flex-direction: row;
             align-items: flex-end;
             justify-content: space-between;
+            flex-wrap: wrap;
+            row-gap: 10px;
+            column-gap: 4px;
             width: 100%;
             margin-top: 16px;
         }
@@ -194,9 +197,13 @@ export const ProductsSectionStyles = ({site}) => {
 
         .gh-portal-product-price .currency-sign {
             align-self: flex-start;
-            font-size: 2.9rem;
+            font-size: 2.7rem;
             font-weight: 700;
-            line-height: 1.1em;
+            line-height: 1.115em;
+        }
+
+        .gh-portal-product-price .currency-sign.long {
+            margin-right: 5px;
         }
 
         .gh-portal-product-price .amount {
@@ -491,12 +498,13 @@ function ProductCardPrice({product}) {
     }
 
     const yearlyDiscount = calculateDiscount(product.monthlyPrice.amount, product.yearlyPrice.amount);
+    const currencySymbol = getCurrencySymbol(activePrice.currency);
 
     return (
         <div className="gh-portal-product-card-pricecontainer">
             <div className="gh-portal-product-price">
-                <span className="currency-sign">{getCurrencySymbol(activePrice.currency)}</span>
-                <span className="amount">{getStripeAmount(activePrice.amount)}</span>
+                <span className={'currency-sign' + (currencySymbol.length > 1 ? ' long' : '')}>{currencySymbol}</span>
+                <span className="amount">{formatNumber(getStripeAmount(activePrice.amount))}</span>
                 <span className="billing-period">/{activePrice.interval}</span>
             </div>
             {(selectedInterval === 'year' ? <YearlyDiscount discount={yearlyDiscount} /> : '')}

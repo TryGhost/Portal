@@ -60,7 +60,7 @@ export const GlobalStyles = `
     }
 
     h1 {
-        font-size: 33px;
+        font-size: 35px;
         font-weight: 700;
         letter-spacing: -0.15px;
     }
