@@ -126,7 +126,7 @@ class PopupContent extends React.Component {
     }
 
     render() {
-        const {page, site, customSiteUrl} = this.context;
+        const {page, pageQuery, site, customSiteUrl} = this.context;
         const products = getSiteProducts({site});
         const noOfProducts = products.length;
 
@@ -162,7 +162,7 @@ class PopupContent extends React.Component {
             break;
         }
 
-        if (noOfProducts > 1 && !isInviteOnlySite) {
+        if (noOfProducts > 1 && !isInviteOnlySite({site, pageQuery})) {
             if (page === 'signup') {
                 pageClass += ' full-size';
                 popupSize = 'full';
