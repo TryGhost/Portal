@@ -5,7 +5,7 @@ import {getFrameStyles} from './Frame.styles';
 import Pages, {getActivePage} from '../pages';
 import PopupNotification from './common/PopupNotification';
 import PoweredBy from './common/PoweredBy';
-import {getSiteProducts, isCookiesDisabled} from '../utils/helpers';
+import {getSiteProducts, isInviteOnlySite, isCookiesDisabled} from '../utils/helpers';
 
 const React = require('react');
 
@@ -162,7 +162,7 @@ class PopupContent extends React.Component {
             break;
         }
 
-        if (noOfProducts > 1) {
+        if (noOfProducts > 1 && !isInviteOnlySite) {
             if (page === 'signup') {
                 pageClass += ' full-size';
                 popupSize = 'full';

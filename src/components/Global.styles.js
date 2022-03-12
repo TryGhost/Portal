@@ -110,17 +110,14 @@ export const GlobalStyles = `
     @media (max-width: 480px) {
         h1 {
             font-size: 30px;
-            font-weight: 600;
         }
 
         h2 {
             font-size: 26px;
-            font-weight: 600;
         }
 
         h3 {
             font-size: 24px;
-            font-weight: 600;
         }
     }
 `;
