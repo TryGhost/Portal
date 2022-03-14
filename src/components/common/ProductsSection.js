@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {ReactComponent as LoaderIcon} from '../../images/icons/loader.svg';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
-import {getCurrencySymbol, getPriceString, getStripeAmount, isCookiesDisabled, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct, formatNumber} from '../../utils/helpers';
+import {getCurrencySymbol, getPriceString, getStripeAmount, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct, formatNumber, isCookiesDisabled} from '../../utils/helpers';
 import AppContext from '../../AppContext';
 // import ActionButton from './ActionButton';
 import calculateDiscount from '../../utils/discount';
@@ -162,6 +162,7 @@ export const ProductsSectionStyles = ({site}) => {
             border-radius: 999px;
             margin-right: -4px;
             margin-top: -4px;
+            max-height: 24.5px;
         }
 
         .gh-portal-discount-label:before {
@@ -414,33 +415,6 @@ const ProductsContext = React.createContext({
     setSelectedProduct: null
 });
 
-function Checkbox({name, id, onProductSelect, isChecked, disabled = false}) {
-    if (isCookiesDisabled()) {
-        disabled = true;
-    }
-    return (
-        <div className='gh-portal-plan-checkbox'>
-            <input
-                name={name}
-                key={id}
-                type="checkbox"
-                checked={isChecked}
-                onChange={(e) => {
-                    onProductSelect(e, id);
-                }}
-                aria-label={name}
-                disabled={disabled}
-            />
-            <span className='checkmark' onClick={(e) => {
-                e.stopPropagation();
-                if (!disabled) {
-                    onProductSelect(e, id);
-                }
-            }}></span>
-        </div>
-    );
-}
-
 function ProductBenefits({product}) {
     if (!product.benefits || !product.benefits.length) {
         return null;
@@ -518,7 +492,11 @@ function FreeProductCard({products, handleChooseSignup}) {
     const product = getFreeProduct({site});
     const freeProductDescription = getFreeTierDescription({site});
 
-    const disabled = (action === 'signup:running') ? true : false;
+    let disabled = (action === 'signup:running') ? true : false;
+
+    if (isCookiesDisabled()) {
+        disabled = true;
+    }
 
     // @TODO: doublecheck this!
     let currencySymbol = '$';
@@ -534,9 +512,6 @@ function FreeProductCard({products, handleChooseSignup}) {
                 e.stopPropagation();
                 setSelectedProduct('free');
             }}>
-                <Checkbox name='x' id='x' isChecked={selectedProduct === 'free'} onProductSelect={() => {
-                    setSelectedProduct('free');
-                }} />
                 <div className='gh-portal-product-card-header'>
                     <h4 className="gh-portal-product-name">{getFreeTierTitle({site})}</h4>
                     <div className="gh-portal-product-card-pricecontainer">
@@ -573,7 +548,11 @@ function ProductCard({product, products, selectedInterval, handleChooseSignup}) 
     const {action} = useContext(AppContext);
 
     const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
-    const disabled = (action === 'signup:running') ? true : false;
+    let disabled = (action === 'signup:running') ? true : false;
+
+    if (isCookiesDisabled()) {
+        disabled = true;
+    }
 
     return (
         <>
@@ -581,9 +560,6 @@ function ProductCard({product, products, selectedInterval, handleChooseSignup}) 
                 e.stopPropagation();
                 setSelectedProduct(product.id);
             }}>
-                <Checkbox name={product.id} id={`${product.id}-checkbox`} isChecked={selectedProduct === product.id} onProductSelect={() => {
-                    setSelectedProduct(product.id);
-                }} />
                 <div className='gh-portal-product-card-header'>
                     <h4 className="gh-portal-product-name">{product.name}</h4>
                     <ProductCardPrice product={product} />

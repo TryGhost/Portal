@@ -67,7 +67,7 @@ export function getOfferData({
     name = 'Black Friday',
     code = 'black-friday',
     displayTitle = 'Black Friday',
-    displayDescription = 'Special deal',
+    displayDescription = 'Special deal for Black Friday. Subscribe now for only $15 per month and get additional benefits like accessing our podcast.',
     type = 'percent',
     cadence = 'month',
     amount = 50,
