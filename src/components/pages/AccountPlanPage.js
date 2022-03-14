@@ -220,34 +220,6 @@ function PlansOrProductSection({showLabel, plans, selectedPlan, onPlanSelect, ch
             onPlanSelect={onPlanSelect}
         />
     );
-    // if (changePlan === true) {
-    //     return (
-    //         <MultipleProductsPlansSection
-    //             products={products}
-    //             selectedPlan={selectedPlan}
-    //             changePlan={true}
-    //             onPlanSelect={onPlanSelect}
-    //         />
-    //     );
-    // } else if (hasMultipleProducts({site})) {
-    //     return (
-    //         <MultipleProductsPlansSection
-    //             products={products}
-    //             selectedPlan={selectedPlan}
-    //             changePlan={changePlan}
-    //             onPlanSelect={onPlanSelect}
-    //         />
-    //     );
-    // } else {
-    //     return (
-    //         <MultipleProductsPlansSection
-    //             products={products}
-    //             selectedPlan={selectedPlan}
-    //             changePlan={false}
-    //             onPlanSelect={onPlanSelect}
-    //         />
-    //     );
-    // }
 }
 
 // For free members
