@@ -276,92 +276,6 @@ export const PlanSectionStyles = `
         margin: 3px 0 -2px;
     }
 
-    .gh-portal-plans-container.vertical {
-        flex-direction: column;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-section {
-        display: grid;
-        flex-direction: unset;
-        grid-template-columns: 32px auto auto;
-        grid-template-rows: auto auto;
-        justify-items: start;
-        min-height: 60px;
-        border-right: none;
-        border-bottom: 1px solid var(--grey11);
-        padding: 10px;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-checkbox {
-        grid-column: 1 / 2;
-        grid-row: 1 / 3;
-        margin: 0 12px;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-pricelabel {
-        grid-column: 3 / 4;
-        grid-row: 1 / 3;
-        flex-direction: column;
-        justify-self: end;
-        align-items: flex-end;
-        margin: 4px 4px 0 12px;
-        min-height: unset;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-priceinterval {
-        line-height: unset;
-        line-height: 1.7;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-name {
-        text-transform: none;
-        font-size: 1.4rem;
-        line-height: 1.1em;
-        letter-spacing: 0.2px;
-        margin: 0;
-        min-height: unset;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-featurewrapper {
-        margin: 4px 0 0;
-        padding: 0;
-        border: none;
-        align-items: flex-start;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-feature {
-        text-align: left;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-section:last-of-type {
-        border-bottom: none;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-section:first-of-type::before {
-        border-radius: 5px 5px 0 0;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-section:last-of-type::before {
-        border-radius: 0 0 5px 5px;
-    }
-
-    .gh-portal-plans-container.vertical.hide-checkbox .gh-portal-plan-section {
-        grid-template-columns: auto auto;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-pricelabel {
-        grid-column: 3 / 4;
-        grid-row: 1 / 3;
-    }
-
-    .gh-portal-plans-container.vertical.hide-checkbox .gh-portal-plan-featurewrapper {
-        grid-column: 1 / 2;
-    }
-
-    .gh-portal-plans-container.vertical .gh-portal-plan-name.no-description {
-        grid-row: 1 / 3;
-    }
-
     .gh-portal-plans-container:not(.empty-selected-benefits) {
         border-bottom-left-radius: 0;
         border-bottom-right-radius: 0;
@@ -565,16 +479,13 @@ function productHasDescriptionOrBenefits({product}) {
     return false;
 }
 
-function getPlanClassNames({changePlan, cookiesDisabled, plans = [], selectedPlan, showVertical = false, site}) {
+function getPlanClassNames({changePlan, cookiesDisabled, plans = [], selectedPlan, site}) {
     let className = 'gh-portal-plans-container';
     if (changePlan) {
         className += ' hide-checkbox';
     }
     if (cookiesDisabled) {
         className += ' disabled';
-    }
-    if (changePlan || plans.length > 3 || showVertical) {
-        className += ' vertical';
     }
     const selectedProduct = getProductFromPrice({site, priceId: selectedPlan});
 

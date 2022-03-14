@@ -457,15 +457,12 @@ function ProductBenefits({product}) {
     });
 }
 
-function ProductBenefitsContainer({product, showVertical = false, hide = false}) {
+function ProductBenefitsContainer({product, hide = false}) {
     if (!product.benefits || !product.benefits.length || hide) {
         return null;
     }
 
     let className = 'gh-portal-product-benefits';
-    if (showVertical) {
-        className += ' vertical';
-    }
     return (
         <div className={className}>
             <ProductBenefits product={product} />
@@ -823,7 +820,7 @@ function ProductDescription({product, selectedPrice, activePrice}) {
 function ChangeProductCard({product}) {
     const {member} = useContext(AppContext);
     const {selectedProduct, setSelectedProduct, selectedInterval} = useContext(ProductsContext);
-    const cardClass = selectedProduct === product.id ? 'gh-portal-product-card vertical checked' : 'gh-portal-product-card vertical';
+    const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
     const monthlyPrice = product.monthlyPrice;
     const yearlyPrice = product.yearlyPrice;
     const memberActivePrice = getMemberActivePrice({member});
@@ -856,19 +853,6 @@ function ChangeProductCard({product}) {
                     </div>)}
             </div>
         </div>
-        // <div className={cardClass} key={product.id} onClick={(e) => {
-        //     e.stopPropagation();
-        //     setSelectedProduct(product.id);
-        // }}>
-        //     <Checkbox name={product.id} id={`${product.id}-checkbox`} isChecked={selectedProduct === product.id} onProductSelect={() => {
-        //         setSelectedProduct(product.id);
-        //     }} />
-        //     <h4 className="gh-portal-product-name">{product.name}</h4>
-        //     {/* {product.description ? <div className="gh-portal-product-description">{product.description}</div> : ''} */}
-        //     <ProductDescription product={product} selectedPrice={selectedPrice} activePrice={memberActivePrice} />
-        //     <ProductBenefitsContainer product={product} />
-        //     <ProductCardPrice product={product} />
-        // </div>
     );
 }
 
