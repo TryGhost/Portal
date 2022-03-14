@@ -1,8 +1,7 @@
 import React, {useContext} from 'react';
 import AppContext from '../../AppContext';
-import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
 import calculateDiscount from '../../utils/discount';
-import {isCookiesDisabled, formatNumber, hasOnlyFreePlan, hasMultipleProductsFeature, getProductBenefits, getFreeTierDescription, getFreeTierTitle, getFreeProductBenefits, getProductFromPrice} from '../../utils/helpers';
+import {isCookiesDisabled, formatNumber, hasOnlyFreePlan, hasMultipleProductsFeature, getFreeTierTitle, getProductFromPrice} from '../../utils/helpers';
 import ProductsSection, {ChangeProductSection} from './ProductsSection';
 
 export const PlanSectionStyles = `
@@ -550,58 +549,6 @@ function PlanFeature({feature, hide = false}) {
     );
 }
 
-function PlanBenefit({benefit}) {
-    if (!benefit?.name) {
-        return null;
-    }
-    return (
-        <div className="gh-portal-product-benefit">
-            <CheckmarkIcon className='gh-portal-benefit-checkmark' />
-            <span className={benefit.className}>{benefit.name}</span>
-        </div>
-    );
-}
-
-function PlanBenefits({product, plans, selectedPlan}) {
-    const {site} = useContext(AppContext);
-    const productBenefits = getProductBenefits({product, site});
-    const plan = plans.find((_plan) => {
-        return _plan.id === selectedPlan;
-    });
-    let planBenefits = [];
-    let planDescription = product?.description || '';
-    if (selectedPlan === 'free') {
-        planBenefits = getFreeProductBenefits({site});
-        planDescription = getFreeTierDescription({site});
-    } else if (plan?.interval === 'month') {
-        planBenefits = productBenefits.monthly;
-    } else if (plan?.interval === 'year') {
-        planBenefits = productBenefits.yearly;
-    }
-    const benefits = planBenefits.map((benefit, idx) => {
-        const key = `${benefit.name}-${idx}`;
-        return (
-            <PlanBenefit benefit={benefit} key={key} />
-        );
-    });
-
-    if (!planDescription && benefits.length === 0) {
-        return '';
-    }
-
-    let benefitsClass = benefits.length === 0 ? `no-benefits` : '';
-    if (!product || hasOnlyFreePlan({plans})) {
-        benefitsClass += ' onlyfree';
-    }
-
-    return (
-        <div className={'gh-portal-singleproduct-benefits gh-portal-product-benefits ' + benefitsClass}>
-            {planDescription ? <div className='gh-portal-product-description'> {planDescription} </div> : ''}
-            {benefits}
-        </div>
-    );
-}
-
 function PlanLabel({showLabel}) {
     if (!showLabel) {
         return null;
@@ -683,33 +630,6 @@ export function MultipleProductsPlansSection({products, selectedPlan, onPlanSele
                     onPlanSelect={onPlanSelect}
                 />
             </div>
-        </section>
-    );
-}
-
-export function SingleProductPlansSection({product, plans, selectedPlan, onPlanSelect, changePlan = false}) {
-    const {site} = useContext(AppContext);
-    const cookiesDisabled = isCookiesDisabled();
-    /**Don't allow plans selection if cookies are disabled */
-    if (cookiesDisabled) {
-        onPlanSelect = () => {};
-    }
-    const className = getPlanClassNames({cookiesDisabled, changePlan, plans, selectedPlan, site});
-
-    if (!product || hasOnlyFreePlan({plans})) {
-        return (
-            <section>
-                <PlanBenefits product={product} plans={plans} selectedPlan={selectedPlan} />
-            </section>
-        );
-    }
-
-    return (
-        <section>
-            <div className={className}>
-                <PlanOptions plans={plans} onPlanSelect={onPlanSelect} selectedPlan={selectedPlan} changePlan={changePlan} />
-            </div>
-            <PlanBenefits product={product} plans={plans} selectedPlan={selectedPlan} />
         </section>
     );
 }

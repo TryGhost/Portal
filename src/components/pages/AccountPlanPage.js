@@ -5,7 +5,7 @@ import CloseButton from '../common/CloseButton';
 import BackButton from '../common/BackButton';
 import {MultipleProductsPlansSection} from '../common/PlansSection';
 import {getDateString} from '../../utils/date-time';
-import {formatNumber, getAvailablePrices, getFilteredPrices, getMemberActivePrice, getMemberSubscription, getPriceFromSubscription, getProductFromPrice, getSubscriptionFromId, getUpgradeProducts, hasMultipleProducts, hasMultipleProductsFeature, isPaidMember} from '../../utils/helpers';
+import {formatNumber, getAvailablePrices, getFilteredPrices, getMemberActivePrice, getMemberSubscription, getPriceFromSubscription, getProductFromPrice, getSubscriptionFromId, getUpgradeProducts, hasMultipleProductsFeature, isPaidMember} from '../../utils/helpers';
 
 export const AccountPlanPageStyles = `
     .account-plan.full-size .gh-portal-main-title {
@@ -212,40 +212,42 @@ const ChangePlanSection = ({plans, selectedPlan, onPlanSelect, onCancelSubscript
 function PlansOrProductSection({showLabel, plans, selectedPlan, onPlanSelect, changePlan = false}) {
     const {site, member} = useContext(AppContext);
     const products = getUpgradeProducts({site, member});
-    if (changePlan === true) {
-        return (
-            <MultipleProductsPlansSection
-                products={products}
-                selectedPlan={selectedPlan}
-                changePlan={true}
-                onPlanSelect={onPlanSelect}
-            />
-        );
-    } else if (hasMultipleProducts({site})) {
-        return (
-            <MultipleProductsPlansSection
-                products={products}
-                selectedPlan={selectedPlan}
-                changePlan={changePlan}
-                onPlanSelect={onPlanSelect}
-            />
-        );
-    } else {
-        return (
-            <MultipleProductsPlansSection
-                products={products}
-                selectedPlan={selectedPlan}
-                changePlan={false}
-                onPlanSelect={onPlanSelect}
-            />
-            // <SingleProductPlansSection
-            //     product={products?.[0]}
-            //     plans={plans}
-            //     selectedPlan={selectedPlan}
-            //     onPlanSelect={onPlanSelect}
-            // />
-        );
-    }
+    return (
+        <MultipleProductsPlansSection
+            products={products}
+            selectedPlan={selectedPlan}
+            changePlan={changePlan}
+            onPlanSelect={onPlanSelect}
+        />
+    );
+    // if (changePlan === true) {
+    //     return (
+    //         <MultipleProductsPlansSection
+    //             products={products}
+    //             selectedPlan={selectedPlan}
+    //             changePlan={true}
+    //             onPlanSelect={onPlanSelect}
+    //         />
+    //     );
+    // } else if (hasMultipleProducts({site})) {
+    //     return (
+    //         <MultipleProductsPlansSection
+    //             products={products}
+    //             selectedPlan={selectedPlan}
+    //             changePlan={changePlan}
+    //             onPlanSelect={onPlanSelect}
+    //         />
+    //     );
+    // } else {
+    //     return (
+    //         <MultipleProductsPlansSection
+    //             products={products}
+    //             selectedPlan={selectedPlan}
+    //             changePlan={false}
+    //             onPlanSelect={onPlanSelect}
+    //         />
+    //     );
+    // }
 }
 
 // For free members
