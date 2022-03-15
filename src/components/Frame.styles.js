@@ -950,7 +950,7 @@ export function getFrameStyles({site}) {
         AvatarStyles +
         MagicLinkStyles +
         SignupPageStyles +
-        OfferPageStyles +
+        OfferPageStyles({site}) +
         PopupNotificationStyles +
         MobileStyles +
         MultipleProductsGlobalStyles;

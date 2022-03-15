@@ -172,7 +172,6 @@ export const ProductsSectionStyles = ({site}) => {
             white-space: nowrap;
             border-radius: 999px;
             margin-right: -4px;
-            margin-top: -4px;
             max-height: 24.5px;
         }
 

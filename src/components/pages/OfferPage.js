@@ -7,90 +7,104 @@ import {getCurrencySymbol, getProductFromId, hasMultipleProductsFeature, isSameC
 import {ValidateInputForm} from '../../utils/form';
 const React = require('react');
 
-export const OfferPageStyles = `
-    .gh-portal-offer {
-        padding-bottom: 0;
-        overflow: unset;
-        max-height: unset;
-    }
+export const OfferPageStyles = ({site}) => {
+    return `
+.gh-portal-offer {
+    padding-bottom: 0;
+    overflow: unset;
+    max-height: unset;
+}
 
-    .gh-portal-offer-container {
-        display: flex;
-        flex-direction: column;
-    }
+.gh-portal-offer-container {
+    display: flex;
+    flex-direction: column;
+}
 
-    .gh-portal-plans-container.offer {
-        justify-content: space-between;
-        border-color: var(--grey12);
-        border-top: none;
-        border-top-left-radius: 0;
-        border-top-right-radius: 0;
-        padding: 12px 16px;
-        font-size: 1.3rem;
-    }
+.gh-portal-plans-container.offer {
+    justify-content: space-between;
+    border-color: var(--grey12);
+    border-top: none;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 12px 16px;
+    font-size: 1.3rem;
+}
 
-    .gh-portal-offer-bar {
-        position: relative;
-        padding: 28px;
-        margin-bottom: 24px;
-        border: 1px dashed var(--brandcolor);
-        border-radius: 6px;
-    }
+.gh-portal-offer-bar {
+    position: relative;
+    padding: 26px 28px 28px;
+    margin-bottom: 24px;
+    /*border: 1px dashed var(--brandcolor);*/
+    background-image: url("data:image/svg+xml,%3csvg width='100%25' height='99.9%25' xmlns='http://www.w3.org/2000/svg'%3e%3crect width='100%25' height='100%25' fill='none' stroke='%23C3C3C3' stroke-width='3' stroke-dasharray='3%2c 9' stroke-dashoffset='0' stroke-linecap='square'/%3e%3c/svg%3e");
+    border-radius: 6px;
+}
 
-    .gh-portal-offer-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+.gh-portal-offer-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 
-    .gh-portal-offer-title h4 {
-        font-size: 1.8rem;
-        margin-bottom: 0;
-    }
+.gh-portal-offer-title h4 {
+    font-size: 1.8rem;
+    margin: 0 80px 0 0;
+    width: 100%;
+}
 
-    .gh-portal-offer-bar p {
-        padding-bottom: 0;
-        margin: 12px 0 0;
-    }
+.gh-portal-offer-title h4.placeholder {
+    opacity: 0.4;
+}
 
-    .gh-portal-offer-title h4 + p {
-        margin: 12px 0 0;
-    }
+.gh-portal-offer-bar .gh-portal-discount-label {
+    position: absolute;
+    top: 23px;
+    right: 25px;
+}
 
-    .gh-portal-offer-details .gh-portal-plan-name,
-    .gh-portal-offer-details p {
-        margin-right: 8px;
-    }
+.gh-portal-offer-bar p {
+    padding-bottom: 0;
+    margin: 12px 0 0;
+}
 
-    .gh-portal-offer .footnote {
-        font-size: 1.35rem;
-        color: var(--grey7);
-        margin: 24px 0 0;
-    }
+.gh-portal-offer-title h4 + p {
+    margin: 12px 0 0;
+}
 
-    .offer .gh-portal-product-card {
-        max-width: unset;
-        min-height: 0;
-    }
+.gh-portal-offer-details .gh-portal-plan-name,
+.gh-portal-offer-details p {
+    margin-right: 8px;
+}
 
-    .offer .gh-portal-product-card .gh-portal-product-card-pricecontainer {
-        margin-top: 0px;
-    }
+.gh-portal-offer .footnote {
+    font-size: 1.35rem;
+    color: var(--grey7);
+    margin: 24px 0 0;
+}
 
-    .gh-portal-offer-oldprice {
-        text-decoration: line-through;
-        font-size: 1.8rem;
-        font-weight: 300;
-        color: var(--grey8);
-        line-height: 1;
-        white-space: nowrap;
-        margin-top: 16px;
-    }
+.offer .gh-portal-product-card {
+    max-width: unset;
+    min-height: 0;
+}
 
-    .gh-portal-offer-details p {
-        margin-bottom: 12px;
-    }
-`;
+.offer .gh-portal-product-card .gh-portal-product-card-pricecontainer {
+    margin-top: 0px;
+}
+
+.gh-portal-offer-oldprice {
+    text-decoration: line-through;
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: var(--grey8);
+    line-height: 1;
+    white-space: nowrap;
+    margin-top: 16px;
+}
+
+.gh-portal-offer-details p {
+    margin-bottom: 12px;
+}
+    `;
+};
 
 export default class OfferPage extends React.Component {
     static contextType = AppContext;
@@ -291,6 +305,13 @@ export default class OfferPage extends React.Component {
 
     renderOfferTag() {
         const {pageData: offer} = this.context;
+
+        if (offer.amount <= 0) {
+            return (
+                <></>
+            );
+        }
+
         if (offer.type === 'fixed') {
             return (
                 <h5 className="gh-portal-discount-label">{getCurrencySymbol(offer.currency)}{offer.amount / 100} off</h5>
@@ -415,7 +436,7 @@ export default class OfferPage extends React.Component {
 
                     <div className="gh-portal-offer-bar">
                         <div className="gh-portal-offer-title">
-                            {(offer.display_title ? <h4>{offer.display_title}</h4> : '')}
+                            {(offer.display_title ? <h4>{offer.display_title}</h4> : <h4 className='placeholder'>Black Friday</h4>)}
                             {this.renderOfferTag()}
                         </div>
                         {(offer.display_description ? <p>{offer.display_description}</p> : '')}
