@@ -610,7 +610,10 @@ function ProductCards({products, selectedInterval, handleChooseSignup}) {
 }
 
 function YearlyDiscount({discount}) {
-    if (discount === 0) {
+    const {site} = useContext(AppContext);
+    const {portal_plans: portalPlans} = site;
+
+    if (discount === 0 || !portalPlans.includes('monthly')) {
         return null;
     }
 
