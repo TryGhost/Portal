@@ -5,7 +5,7 @@ import {getFrameStyles} from './Frame.styles';
 import Pages, {getActivePage} from '../pages';
 import PopupNotification from './common/PopupNotification';
 import PoweredBy from './common/PoweredBy';
-import {getSiteProducts, isInviteOnlySite, isCookiesDisabled} from '../utils/helpers';
+import {getSiteProducts, isInviteOnlySite, isCookiesDisabled, hasFreeProductPrice} from '../utils/helpers';
 
 const React = require('react');
 
@@ -168,7 +168,9 @@ class PopupContent extends React.Component {
                 popupSize = 'full';
             }
         }
-        if (noOfProducts > 2) {
+
+        const freeProduct = hasFreeProductPrice({site});
+        if ((freeProduct && noOfProducts > 2) || (!freeProduct && noOfProducts > 1)) {
             if (page === 'accountPlan') {
                 pageClass += ' full-size';
                 popupSize = 'full';
