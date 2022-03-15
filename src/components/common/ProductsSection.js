@@ -3,7 +3,6 @@ import {ReactComponent as LoaderIcon} from '../../images/icons/loader.svg';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
 import {getCurrencySymbol, getPriceString, getStripeAmount, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct, formatNumber, isCookiesDisabled} from '../../utils/helpers';
 import AppContext from '../../AppContext';
-// import ActionButton from './ActionButton';
 import calculateDiscount from '../../utils/discount';
 
 export const ProductsSectionStyles = ({site}) => {
@@ -106,6 +105,18 @@ export const ProductsSectionStyles = ({site}) => {
             border: 1px solid var(--grey11);
             min-height: 200px;
             transition: border-color 0.25s ease-in-out;
+        }
+
+        .gh-portal-product-card.top {
+            border-bottom: none;
+            border-radius: 7px 7px 0 0;
+            padding-bottom: 0;
+        }
+
+        .gh-portal-product-card.bottom {
+            border-top: none;
+            border-radius: 0 0 7px 7px;
+            padding-top: 0;
         }
 
         .gh-portal-product-card:not(.disabled):hover {

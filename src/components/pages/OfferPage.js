@@ -3,7 +3,7 @@ import AppContext from '../../AppContext';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
 import CloseButton from '../common/CloseButton';
 import InputForm from '../common/InputForm';
-import {getCurrencySymbol, getProductFromId, hasMultipleProductsFeature, isSameCurrency} from '../../utils/helpers';
+import {getCurrencySymbol, getProductFromId, hasMultipleProductsFeature, isSameCurrency, formatNumber} from '../../utils/helpers';
 import {ValidateInputForm} from '../../utils/form';
 const React = require('react');
 
@@ -70,6 +70,7 @@ export const OfferPageStyles = `
 
     .offer .gh-portal-product-card {
         max-width: unset;
+        min-height: 0;
     }
 
     .offer .gh-portal-product-card .gh-portal-product-card-pricecontainer {
@@ -78,7 +79,7 @@ export const OfferPageStyles = `
 
     .gh-portal-offer-oldprice {
         text-decoration: line-through;
-        font-size: 2.2rem;
+        font-size: 1.8rem;
         font-weight: 300;
         color: var(--grey8);
         line-height: 1;
@@ -255,7 +256,7 @@ export default class OfferPage extends React.Component {
         const disabled = (action === 'signup:running') ? true : false;
         return (
             <ActionButton
-                style={{width: '100%', marginTop: '28px'}}
+                style={{width: '100%'}}
                 retry={retry}
                 onClick={e => this.handleSignup(e)}
                 disabled={disabled}
@@ -263,6 +264,7 @@ export default class OfferPage extends React.Component {
                 label={label}
                 isRunning={isRunning}
                 tabIndex='3'
+                classes={'sticky bottom'}
             />
         );
     }
@@ -421,30 +423,34 @@ export default class OfferPage extends React.Component {
 
                     {this.renderForm()}
 
-                    <div className='gh-portal-product-card'>
+                    <div className='gh-portal-product-card top'>
                         <div className='gh-portal-product-card-header'>
                             <h4 className="gh-portal-product-name">{product.name} - {(offer.cadence === 'month' ? 'Monthly' : 'Yearly')}</h4>
-                            <div className="gh-portal-offer-oldprice">{getCurrencySymbol(price.currency)}{price.amount / 100}</div>
+                            <div className="gh-portal-offer-oldprice">{getCurrencySymbol(price.currency)} {formatNumber(price.amount / 100)}</div>
                             <div class="gh-portal-product-card-pricecontainer">    
                                 <div class="gh-portal-product-price">
                                     <span class={'currency-sign ' + currencyClass}>{getCurrencySymbol(price.currency)}</span>
-                                    <span class="amount">{this.renderRoundedPrice(updatedPrice)}</span>
+                                    <span class="amount">{formatNumber(this.renderRoundedPrice(updatedPrice))}</span>
                                     <span class="billing-period">/year</span>
                                 </div>
                             </div>
                         </div>
-                        <div className='gh-portal-product-card-details'>
+                    </div>
+
+                    <div>
+                        <div className='gh-portal-product-card bottom'>
                             <div className='gh-portal-product-card-detaildata'>
                                 {(product.description ? <div className="gh-portal-product-description">{product.description}</div> : '')}
                                 {(benefits.length ? this.renderBenefits({product}) : '')}
                                 {this.renderOfferMessage({offer, product})}
                             </div>
+                            {this.renderLoginMessage()}
+                        </div>
+
+                        <div className='gh-portal-btn-container sticky m32'>
+                            {this.renderSubmitButton()}
                         </div>
                     </div>
-
-                    {this.renderSubmitButton()}
-                    {this.renderLoginMessage()}
-
                 </div>
             </>
         );

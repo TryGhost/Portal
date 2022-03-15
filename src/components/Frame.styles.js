@@ -81,7 +81,6 @@ const FrameStyles = `
     cursor: pointer;
     transition: all .25s ease;
     box-shadow: none;
-    /*box-shadow: 0 2px 6px -3px rgba(0,0,0,0.19);*/
     user-select: none;
     outline: none;
 }
@@ -93,6 +92,24 @@ const FrameStyles = `
 .gh-portal-btn:disabled {
     opacity: 0.5 !important;
     cursor: auto;
+}
+
+.gh-portal-btn-container.sticky {
+    transition: none;
+    position: sticky;
+    bottom: 0;
+    margin: 0 0 -36px;
+    padding: 36px 0 36px;
+    background: linear-gradient(0deg, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
+}
+
+.gh-portal-btn-container.sticky.m32 {
+    margin: 0 0 -32px;
+    padding: 32px 0 32px;
+}
+
+.gh-portal-btn-container .gh-portal-btn {
+    margin: 0 !important;
 }
 
 .gh-portal-btn-icon svg {
