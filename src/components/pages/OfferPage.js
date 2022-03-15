@@ -77,8 +77,8 @@ export const OfferPageStyles = ({site}) => {
 
 .gh-portal-offer .footnote {
     font-size: 1.35rem;
-    color: var(--grey7);
-    margin: 24px 0 0;
+    color: var(--grey8);
+    margin: 4px 0 0;
 }
 
 .offer .gh-portal-product-card {
@@ -90,14 +90,32 @@ export const OfferPageStyles = ({site}) => {
     margin-top: 0px;
 }
 
+.offer .gh-portal-product-card-header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
 .gh-portal-offer-oldprice {
-    text-decoration: line-through;
+    display: flex;
+    position: relative;
     font-size: 1.8rem;
     font-weight: 300;
     color: var(--grey8);
     line-height: 1;
     white-space: nowrap;
-    margin-top: 16px;
+    margin: 16px 0 4px;
+}
+
+.gh-portal-offer-oldprice:after {
+    position: absolute;
+    display: block;
+    content: "";
+    left: 0;
+    top: 50%;
+    right: 0;
+    height: 1px;
+    background: var(--grey8);
 }
 
 .gh-portal-offer-details p {
@@ -455,6 +473,7 @@ export default class OfferPage extends React.Component {
                                     <span class="billing-period">/year</span>
                                 </div>
                             </div>
+                            {this.renderOfferMessage({offer, product})}
                         </div>
                     </div>
 
@@ -463,14 +482,14 @@ export default class OfferPage extends React.Component {
                             <div className='gh-portal-product-card-detaildata'>
                                 {(product.description ? <div className="gh-portal-product-description">{product.description}</div> : '')}
                                 {(benefits.length ? this.renderBenefits({product}) : '')}
-                                {this.renderOfferMessage({offer, product})}
                             </div>
-                            {this.renderLoginMessage()}
                         </div>
 
                         <div className='gh-portal-btn-container sticky m32'>
                             {this.renderSubmitButton()}
                         </div>
+
+                        {this.renderLoginMessage()}
                     </div>
                 </div>
             </>
