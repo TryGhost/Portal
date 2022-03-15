@@ -746,8 +746,23 @@ const MobileStyles = `
         justify-content: flex-start;
     }
 
+    .gh-portal-popup-wrapper.preview:not(.full-size) footer.gh-portal-signup-footer, 
+    .gh-portal-popup-wrapper.preview:not(.full-size) footer.gh-portal-signin-footer {
+        padding-bottom: 32px;
+    }
+
     .gh-portal-popup-container.preview:not(.full-size) {
-        max-height: 620px;
+        max-height: 660px;
+        margin-bottom: 0;
+    }
+
+    .gh-portal-popup-wrapper.preview.full-size {
+        height: unset;
+        max-height: 660px;
+    }
+
+    .gh-portal-popup-container.preview.full-size {
+        max-height: 660px;
         margin-bottom: 0;
     }
 
