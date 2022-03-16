@@ -62,19 +62,19 @@ export const GlobalStyles = `
     h1 {
         font-size: 35px;
         font-weight: 700;
-        letter-spacing: -0.15px;
+        letter-spacing: -0.022em;
     }
 
     h2 {
         font-size: 32px;
         font-weight: 700;
-        letter-spacing: -0.15px;
+        letter-spacing: -0.021em;
     }
 
     h3 {
         font-size: 24px;
         font-weight: 700;
-        letter-spacing: 0.2px;
+        letter-spacing: -0.019em;
     }
 
     p {
@@ -110,28 +110,34 @@ export const GlobalStyles = `
     @media (max-width: 1440px) {
         h1 {
             font-size: 32px;
+            letter-spacing: -0.022em;
         }
 
         h2 {
             font-size: 28px;
+            letter-spacing: -0.021em;
         }
 
         h3 {
             font-size: 26px;
+            letter-spacing: -0.02em;
         }
     }
 
     @media (max-width: 480px) {
         h1 {
             font-size: 30px;
+            letter-spacing: -0.021em;
         }
 
         h2 {
             font-size: 26px;
+            letter-spacing: -0.02em;
         }
 
         h3 {
             font-size: 24px;
+            letter-spacing: -0.019em;
         }
     }
 `;
