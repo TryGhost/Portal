@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {ReactComponent as LoaderIcon} from '../../images/icons/loader.svg';
 import {ReactComponent as CheckmarkIcon} from '../../images/icons/checkmark.svg';
-import {getCurrencySymbol, getPriceString, getStripeAmount, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct, formatNumber, isCookiesDisabled} from '../../utils/helpers';
+import {getCurrencySymbol, getPriceString, getStripeAmount, getMemberActivePrice, getProductFromPrice, getFreeTierTitle, getFreeTierDescription, getFreeProduct, getFreeProductBenefits, formatNumber, isCookiesDisabled, hasOnlyFreeProduct} from '../../utils/helpers';
 import AppContext from '../../AppContext';
 import calculateDiscount from '../../utils/discount';
 
@@ -23,7 +23,7 @@ export const ProductsSectionStyles = ({site}) => {
             border-radius: 999px;
             padding: 4px;
             height: 44px;
-            margin-top: 24px;
+            margin: 0 0 40px;
         }
 
         .gh-portal-products-pricetoggle:before {
@@ -84,9 +84,9 @@ export const ProductsSectionStyles = ({site}) => {
             flex-wrap: wrap;
             align-items: stretch;
             justify-content: center;
-            gap: 44px;
+            gap: 40px;
             margin: 0 auto;
-            padding: 44px 0 0px;
+            padding: 0;
             width: 100%;
         }
 
@@ -325,11 +325,19 @@ export const ProductsSectionStyles = ({site}) => {
             font-weight: 600;
         }
 
+        .gh-portal-product-card.only-free {
+            margin: 0 0 16px;
+            min-height: unset;
+        }
+
+        .gh-portal-product-card.only-free .gh-portal-product-card-header {
+            min-height: unset;
+        }
+
         @media (max-width: 670px) {
             .gh-portal-products-grid {
                 grid-template-columns: unset;
                 grid-gap: 20px;
-                padding: 32px 0 0;
                 width: 100%;
                 max-width: 440px;
             }
@@ -498,7 +506,7 @@ function FreeProductCard({products, handleChooseSignup}) {
     const {site, action} = useContext(AppContext);
     const {selectedProduct, setSelectedProduct} = useContext(ProductsContext);
 
-    const cardClass = selectedProduct === 'free' ? 'gh-portal-product-card free checked' : 'gh-portal-product-card free';
+    let cardClass = selectedProduct === 'free' ? 'gh-portal-product-card free checked' : 'gh-portal-product-card free';
     const product = getFreeProduct({site});
     const freeProductDescription = getFreeTierDescription({site});
 
@@ -516,6 +524,16 @@ function FreeProductCard({products, handleChooseSignup}) {
         currencySymbol = '$';
     }
 
+    const hasOnlyFree = hasOnlyFreeProduct({site});
+
+    if (hasOnlyFree) {
+        const freeBenefits = getFreeProductBenefits({site});
+        if (!freeProductDescription && !freeBenefits.length) {
+            return null;
+        }
+        cardClass += ' only-free';
+    }
+
     return (
         <>
             <div className={cardClass} onClick={(e) => {
@@ -524,29 +542,33 @@ function FreeProductCard({products, handleChooseSignup}) {
             }}>
                 <div className='gh-portal-product-card-header'>
                     <h4 className="gh-portal-product-name">{getFreeTierTitle({site})}</h4>
-                    <div className="gh-portal-product-card-pricecontainer">
-                        <div className="gh-portal-product-price">
-                            <span className={'currency-sign' + (currencySymbol.length > 1 ? ' long' : '')}>{currencySymbol}</span>
-                            <span className="amount">0</span>
+                    {(!hasOnlyFree ? 
+                        <div className="gh-portal-product-card-pricecontainer">
+                            <div className="gh-portal-product-price">
+                                <span className={'currency-sign' + (currencySymbol.length > 1 ? ' long' : '')}>{currencySymbol}</span>
+                                <span className="amount">0</span>
+                            </div>
+                            {/* <div className="gh-portal-product-alternative-price"></div> */}
                         </div>
-                        {/* <div className="gh-portal-product-alternative-price"></div> */}
-                    </div>
+                        : '')}
                 </div>
                 <div className='gh-portal-product-card-details'>
                     <div className='gh-portal-product-card-detaildata'>
                         {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
                         <ProductBenefitsContainer product={product} />
                     </div>
-                    <div className='gh-portal-btn-product'>
-                        <button
-                            className='gh-portal-btn'
-                            disabled={disabled}
-                            onClick={(e) => {
-                                handleChooseSignup(e, 'free');
-                            }}>
-                            {((selectedProduct === 'free' && disabled) ? <LoaderIcon className='gh-portal-loadingicon' /> : 'Choose')}
-                        </button>
-                    </div>
+                    {(!hasOnlyFree ? 
+                        <div className='gh-portal-btn-product'>
+                            <button
+                                className='gh-portal-btn'
+                                disabled={disabled}
+                                onClick={(e) => {
+                                    handleChooseSignup(e, 'free');
+                                }}>
+                                {((selectedProduct === 'free' && disabled) ? <LoaderIcon className='gh-portal-loadingicon' /> : 'Choose')}
+                            </button>
+                        </div>
+                        : '')}
                 </div>
             </div>
         </>
@@ -718,11 +740,14 @@ function ProductsSection({onPlanSelect, products, type = null, handleChooseSignu
             setSelectedProduct
         }}>
             <section className={className}>
-                <ProductPriceSwitch
-                    products={products}
-                    selectedInterval={activeInterval}
-                    setSelectedInterval={setSelectedInterval}
-                />
+
+                {(!(hasOnlyFreeProduct({site})) ? 
+                    <ProductPriceSwitch
+                        products={products}
+                        selectedInterval={activeInterval}
+                        setSelectedInterval={setSelectedInterval}
+                    />
+                    : '')}
 
                 <div className="gh-portal-products-grid">
                     <ProductCards products={products} selectedInterval={activeInterval} handleChooseSignup={handleChooseSignup} />

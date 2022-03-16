@@ -5,7 +5,7 @@ import SiteTitleBackButton from '../common/SiteTitleBackButton';
 import ProductsSection from '../common/ProductsSection';
 import InputForm from '../common/InputForm';
 import {ValidateInputForm} from '../../utils/form';
-import {getSiteProducts, getSitePrices, hasMultipleProducts, hasOnlyFreePlan, isInviteOnlySite, freeHasBenefitsOrDescription} from '../../utils/helpers';
+import {getSiteProducts, getSitePrices, hasOnlyFreePlan, isInviteOnlySite, freeHasBenefitsOrDescription, hasOnlyFreeProduct, getFreeProductBenefits, getFreeTierDescription} from '../../utils/helpers';
 import {ReactComponent as InvitationIcon} from '../../images/icons/invitation.svg';
 
 const React = require('react');
@@ -72,29 +72,38 @@ export const SignupPageStyles = `
     color: var(--grey3);
 }
 
-.gh-portal-signup-header.nodivider {
-    border: none;
-    margin-bottom: 0;
-}
-
 .gh-portal-logged-out-form-container {
     width: 100%;
     max-width: 420px;
     margin: 0 auto;
 }
 
+.signup .gh-portal-input-section:last-of-type {
+    margin-bottom: 40px;
+}
+
 .gh-portal-signup-message {
     display: flex;
     justify-content: center;
     color: var(--grey4);
-    font-size: 1.4rem;
-    margin-top: 8px;
+    font-size: 1.5rem;
+    padding-top: 8px;
+}
+
+.full-size .gh-portal-signup-message {
+    padding-bottom: 40px;
+}
+
+@media (max-width: 480px) {
+    .preview .gh-portal-products + .gh-portal-signup-message {
+        padding-bottom: 40px;
+    }
 }
 
 .gh-portal-signup-message button {
     font-size: 1.4rem;
     font-weight: 600;
-    margin-left: 4px;
+    margin-left: 4px !important;
 }
 
 .gh-portal-signup-message button span {
@@ -162,7 +171,7 @@ footer.gh-portal-signup-footer.invite-only .gh-portal-signup-message {
 }
 
 .gh-portal-invite-only-notification {
-    margin: 8px 32px;
+    margin: 8px 32px 24px;
     padding: 0;
     text-align: center;
     color: var(--grey2);
@@ -430,15 +439,6 @@ class SignupPage extends React.Component {
         );
     }
 
-    renderProductsOrPlans() {
-        const {site} = this.context;
-        if (hasMultipleProducts({site})) {
-            return this.renderProducts();
-        } else {
-            return this.renderProducts();
-        }
-    }
-
     renderForm() {
         const fields = this.getInputFields({state: this.state});
         const {site, pageQuery} = this.context;
@@ -448,10 +448,16 @@ class SignupPage extends React.Component {
                 <section>
                     <div className='gh-portal-section'>
                         <p className='gh-portal-invite-only-notification'>This site is invite-only, contact the owner for access.</p>
+                        {this.renderLoginMessage()}
                     </div>
                 </section>
             );
         }
+
+        const freeBenefits = getFreeProductBenefits({site});
+        const freeDescription = getFreeTierDescription({site});
+        const hasOnlyFree = hasOnlyFreeProduct({site});
+        const sticky = freeBenefits.length || freeDescription;
 
         return (
             <section>
@@ -463,7 +469,19 @@ class SignupPage extends React.Component {
                             onKeyDown={e => this.onKeyDown(e)}
                         />
                     </div>
-                    {this.renderProductsOrPlans()}
+                    <div>
+                        {this.renderProducts()}
+
+                        {(hasOnlyFree ? 
+                            <div className={'gh-portal-btn-container' + (sticky ? ' sticky m24' : '')}>
+                                <div className='gh-portal-logged-out-form-container'>
+                                    {this.renderSubmitButton()}
+                                    {this.renderLoginMessage()}
+                                </div>
+                            </div>
+                            : 
+                            this.renderLoginMessage())}
+                    </div>
                 </div>
             </section>
         );
@@ -525,42 +543,8 @@ class SignupPage extends React.Component {
         return {sectionClass, footerClass};
     }
 
-    renderMultipleProducts() {
-        let {sectionClass, footerClass} = this.getClassNames();
-
-        return (
-            <>
-                <div className={'gh-portal-content signup' + sectionClass}>
-                    {this.renderFormHeader()}
-                    {this.renderForm()}
-                </div>
-                <footer className={'gh-portal-signup-footer gh-portal-logged-out-form-container ' + footerClass}>
-                    {this.renderSubmitButton()}
-                    {this.renderLoginMessage()}
-                </footer>
-            </>
-        );
-    }
-
-    renderSingleProduct() {
-        let {sectionClass, footerClass} = this.getClassNames();
-
-        return (
-            <>
-                <div className={'gh-portal-content signup ' + sectionClass}>
-                    {this.renderFormHeader()}
-                    {this.renderForm()}
-                </div>
-                <footer className={'gh-portal-signup-footer gh-portal-logged-out-form-container ' + footerClass}>
-                    {this.renderSubmitButton()}
-                    {this.renderLoginMessage()}
-                </footer>
-            </>
-        );
-    }
-
     render() {
-        let {sectionClass, footerClass} = this.getClassNames();
+        let {sectionClass} = this.getClassNames();
 
         return (
             <>
@@ -572,10 +556,10 @@ class SignupPage extends React.Component {
                     {this.renderFormHeader()}
                     {this.renderForm()}
                 </div>
-                <footer className={'gh-portal-signup-footer gh-portal-logged-out-form-container ' + footerClass}>
+                {/* <footer className={'gh-portal-signup-footer gh-portal-logged-out-form-container ' + footerClass}>
                     {this.renderSubmitButton()}
                     {this.renderLoginMessage()}
-                </footer>
+                </footer> */}
             </>
         );
     }

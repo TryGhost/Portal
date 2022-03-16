@@ -8,37 +8,37 @@ const products = [
         name: 'Free',
         description: 'Free tier description which is actually a pretty long description',
         // description: '',
-        numOfBenefits: 0
+        numOfBenefits: 2
     })
-    ,
-    getProductData({
-        name: 'The Blueprint',
-        // description: 'Access to all members articles',
-        description: '',
-        monthlyPrice: getPriceData({
-            interval: 'month',
-            amount: 500
-        }),
-        yearlyPrice: getPriceData({
-            interval: 'year',
-            amount: 5000
-        }),
-        numOfBenefits: 3
-    })
-    ,
-    getProductData({
-        name: 'Friends of the Blueprint Silver',
-        description: 'Access to all members articles and weekly podcast',
-        monthlyPrice: getPriceData({
-            interval: 'month',
-            amount: 1200
-        }),
-        yearlyPrice: getPriceData({
-            interval: 'year',
-            amount: 11000
-        }),
-        numOfBenefits: 4
-    })
+    // ,
+    // getProductData({
+    //     name: 'The Blueprint',
+    //     // description: 'Access to all members articles',
+    //     description: '',
+    //     monthlyPrice: getPriceData({
+    //         interval: 'month',
+    //         amount: 500
+    //     }),
+    //     yearlyPrice: getPriceData({
+    //         interval: 'year',
+    //         amount: 5000
+    //     }),
+    //     numOfBenefits: 3
+    // })
+    // ,
+    // getProductData({
+    //     name: 'Friends of the Blueprint Silver',
+    //     description: 'Access to all members articles and weekly podcast',
+    //     monthlyPrice: getPriceData({
+    //         interval: 'month',
+    //         amount: 1200
+    //     }),
+    //     yearlyPrice: getPriceData({
+    //         interval: 'year',
+    //         amount: 11000
+    //     }),
+    //     numOfBenefits: 4
+    // })
 
     // ,
     // getProductData({

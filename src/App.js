@@ -19,8 +19,8 @@ const DEV_MODE_DATA = {
     showPopup: true,
     site: Fixtures.site,
     member: Fixtures.member.free,
-    page: 'accountHome',
-    // ...Fixtures.paidMemberOnTier(),
+    page: 'signup',
+    ...Fixtures.paidMemberOnTier(),
     pageData: Fixtures.offer
 };
 

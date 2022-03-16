@@ -108,8 +108,13 @@ const FrameStyles = `
     padding: 28px 0 28px;
 }
 
+.gh-portal-btn-container.sticky.m24 {
+    margin: 0 0 -24px;
+    padding: 24px 0 24px;
+}
+
 .gh-portal-btn-container .gh-portal-btn {
-    margin: 0 !important;
+    margin: 0;
 }
 
 .gh-portal-btn-icon svg {
@@ -749,6 +754,18 @@ const MobileStyles = `
         justify-content: flex-start;
     }
 
+    .gh-portal-popup-wrapper.account-home,
+    .gh-portal-popup-container.account-home {
+        background: var(--grey13);
+    }
+
+    .gh-portal-popup-wrapper.full-size .gh-portal-closeicon, 
+    .gh-portal-popup-container.full-size .gh-portal-closeicon {
+        width: 16px;
+        height: 16px;
+    }
+
+    /* Small width preview in Admin */
     .gh-portal-popup-wrapper.preview:not(.full-size) footer.gh-portal-signup-footer, 
     .gh-portal-popup-wrapper.preview:not(.full-size) footer.gh-portal-signin-footer {
         padding-bottom: 32px;
@@ -774,34 +791,9 @@ const MobileStyles = `
         margin-bottom: 0;
     }
 
-    .gh-portal-popup-wrapper.account-home,
-    .gh-portal-popup-container.account-home {
-        background: var(--grey13);
-    }
-
-    .gh-portal-popup-wrapper.full-size .gh-portal-closeicon, 
-    .gh-portal-popup-container.full-size .gh-portal-closeicon {
-        width: 16px;
-        height: 16px;
-    }
-
-    .gh-portal-popup-wrapper.account-home .gh-portal-powered {
-        background: var(--grey13);
-    }
-
-    .gh-portal-powered a {
-        animation: none;
-        box-shadow: none;
-        background: none;
+    .preview .gh-portal-btn-container .gh-portal-signup-message,
+    .preview .gh-portal-invite-only-notification + .gh-portal-signup-message {
         margin-bottom: 32px;
-    }
-
-    .gh-portal-powered a svg {
-        opacity: 0.65;
-    }
-
-    .gh-portal-popup-wrapper.account-home .gh-portal-powered a {
-        box-shadow: none;
     }
 }
 
