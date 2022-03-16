@@ -10,35 +10,35 @@ const products = [
         // description: '',
         numOfBenefits: 2
     })
-    // ,
-    // getProductData({
-    //     name: 'The Blueprint',
-    //     // description: 'Access to all members articles',
-    //     description: '',
-    //     monthlyPrice: getPriceData({
-    //         interval: 'month',
-    //         amount: 500
-    //     }),
-    //     yearlyPrice: getPriceData({
-    //         interval: 'year',
-    //         amount: 5000
-    //     }),
-    //     numOfBenefits: 3
-    // })
-    // ,
-    // getProductData({
-    //     name: 'Friends of the Blueprint Silver',
-    //     description: 'Access to all members articles and weekly podcast',
-    //     monthlyPrice: getPriceData({
-    //         interval: 'month',
-    //         amount: 1200
-    //     }),
-    //     yearlyPrice: getPriceData({
-    //         interval: 'year',
-    //         amount: 11000
-    //     }),
-    //     numOfBenefits: 4
-    // })
+    ,
+    getProductData({
+        name: 'The Blueprint',
+        // description: 'Access to all members articles',
+        description: '',
+        monthlyPrice: getPriceData({
+            interval: 'month',
+            amount: 500
+        }),
+        yearlyPrice: getPriceData({
+            interval: 'year',
+            amount: 5000
+        }),
+        numOfBenefits: 3
+    })
+    ,
+    getProductData({
+        name: 'Friends of the Blueprint Silver',
+        description: 'Access to all members articles and weekly podcast',
+        monthlyPrice: getPriceData({
+            interval: 'month',
+            amount: 1200
+        }),
+        yearlyPrice: getPriceData({
+            interval: 'year',
+            amount: 11000
+        }),
+        numOfBenefits: 4
+    })
 
     // ,
     // getProductData({
@@ -100,7 +100,7 @@ export const site = getSiteData({
     isStripeConfigured: true,
     portalButton: true,
     portalName: true,
-    portalPlans: ['free', 'yearly'],
+    portalPlans: ['free', 'monthly', 'yearly'],
     portalButtonIcon: 'icon-1',
     portalButtonSignupText: 'Subscribe now',
     portalButtonStyle: 'icon-and-text',

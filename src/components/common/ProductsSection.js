@@ -383,7 +383,6 @@ export const ProductsSectionStyles = ({site}) => {
             grid-template-columns: unset;
             grid-gap: 20px;
             width: 100%;
-            padding: 32px 0 0;
         }
 
         .gh-portal-upgrade-product .gh-portal-discount-label {

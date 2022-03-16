@@ -490,7 +490,7 @@ const FrameStyles = `
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: -5px 0 40px;
+    margin: -2px 0 40px;
 }
 
 .gh-portal-detail-footer .gh-portal-btn {
