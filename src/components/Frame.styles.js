@@ -321,6 +321,10 @@ const FrameStyles = `
     padding-bottom: 4vw;
 }
 
+.gh-portal-popup-container.preview {
+    animation: none !important;
+}
+
 @keyframes popup {
     0% {
         transform: translateY(-30px);
@@ -747,12 +751,17 @@ const MobileStyles = `
 
     .gh-portal-popup-wrapper.preview:not(.full-size) footer.gh-portal-signup-footer, 
     .gh-portal-popup-wrapper.preview:not(.full-size) footer.gh-portal-signin-footer {
-        padding-bottom: 0px;
+        padding-bottom: 32px;
     }
 
     .gh-portal-popup-container.preview:not(.full-size) {
         max-height: 660px;
         margin-bottom: 0;
+    }
+
+    .gh-portal-popup-container.preview.signup:not(.full-size),
+    .gh-portal-popup-container.preview.signin:not(.full-size) {
+        padding-bottom: 0 !important;
     }
 
     .gh-portal-popup-wrapper.preview.full-size {
