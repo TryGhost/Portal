@@ -266,7 +266,7 @@ const FrameStyles = `
     padding: 5vmin 0 0;
     height: 100%;
     max-height: 100vh;
-    overflow: auto;
+    overflow: scroll;
 }
 
 /* Hiding scrollbars */
@@ -282,7 +282,6 @@ const FrameStyles = `
 }
 
 .gh-portal-popup-wrapper.full-size {
-    width: 100vw;
     height: 100vh;
     padding: 0;
 }
@@ -748,7 +747,7 @@ const MobileStyles = `
 
     .gh-portal-popup-wrapper.preview:not(.full-size) footer.gh-portal-signup-footer, 
     .gh-portal-popup-wrapper.preview:not(.full-size) footer.gh-portal-signin-footer {
-        padding-bottom: 32px;
+        padding-bottom: 0px;
     }
 
     .gh-portal-popup-container.preview:not(.full-size) {
