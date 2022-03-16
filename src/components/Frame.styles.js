@@ -701,7 +701,7 @@ const MobileStyles = `
         height: calc(100vh - 160px);
         min-height: unset;
         border-radius: 12px;
-        overflow: scroll;
+        overflow: auto;
         justify-content: flex-start;
     }
 }
