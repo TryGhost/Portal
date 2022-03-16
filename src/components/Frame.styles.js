@@ -98,14 +98,14 @@ const FrameStyles = `
     transition: none;
     position: sticky;
     bottom: 0;
-    margin: 0 0 -36px;
-    padding: 36px 0 36px;
+    margin: 0 0 -32px;
+    padding: 32px 0 32px;
     background: linear-gradient(0deg, rgba(255,255,255,1) 75%, rgba(255,255,255,0) 100%);
 }
 
-.gh-portal-btn-container.sticky.m32 {
-    margin: 0 0 -32px;
-    padding: 32px 0 32px;
+.gh-portal-btn-container.sticky.m28 {
+    margin: 0 0 -28px;
+    padding: 28px 0 28px;
 }
 
 .gh-portal-btn-container .gh-portal-btn {
@@ -300,7 +300,7 @@ const FrameStyles = `
     background: var(--white);
     width: 500px;
     margin: 0 auto 40px;
-    padding: 36px;
+    padding: 32px;
     transform: translateY(0px);
     border-radius: 10px;
     box-shadow: 0 3.8px 2.2px rgba(0, 0, 0, 0.028), 0 9.2px 5.3px rgba(0, 0, 0, 0.04), 0 17.3px 10px rgba(0, 0, 0, 0.05), 0 30.8px 17.9px rgba(0, 0, 0, 0.06), 0 57.7px 33.4px rgba(0, 0, 0, 0.072), 0 138px 80px rgba(0, 0, 0, 0.1);

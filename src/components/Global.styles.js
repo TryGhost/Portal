@@ -107,6 +107,20 @@ export const GlobalStyles = `
         line-height: 1.5em;
     }
 
+    @media (max-width: 1440px) {
+        h1 {
+            font-size: 32px;
+        }
+
+        h2 {
+            font-size: 28px;
+        }
+
+        h3 {
+            font-size: 26px;
+        }
+    }
+
     @media (max-width: 480px) {
         h1 {
             font-size: 30px;
