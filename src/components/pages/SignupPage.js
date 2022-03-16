@@ -87,16 +87,16 @@ export const SignupPageStyles = `
     justify-content: center;
     color: var(--grey4);
     font-size: 1.5rem;
-    padding-top: 8px;
+    margin-top: 8px;
 }
 
 .full-size .gh-portal-signup-message {
-    padding-bottom: 40px;
+    margin-bottom: 40px;
 }
 
 @media (max-width: 480px) {
     .preview .gh-portal-products + .gh-portal-signup-message {
-        padding-bottom: 40px;
+        margin-bottom: 40px;
     }
 }
 

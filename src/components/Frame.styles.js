@@ -776,11 +776,6 @@ const MobileStyles = `
         margin-bottom: 0;
     }
 
-    .gh-portal-popup-container.preview.signup:not(.full-size),
-    .gh-portal-popup-container.preview.signin:not(.full-size) {
-        padding-bottom: 0 !important;
-    }
-
     .gh-portal-popup-wrapper.preview.full-size {
         height: unset;
         max-height: 660px;
@@ -793,7 +788,12 @@ const MobileStyles = `
 
     .preview .gh-portal-btn-container .gh-portal-signup-message,
     .preview .gh-portal-invite-only-notification + .gh-portal-signup-message {
-        margin-bottom: 32px;
+        margin-bottom: 16px;
+    }
+
+    .preview .gh-portal-btn-container.sticky {
+        margin-bottom: 0;
+        padding-bottom: 0;
     }
 }
 
