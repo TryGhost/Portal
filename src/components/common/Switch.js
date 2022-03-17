@@ -30,8 +30,7 @@ export const SwitchStyles = `
         left: 0;
         right: 0;
         bottom: 0;
-        background: var(--grey13);
-        border: 1px solid var(--grey11);
+        background: #e9e9e9;
         transition: .3s;
         width: 44px !important;
         height: 26px !important;
@@ -48,13 +47,12 @@ export const SwitchStyles = `
     .gh-portal-for-switch .input-toggle-component:before {
         position: absolute;
         content: "";
-        top: 2px !important;
-        left: 2px !important;
+        top: 3px !important;
+        left: 3px !important;
         height: 20px !important;
         width: 20px !important;
         background-color: white;
         transition: .3s;
-        box-shadow: 0 0 1px rgba(0,0,0,.3), 0 4px 6px rgba(0,0,0,.1);
         border-radius: 999px;
     }
 

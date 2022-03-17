@@ -46,7 +46,7 @@ export const ProductsSectionStyles = ({site}) => {
 
         .gh-portal-products-pricetoggle .gh-portal-btn {
             border: 0;
-            height: 100%;
+            height: 100% !important;
             width: 50%;
             border-radius: 999px;
             color: var(--grey7);

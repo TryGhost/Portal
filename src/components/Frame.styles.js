@@ -714,6 +714,23 @@ const MobileStyles = `
     }
 }
 
+@media (max-width: 1440px) {
+    .gh-portal-popup-container:not(.full-size):not(.preview) {
+        width: 460px;
+    }
+
+    .gh-portal-input {
+        height: 42px;
+        margin-bottom: 16px;
+    }
+
+    button[class="gh-portal-btn"],
+    .gh-portal-btn-main,
+    .gh-portal-btn-primary {
+        height: 42px;
+    }
+}
+
 
 @media (max-width: 960px) {
     .gh-portal-powered {
