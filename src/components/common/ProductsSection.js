@@ -541,7 +541,7 @@ function FreeProductCard({products, handleChooseSignup}) {
             }}>
                 <div className='gh-portal-product-card-header'>
                     <h4 className="gh-portal-product-name">{getFreeTierTitle({site})}</h4>
-                    {(!hasOnlyFree ? 
+                    {(!hasOnlyFree ?
                         <div className="gh-portal-product-card-pricecontainer">
                             <div className="gh-portal-product-price">
                                 <span className={'currency-sign' + (currencySymbol.length > 1 ? ' long' : '')}>{currencySymbol}</span>
@@ -556,7 +556,7 @@ function FreeProductCard({products, handleChooseSignup}) {
                         {freeProductDescription ? <div className="gh-portal-product-description">{freeProductDescription}</div> : ''}
                         <ProductBenefitsContainer product={product} />
                     </div>
-                    {(!hasOnlyFree ? 
+                    {(!hasOnlyFree ?
                         <div className='gh-portal-btn-product'>
                             <button
                                 className='gh-portal-btn'
@@ -740,7 +740,7 @@ function ProductsSection({onPlanSelect, products, type = null, handleChooseSignu
         }}>
             <section className={className}>
 
-                {(!(hasOnlyFreeProduct({site})) ? 
+                {(!(hasOnlyFreeProduct({site})) ?
                     <ProductPriceSwitch
                         products={products}
                         selectedInterval={activeInterval}
@@ -803,7 +803,7 @@ export function ChangeProductSection({onPlanSelect, selectedPlan, products, type
                 />
 
                 <div className="gh-portal-products-grid">
-                    <ChangeProductCards products={products} />
+                    <ChangeProductCards products={products} onPlanSelect={onPlanSelect} />
                 </div>
                 {/* <ActionButton
                     onClick={e => onPlanSelect(null, selectedPrice?.id)}
@@ -830,7 +830,7 @@ function ProductDescription({product, selectedPrice, activePrice}) {
     return null;
 }
 
-function ChangeProductCard({product}) {
+function ChangeProductCard({product, onPlanSelect}) {
     const {member} = useContext(AppContext);
     const {selectedProduct, setSelectedProduct, selectedInterval} = useContext(ProductsContext);
     const cardClass = selectedProduct === product.id ? 'gh-portal-product-card checked' : 'gh-portal-product-card';
@@ -862,20 +862,25 @@ function ChangeProductCard({product}) {
                     </div>
                     :
                     <div className='gh-portal-btn-product'>
-                        <button className='gh-portal-btn'>Choose</button>
+                        <button
+                            className='gh-portal-btn'
+                            onClick={() => {
+                                onPlanSelect(null, selectedPrice?.id);
+                            }}
+                        >Choose</button>
                     </div>)}
             </div>
         </div>
     );
 }
 
-function ChangeProductCards({products}) {
+function ChangeProductCards({products, onPlanSelect}) {
     return products.map((product) => {
         if (product.id === 'free') {
             return null;
         }
         return (
-            <ChangeProductCard product={product} key={product.id} />
+            <ChangeProductCard product={product} key={product.id} onPlanSelect={onPlanSelect} />
         );
     });
 }
