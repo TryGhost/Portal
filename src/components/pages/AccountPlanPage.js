@@ -209,7 +209,7 @@ const ChangePlanSection = ({plans, selectedPlan, onPlanSelect, onCancelSubscript
     );
 };
 
-function PlansOrProductSection({showLabel, plans, selectedPlan, onPlanSelect, changePlan = false}) {
+function PlansOrProductSection({showLabel, plans, selectedPlan, onPlanSelect, onPlanCheckout, changePlan = false}) {
     const {site, member} = useContext(AppContext);
     const products = getUpgradeProducts({site, member});
     return (
@@ -218,6 +218,7 @@ function PlansOrProductSection({showLabel, plans, selectedPlan, onPlanSelect, ch
             selectedPlan={selectedPlan}
             changePlan={changePlan}
             onPlanSelect={onPlanSelect}
+            onPlanCheckout={onPlanCheckout}
         />
     );
 }
@@ -240,6 +241,7 @@ const UpgradePlanSection = ({
                     plans={plans}
                     selectedPlan={selectedPlan}
                     onPlanSelect={onPlanSelect}
+                    onPlanCheckout={onPlanCheckout}
                 />
             </div>
             {/* <ActionButton
@@ -354,7 +356,10 @@ export default class AccountPlanPage extends React.Component {
 
     onPlanCheckout(e, priceId) {
         const {onAction, member} = this.context;
-        const {confirmationPlan, selectedPlan} = this.state;
+        let {confirmationPlan, selectedPlan} = this.state;
+        if (priceId) {
+            selectedPlan = priceId;
+        }
         if (isPaidMember({member})) {
             const subscription = getMemberSubscription({member});
             const subscriptionId = subscription ? subscription.id : '';
@@ -432,7 +437,7 @@ export default class AccountPlanPage extends React.Component {
         if (confirmationType === 'cancel') {
             return this.onCancelSubscriptionConfirmation(data);
         } else if (['changePlan', 'subscribe'].includes(confirmationType)) {
-            return this.onPlanCheckout(data);
+            return this.onPlanCheckout();
         }
     }
 

@@ -466,11 +466,11 @@ export default class OfferPage extends React.Component {
                         <div className='gh-portal-product-card-header'>
                             <h4 className="gh-portal-product-name">{product.name} - {(offer.cadence === 'month' ? 'Monthly' : 'Yearly')}</h4>
                             <div className="gh-portal-offer-oldprice">{getCurrencySymbol(price.currency)} {formatNumber(price.amount / 100)}</div>
-                            <div class="gh-portal-product-card-pricecontainer">    
-                                <div class="gh-portal-product-price">
-                                    <span class={'currency-sign ' + currencyClass}>{getCurrencySymbol(price.currency)}</span>
-                                    <span class="amount">{formatNumber(this.renderRoundedPrice(updatedPrice))}</span>
-                                    <span class="billing-period">/year</span>
+                            <div className="gh-portal-product-card-pricecontainer">
+                                <div className="gh-portal-product-price">
+                                    <span className={'currency-sign ' + currencyClass}>{getCurrencySymbol(price.currency)}</span>
+                                    <span className="amount">{formatNumber(this.renderRoundedPrice(updatedPrice))}</span>
+                                    <span className="billing-period">/year</span>
                                 </div>
                             </div>
                             {this.renderOfferMessage({offer, product})}

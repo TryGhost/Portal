@@ -1,7 +1,7 @@
 import React, {useContext} from 'react';
 import AppContext from '../../AppContext';
 import calculateDiscount from '../../utils/discount';
-import {isCookiesDisabled, formatNumber, hasOnlyFreePlan, hasMultipleProductsFeature, getFreeTierTitle, getProductFromPrice} from '../../utils/helpers';
+import {isCookiesDisabled, formatNumber, hasOnlyFreePlan} from '../../utils/helpers';
 import ProductsSection, {ChangeProductSection} from './ProductsSection';
 
 export const PlanSectionStyles = `
@@ -311,116 +311,7 @@ function addDiscountToPlans(plans) {
     }
 }
 
-function PlanOptions({plans, selectedPlan, onPlanSelect, changePlan}) {
-    const {site} = useContext(AppContext);
-    addDiscountToPlans(plans);
-
-    return plans.map(({name, type, currency_symbol: currencySymbol, amount, description, interval, id}) => {
-        const price = amount / 100;
-        const isChecked = selectedPlan === id;
-        const planDetails = {};
-        let displayName = name;
-        if (type === 'free') {
-            displayName = getFreeTierTitle({site});
-            planDetails.feature = 'Free preview';
-        } else {
-            displayName = interval === 'month' ? 'Monthly' : 'Yearly';
-            planDetails.feature = description || 'Full access';
-        }
-        // switch (name) {
-        // case 'Free':
-        //     displayName = getFreeTierTitle({site});
-        //     planDetails.feature = 'Free preview';
-        //     break;
-        // default:
-        //     displayName = interval === 'month' ? 'Monthly' : 'Yearly';
-        //     planDetails.feature = description || 'Full access';
-        //     break;
-        // }
-
-        let planClass = isChecked ? 'gh-portal-plan-section checked' : 'gh-portal-plan-section';
-        const planNameClass = planDetails.feature ? 'gh-portal-plan-name' : 'gh-portal-plan-name no-description';
-        const featureClass = hasMultipleProductsFeature({site}) ? 'gh-portal-plan-featurewrapper hidden' : 'gh-portal-plan-featurewrapper';
-
-        return (
-            <div className={planClass} key={id} onClick={e => onPlanSelect(e, id)}>
-                {(hasMultipleProductsFeature({site}) ? <PlanDiscount discount={description} /> : ``)}
-                <h4 className={planNameClass}>{displayName}</h4>
-                <PriceLabel currencySymbol={currencySymbol} price={price} interval={interval} />
-                <div className={featureClass}>
-                    <PlanFeature feature={planDetails.feature} />
-                    {(changePlan && selectedPlan === id ? <span className='gh-portal-plan-current'>Current plan</span> : '')}
-                </div>
-            </div>
-        );
-    });
-}
-
-function PlanDiscount({discount}) {
-    return (
-        <div className="gh-portal-discount-label">{discount}</div>
-    );
-}
-
-function PlanFeature({feature, hide = false}) {
-    if (hide) {
-        return null;
-    }
-    return (
-        <div className='gh-portal-plan-feature'>
-            {feature}
-        </div>
-    );
-}
-
-function PlanLabel({showLabel}) {
-    if (!showLabel) {
-        return null;
-    }
-    return (
-        <label className='gh-portal-input-label'>Plan</label>
-    );
-}
-
-function productHasDescriptionOrBenefits({product}) {
-    if (product?.description || product?.benefits?.length) {
-        return true;
-    }
-    return false;
-}
-
-function getPlanClassNames({changePlan, cookiesDisabled, plans = [], selectedPlan, site}) {
-    let className = 'gh-portal-plans-container';
-    if (changePlan) {
-        className += ' hide-checkbox';
-    }
-    if (cookiesDisabled) {
-        className += ' disabled';
-    }
-    const selectedProduct = getProductFromPrice({site, priceId: selectedPlan});
-
-    if (!productHasDescriptionOrBenefits({product: selectedProduct})) {
-        className += ' empty-selected-benefits';
-    }
-
-    const filteredPlans = plans.filter(d => d.id !== 'free');
-    const monthlyPlan = plans.find((d) => {
-        return d.name === 'Monthly' && !d.description && d.interval === 'month';
-    });
-    const yearlyPlan = plans.find((d) => {
-        return d.name === 'Yearly' && !d.description && d.interval === 'year';
-    });
-
-    if (filteredPlans.length === 2 && monthlyPlan && yearlyPlan) {
-        const discount = calculateDiscount(monthlyPlan.amount, yearlyPlan.amount);
-        if (discount) {
-            className += ' has-discount';
-        }
-    }
-    return className;
-}
-
-export function MultipleProductsPlansSection({products, selectedPlan, onPlanSelect, changePlan = false}) {
+export function MultipleProductsPlansSection({products, selectedPlan, onPlanSelect, onPlanCheckout, changePlan = false}) {
     const cookiesDisabled = isCookiesDisabled();
     /**Don't allow plans selection if cookies are disabled */
     if (cookiesDisabled) {
@@ -449,6 +340,9 @@ export function MultipleProductsPlansSection({products, selectedPlan, onPlanSele
                     type='upgrade'
                     products={products}
                     onPlanSelect={onPlanSelect}
+                    handleChooseSignup={(...args) => {
+                        onPlanCheckout(...args);
+                    }}
                 />
             </div>
         </section>
@@ -510,29 +404,3 @@ export function ChangeProductPlansSection({product, plans, selectedPlan, onPlanS
         </section>
     );
 }
-
-// @TODO: PlansSection is only used in pre-tiers. This should be deleted ->
-// Also, tests should be updated
-
-function PlansSection({plans, showLabel = true, selectedPlan, onPlanSelect, changePlan = false}) {
-    const {site} = useContext(AppContext);
-    if (hasOnlyFreePlan({plans})) {
-        return null;
-    }
-    const cookiesDisabled = isCookiesDisabled();
-    /**Don't allow plans selection if cookies are disabled */
-    if (cookiesDisabled) {
-        onPlanSelect = () => {};
-    }
-    const className = getPlanClassNames({cookiesDisabled, changePlan, plans, selectedPlan, site});
-    return (
-        <section className="gh-portal-plans">
-            <PlanLabel showLabel={showLabel} />
-            <div className={className}>
-                <PlanOptions plans={plans} onPlanSelect={onPlanSelect} selectedPlan={selectedPlan} changePlan={changePlan} />
-            </div>
-        </section>
-    );
-}
-
-export default PlansSection;

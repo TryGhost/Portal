@@ -165,9 +165,6 @@ export function paidMemberOnTier() {
         return null;
     }
     let price = site?.products?.[1].monthlyPrice;
-    /* eslint-disable no-console */
-    console.log(site?.products);
-    console.log('price', price);
     let updatedMember = getMemberData({
         paid: true,
         subscriptions: [
