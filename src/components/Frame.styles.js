@@ -238,12 +238,6 @@ const FrameStyles = `
     }
 
     /* Hiding scrollbars */
-    .gh-portal-popup-wrapper {
-        padding-right: 30px !important;
-        margin-right: -30px !important;
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
 
     .gh-portal-popup-wrapper::-webkit-scrollbar {
         display: none;
@@ -861,6 +855,8 @@ const MultipleProductsGlobalStyles = `
 
 .gh-portal-popup-wrapper.multiple-products.signin {
     margin: 10vmin auto;
+    margin-left: auto !important;
+    margin-right: auto !important;
     max-width: 480px;
     height: unset;
 }
