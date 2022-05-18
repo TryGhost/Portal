@@ -65,7 +65,8 @@ function NewsletterPrefs({subscribedNewsletters, setSubscribedNewsletters}) {
 }
 
 export default function NewsletterSelectionPage({pageData}) {
-    const {brandColor, site, onAction, action} = useContext(AppContext);
+    const {brandColor, site, onAction, pageData: contextPageData, action} = useContext(AppContext);
+    pageData = pageData || contextPageData;
     const siteNewsletters = getSiteNewsletters({site});
     const defaultNewsletters = siteNewsletters.filter((d) => {
         return d.subscribe_on_signup;
