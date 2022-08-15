@@ -193,6 +193,13 @@ footer.gh-portal-signup-footer.invite-only .gh-portal-signup-message {
     margin-bottom: 12px;
 }
 
+.gh-portal-free-trial-notification {
+    max-width: 480px;
+    text-align: center;
+    margin: 24px auto;
+    color: var(--grey4);
+}
+
 @media (min-width: 480px) {
 
 }
@@ -451,15 +458,18 @@ class SignupPage extends React.Component {
     renderLoginMessage() {
         const {brandColor, onAction} = this.context;
         return (
-            <div className='gh-portal-signup-message'>
-                <div>Already a member?</div>
-                <button
-                    className='gh-portal-btn gh-portal-btn-link'
-                    style={{color: brandColor}}
-                    onClick={() => onAction('switchPage', {page: 'signin'})}
-                >
-                    <span>Sign in</span>
-                </button>
+            <div>
+                {/* <p className='gh-portal-free-trial-notification'>After a free trial ends, you will be charged regular price for the tier you’ve chosen. You can always cancel before then.</p> */}
+                <div className='gh-portal-signup-message'>
+                    <div>Already a member?</div>
+                    <button
+                        className='gh-portal-btn gh-portal-btn-link'
+                        style={{color: brandColor}}
+                        onClick={() => onAction('switchPage', {page: 'signin'})}
+                    >
+                        <span>Sign in</span>
+                    </button>
+                </div>
             </div>
         );
     }
