@@ -170,7 +170,8 @@ export default function UnsubscribePage() {
                     action: 'updated:success',
                     message: `Email preference updated.`
                 });
-                await api.member.updateNewsletters({uuid: pageData.uuid, newsletters: [], enableCommentNotifications: false});
+                const updatedMember = await api.member.updateNewsletters({uuid: pageData.uuid, newsletters: [], enableCommentNotifications: false});
+                setMember(updatedMember);
             }}
             isPaidMember={member?.status !== 'free'}
             isCommentsEnabled={commentsEnabled !== 'off'}
