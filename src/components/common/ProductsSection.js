@@ -568,7 +568,7 @@ function ProductCardAlternatePrice({price}) {
 function ProductCardTrialDays({trialDays}) {    
     if (trialDays) {
         return (
-            <span class="gh-portal-discount-label">{trialDays} days free</span>
+            <span className="gh-portal-discount-label">{trialDays} days free</span>
         );
     }
 
@@ -593,7 +593,7 @@ function ProductCardPrice({product}) {
         return (
             <>
                 <div className="gh-portal-product-card-pricecontainer">
-                    <div class="gh-portal-product-card-price-trial">
+                    <div className="gh-portal-product-card-price-trial">
                         <div className="gh-portal-product-price">
                             <span className={'currency-sign' + (currencySymbol.length > 1 ? ' long' : '')}>{currencySymbol}</span>
                             <span className="amount">{formatNumber(getStripeAmount(activePrice.amount))}</span>
