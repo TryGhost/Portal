@@ -514,7 +514,7 @@ export const ProductsSectionStyles = ({site}) => {
     `;
 };
 
-const freeTrialFlag = 1;
+const freeTrialFlag = 0;
 const ProductsContext = React.createContext({
     selectedInterval: 'month',
     selectedProduct: 'free',
