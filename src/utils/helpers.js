@@ -367,13 +367,6 @@ export function getSiteProducts({site, pageQuery}) {
     return products;
 }
 
-export function hasFreeTrialTier({site}) {
-    const tiers = getSiteProducts({site});
-    return tiers.some((tier) => {
-        return !!tier?.trial_days;
-    });
-}
-
 export function getFreeProductBenefits({site}) {
     const freeProduct = getFreeProduct({site});
     return freeProduct?.benefits || [];
