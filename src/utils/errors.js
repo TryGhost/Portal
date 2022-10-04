@@ -1,4 +1,4 @@
-class HumanReadableError extends Error {
+export class HumanReadableError extends Error {
     /**
      * Returns whether this response from the server is a human readable error and should be shown to the user.
      * @param {Response} res
@@ -30,5 +30,3 @@ class HumanReadableError extends Error {
         return defaultMessage;
     }
 }
-
-module.exports = {HumanReadableError};

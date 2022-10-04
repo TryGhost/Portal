@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import {getQueryPrice, getUrlHistory} from './utils/helpers';
-const {HumanReadableError} = require('./utils/errors');
+import {HumanReadableError} from './utils/errors';
 
 export function formSubmitHandler({event, form, errorEl, siteUrl, submitHandler}) {
     form.removeEventListener('submit', submitHandler);
